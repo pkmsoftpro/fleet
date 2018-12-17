@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="userManagement" defaultpolicy="none">
+
+		<resource type="ui" value="createInternalUser">
+			<permissions>usermanagement:createInternalUser:update
+			</permissions>
+		</resource>
+		<resource type="ui" value="updateInternalUser">
+			<permissions>usermanagement:updateInternalUser:update
+			</permissions>
+		</resource>
+		<resource type="ui" value="createDealerUser">
+			<permissions>usermanagement:createDealerUser:update
+			</permissions>
+		</resource>
+		<resource type="ui" value="updateDealerUser">
+			<permissions>usermanagement:updateDealerUser:update
+			</permissions>
+		</resource>
+		<resource type="ui" value="createCustomerUser">
+			<permissions>usermanagement:createCustomerUser:update
+			</permissions>
+		</resource>
+		<resource type="ui" value="updateCustomerUser">
+			<permissions>usermanagement:updateCustomerUser:update
+			</permissions>
+		</resource>
+	</functionalarea>
+
+</functionalareas>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="managedealeruser" extends="struts-twms-default">
+		<!--  Dealer User Maintenance -->
+
+		<action name="show_dealer_user"
+			class="tavant.twms.web.actions.ManageDealerUserAction" method="forwardToCreateUser">
+			<interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="success">pages/secure/dealer/manageDealerUser.jsp</result>
+		</action>
+
+		<action name="create_dealer_user"
+			class="tavant.twms.web.actions.ManageDealerUserAction"
+			method="create">
+			<interceptor-ref name="twmsParamsPrepareParams" />
+			<result name="input">pages/secure/dealer/manageDealerUser.jsp</result>
+			<result name="success">pages/secure/dealer/manageDealerUserResult.jsp</result>
+		</action>
+		
+		<action name="forward_to_search_dealer_user"
+				class="tavant.twms.web.actions.ManageDealerUserAction">
+            <interceptor-ref name="paramsPrepareWithoutValidation"/>
+            <result name="success">pages/secure/dealer/searchDealerUser.jsp</result>
+            <result name="input">pages/secure/dealer/searchDealerUser.jsp</result>
+        </action>
+
+        <action name="search_Dealer_user"
+				class="tavant.twms.web.actions.ManageDealerUserAction" method="search">
+			<interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="input">pages/secure/dealer/searchDealerUser.jsp</result>
+            <result name="success">pages/secure/dealer/searchDealerUser.jsp</result>
+            <result name="exactMatch">pages/secure/dealer/updateDealerUser.jsp</result>
+        </action>
+
+		<action name="show_technician_information"
+				class="tavant.twms.web.actions.ManageDealerUserAction" method="forwardToUpdateDealerUser">
+            <interceptor-ref name="paramsPrepareWithoutValidation"/>
+            <result name="success">pages/secure/dealer/technician_details.jsp</result>
+        </action>
+
+		<action name="forward_to_update_dealer_user"
+				class="tavant.twms.web.actions.ManageDealerUserAction" method="forwardToUpdateDealerUser">
+            <interceptor-ref name="paramsPrepareWithoutValidation"/>
+            <result name="success">pages/secure/dealer/updateDealerUser.jsp</result>
+            <result name="input">pages/secure/dealer/searchDealerUser.jsp</result>
+        </action>
+
+        <action name="update_Dealer_user"
+				class="tavant.twms.web.actions.ManageDealerUserAction" method="update">
+			<interceptor-ref name="twmsParamsPrepareParams"/>
+			<result name="input">pages/secure/dealer/updateDealerUser.jsp</result>
+            <result name="success">pages/secure/dealer/manageDealerUserResult.jsp</result>
+        </action>
+
+        <action name="get_states_by_country"
+			class="tavant.twms.web.actions.ManageDealerUserAction" method="getStatesByCountry">
+		    <interceptor-ref name="paramsWithoutValidation"/>
+		</action>	
+		
+		<action name="get_cities_by_country_and_state"
+			class="tavant.twms.web.actions.ManageDealerUserAction" method="getCitiesByCountryAndState">
+		    <interceptor-ref name="paramsWithoutValidation"/>
+		</action>
+		
+		<action name="get_zips_by_country_state_and_city"
+			class="tavant.twms.web.actions.ManageCustomer" method="getZipsByCountryStateAndCity">
+		    <interceptor-ref name="paramsWithoutValidation"/>
+		</action>	
+		
+
+	</package>
+</struts>

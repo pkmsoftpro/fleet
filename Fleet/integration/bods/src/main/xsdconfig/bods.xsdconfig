@@ -1,0 +1,81 @@
+<xb:config xmlns:xb="http://xml.apache.org/xmlbeans/2004/02/xbean/config">
+    <xb:namespace uri="http://www.tavant.com/oagis">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/oagis">
+        <xb:package>tavant.oagis</xb:package>
+    </xb:namespace>
+        
+    <xb:namespace uri="http://www.tavant.com/fleet/customersync">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/fleet/customersync">
+        <xb:package>tavant.fleet.customersync</xb:package>
+    </xb:namespace>
+    
+    <xb:namespace uri="http://www.tavant.com/fleet/equipmentsync">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/fleet/equipmentsync">
+        <xb:package>tavant.fleet.equipmentsync</xb:package>
+    </xb:namespace>
+    
+    <xb:namespace uri="http://www.tavant.com/fleet/equipmentbillingsync">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/fleet/equipmentbillingsync">
+        <xb:package>tavant.fleet.equipmentbillingsync</xb:package>
+    </xb:namespace>
+    
+    <xb:namespace uri="http://www.tavant.com/fleet/contractsync">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/fleet/contractsync">
+        <xb:package>tavant.fleet.contractsync</xb:package>
+    </xb:namespace>
+    
+    <xb:namespace uri="http://www.tavant.com/globalsync/pricefetchrequest">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/globalsync/pricefetchrequest">
+        <xb:package>tavant.fleet.pricefetchrequest</xb:package>
+    </xb:namespace>
+    
+    <xb:namespace uri="http://www.tavant.com/globalsync/pricefetchresponse">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/globalsync/pricefetchresponse">
+        <xb:package>tavant.fleet.pricefetchresponse</xb:package>
+    </xb:namespace>
+    
+    <xb:namespace uri="http://www.tavant.com/fleet/pricingconditions">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/fleet/pricingconditions">
+        <xb:package>tavant.fleet.pricingconditions</xb:package>
+    </xb:namespace>    
+    
+    <xb:namespace uri="http://www.tavant.com/fleet/creditnotification">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/fleet/creditnotification">
+        <xb:package>tavant.fleet.creditnotification</xb:package>
+    </xb:namespace> 
+    
+    <xb:namespace uri="http://www.tavant.com/dealerinterfaces/claimsubmission/request">
+        <xb:suffix>DTO</xb:suffix>
+    </xb:namespace>
+    <xb:namespace uri="http://www.tavant.com/dealerinterfaces/claimsubmission/request">
+        <xb:package>tavant.fleet.claimSubmission</xb:package>
+    </xb:namespace>   
+
+	<xb:namespace uri="http://www.tavant.com/twms/security/resource">
+            <xb:package>tavant.twms.xmlbeans.security.impl</xb:package>
+     </xb:namespace>
+     
+
+     <xb:namespace uri="http://www.tavant.com/twms/security/resource">
+            <xb:suffix>DTO</xb:suffix>
+     </xb:namespace>
+    
+</xb:config>

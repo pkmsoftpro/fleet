@@ -1,0 +1,104 @@
+<html>
+<head>
+<style type="text/css">
+.containerDiv
+	{
+	border:1px solid #CDC9C9;
+	width:1000px;
+	height:30px;
+	margin-left:20px;
+	display:table
+	}
+.equipmentRowDivHeader
+	{
+	border:1px solid #CDC9C9;
+	background-color:#e2e6f3;
+	color:black;
+	font-weight:bold;
+	height:30px;
+	display:table-row
+	}
+.rowDiv
+	{
+	border:1px solid #668db6;
+	background-color:#EEEEEE;
+	height: 31px;
+	display:table-row
+	}
+.cellDivHeader
+	{
+	border-right:1px solid white;
+	display:table-cell;
+	width:12%;
+	padding:1px;
+	text-align:center;
+	vertical-align:middle;
+	font-size:13px
+	}
+.cellDiv
+	{
+	border-right:0px solid white;
+	display:table-cell;
+	width:10%;
+	padding-right:4px;
+	text-align:center;
+	border-bottom:none;
+	font-size:12px
+	}
+.lastCell
+	{
+	width:119px;
+	border-right:none;
+	font-size:13px;
+	margin-top:4px
+	text-align:center;
+	}
+
+</style>
+</head>
+
+<body>
+
+	Hi <b>${userName}</b>,<br/><br/>
+	
+	<u>Pending Assigned Service Request's - <b>Automatic Notification</b> - Do not Reply to this email</u><br/><br/>
+	
+	Below mentioned Service Requests are pending under assigned Service Request inbox. Please take the action ASAP..<br/><br/>
+	
+	
+	<table  class="containerDiv">
+        <tr class="equipmentRowDivHeader">
+            <td  class="cellDivHeader">SERVICE REQUEST NUMBER</td>
+            <td class="cellDivHeader">STATUS</div>
+            <td class="cellDivHeader">SERIAL NUMBER</div>
+            <td class="cellDivHeader">CUSTOMER NAME</div>
+            <td class="cellDivHeader">PROBLEM DESCRIPTION</div>
+            <td class="lastCell">DAYS</div>
+        </tr>
+        #foreach( $serviceRequest in $pendingAssignedServiceRequests )
+         <tr class="rowDiv">
+            <td class="cellDiv"> $serviceRequest.serviceRequestNumber</td>
+            <td class="cellDiv"> $serviceRequest.state</td>
+            <td class="cellDiv"> $serviceRequest.forItem.serialNumber</td>
+            <td class="cellDiv"> $serviceRequest.forItem.activeFleetInventoryAudit.shipTo.customer.name</td>
+            <td class="cellDiv"> $serviceRequest.activeServiceRequestAudit.problemDescription</td>
+            <td class="cellDiv"> $serviceRequest.activeServiceRequestAudit.numberOfDaysForAssignedServiceRequest</td>
+   		</tr> 
+   	#end
+   	</table>
+	<br/><br/>
+	 
+	You can sign-in to <a href="${url}">NMHG Fleet System</a> to respond on pending Assigned Service Requests.<br/><br/>
+	
+	Best regards,<br/>
+	${buName}Fleet Management
+	
+	This is automatically generated email from an unmonitored account.<br/>
+	If you wish to reply, please call NMHG at 1800-xxx-yyyy.
+	<br/><br/>
+    The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+    It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+    please delete immediately and notify the sender. Thank you in advance for your cooperation.		
+</body>
+
+</html>

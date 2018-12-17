@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="ruleadmin" extends="struts-twms-default">
+		
+		<action name="list_domain_rules"
+			class="tavant.fleet.web.admin.rules.ListRules">			
+			<interceptor-ref name="adminParamsPrepare" />			
+			<result name="success">pages/secure/admin/rules/domainRuleInboxView.jsp</result>
+		</action>
+		
+		<action name="list_entry_validation_rules"
+			class="tavant.fleet.web.admin.rules.ListRules">			
+			<interceptor-ref name="adminParamsPrepare" />			
+			<result name="success">pages/secure/admin/rules/entryValidationRuleInboxView.jsp</result>
+		</action>
+		
+		<action name="get_domain_rules_body"
+			class="tavant.fleet.web.admin.rules.ListRules" method="tableBody">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />		
+			<param name="context">ClaimRules</param>
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+		<action name="get_entry_validation_rules_body"
+			class="tavant.fleet.web.admin.rules.ListRules" method="tableBody">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />		
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+		
+		<action name="manage_domain_rule_preview"
+			class="tavant.fleet.web.admin.rules.ManageDomainRules"
+			method="showDomainRule">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/manageDomainRule.jsp
+			</result>
+		</action>
+		
+		<action name="manage_domain_rule_detail"
+			class="tavant.fleet.web.admin.rules.ManageDomainRules"
+			method="showDomainRule">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/manageDomainRule.jsp
+			</result>
+		</action>
+		
+		<action name="update_domain_rule"
+			class="tavant.fleet.web.admin.rules.ManageDomainRules"
+			method="updateDomainRule">
+			<interceptor-ref name="adminTwmsParamsPrepareParams" />
+			<interceptor-ref name="repeatTable"></interceptor-ref>
+			<result name="success">
+				pages/secure/admin/rules/manageDomainRule.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/manageDomainRule.jsp
+			</result>
+        </action>
+        		
+		<action name="delete_domain_rule"
+			class="tavant.fleet.web.admin.rules.ManageDomainRules"
+			method="deleteDomainRule">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/success.jsp
+			</result>
+		</action>
+		
+		<action name="create_domain_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="createRule">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/createRule.jsp
+			</result>
+            <result name="error">
+				pages/secure/admin/rules/group/ruleGroupsNotSetup.jsp
+			</result>
+        </action>
+        
+        <action name="list_customers" class="tavant.fleet.web.admin.rules.CreateDomainRule" method="listCustomers">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+	         <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+        
+         <action name="list_customerLocation" class="tavant.fleet.web.admin.rules.CreateDomainRule" method="listCustomerLocations">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+						<result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+         <action name="manage_list_customers" class="tavant.fleet.web.admin.rules.ManageDomainRules" method="manageListCustomers">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+	         <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+         <action name="manage_list_customerLocation" class="tavant.fleet.web.admin.rules.ManageDomainRules" method="manageListCustomerLocations">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+						<result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+        <action name="list_standard_services" class="tavant.fleet.web.admin.rules.CreateDomainRule" method="listStandardServices">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+						<result name="success">pages/secure/home/json.jsp</result>
+        </action>
+         <action name="list_manage_standard_services" class="tavant.fleet.web.admin.rules.ManageDomainRules" method="listStandardServices">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+						<result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+        <action name="listServiceProviders_for_rules" class="tavant.fleet.web.admin.rules.CreateDomainRule" method="getServiceProviderNames">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+	         <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+        <action name="listServiceProviderByNumber_for_rules" class="tavant.fleet.web.admin.rules.CreateDomainRule" method="getServiceProviderNumbers">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+	         <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+		
+		<action name="create_entry_validation_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="createRule">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/create_entry_validation_rule.jsp
+			</result>
+		</action>
+		
+		<action name="search_predicates_for_new_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="searchPredicates">
+			<param name="context">FleetClaimRules</param>
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />			
+			<result name="success">
+				pages/secure/admin/rules/createRule.jsp
+			</result>
+            <result name="setup">
+				pages/secure/admin/rules/userGroupsNotSetup.jsp
+			</result>            
+        </action>
+        
+		<action name="search_predicates_for_new_entry_validation_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="searchPredicates">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/create_entry_validation_rule.jsp
+			</result>
+		</action>
+		
+		<action name="save_domain_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="saveRule">			
+			<interceptor-ref name="adminTwmsParamsPrepareParams" />
+			<param name="context">FleetClaimRules</param>
+			<result name="success">
+				pages/secure/admin/rules/createSuccess.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/createRule.jsp
+			</result>
+		</action>
+
+		<action name="save_entry_validation_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="saveRule">			
+			<interceptor-ref name="adminTwmsParamsPrepareParams" />
+			<result name="success">
+				pages/secure/admin/rules/createEntryValidationRuleSuccess.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/create_entry_validation_rule.jsp
+			</result>
+		</action>
+
+		<action name="save_i18n_failure_messages"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="setUpForCreateI18NMessages">			
+			<interceptor-ref name="adminParamsPrepare" />
+			<param name="context">EntryValidationRules</param>
+			<result name="success">
+				pages/secure/admin/rules/create_I18N_Failure_Messages.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/create_entry_validation_rule.jsp
+			</result>
+		</action>
+		
+		<action name="save_i18n_Rule_Description"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="setUpForCreateI18NMessages">			
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/create_I18N_Rule_Description.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/create_entry_validation_rule.jsp
+			</result>
+		</action>
+		
+		<action name="save_failure_messages"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="saveI18NMessages">			
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/createSuccess.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/create_I18N_Failure_Messages.jsp
+			</result>
+		</action>
+		
+		<action name="save_rule_description"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="saveI18NRuleDescription">			
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/createSuccess.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/create_I18N_Rule_Description.jsp
+			</result>
+		</action>
+
+		<!-- Action to populate ognl expression for existing domain rules -->
+		<action name="populate_ognl_expression"
+			class="tavant.fleet.web.admin.rules.ManageDomainRules"
+			method="populateDomainRuleOgnlExpression">
+			<interceptor-ref name="params" />
+			<result name="success">
+				pages/secure/admin/rules/populatedOgnlExpressions.jsp
+			</result>
+        </action>
+
+        <action name="exportRulesToExcel"
+			class="tavant.fleet.web.admin.rules.ListRules" method="downloadListingData">
+			<interceptor-ref name="adminParamsPrepare" />
+		</action>	
+		
+        <!-- Rule Group Related actions -->
+        <action name="list_rule_groups" class="tavant.fleet.web.admin.rules.group.ListRuleGroups">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">pages/secure/admin/rules/group/ruleGroupInboxView.jsp</result>
+		</action>
+
+        <action name="get_rule_groups_body" class="tavant.fleet.web.admin.rules.group.ListRuleGroups" method="tableBody">
+			<interceptor-ref name="adminParamsWithoutValidation" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+       <!--  <action name="rule_group_preview" class="tavant.fleet.web.admin.rules.group.ListRuleGroups"
+                method="viewRuleGroup">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/group/ruleGroupPreview.jsp
+			</result>
+		</action>
+ -->
+		<action name="rule_group_detail" class="tavant.fleet.web.admin.rules.group.ListRuleGroups"
+			method="viewRuleGroup">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/group/ruleGroupDetail.jsp
+			</result>
+		</action>
+
+        <action name="setup_rule_group_creation" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="setupRuleGroupCreation">
+			<interceptor-ref name="adminParamsWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/group/createRuleGroup.jsp
+			</result>
+		</action>
+
+		<action name="create_rule_group" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="saveRuleGroup">
+			<interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+			<result name="success">
+				pages/secure/common/successfulRefresh.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/group/createRuleGroup.jsp
+			</result>
+		</action>
+
+        <action name="update_rule_group" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="updateRuleGroup">
+			<interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+			<result name="success">
+				pages/secure/common/successfulRefresh.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/group/ruleGroupDetail.jsp
+			</result>
+        </action>
+
+        <action name="setup_rule_groups_prioritizaton" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="setupRuleGroupsPrioritizaton">
+			<interceptor-ref name="adminParamsWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/group/reprioritizeRuleGroups.jsp
+			</result>
+        </action>
+
+        <action name="reprioritize_rule_groups" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="rePrioritizeRuleGroups">
+			<interceptor-ref name="adminParamsWithoutValidation" />
+			<result name="success">
+				pages/secure/common/successfulRefresh.jsp
+			</result>
+        </action>
+
+        <action name="deactivate_rule_group" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="deactivateRuleGroup">
+			<interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+			<result name="success">
+				pages/secure/common/successfulRefresh.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/group/ruleGroupDetail.jsp
+			</result>
+        </action>
+        
+        <action name="activate_rule_group" class="tavant.fleet.web.admin.rules.group.ManageRuleGroup"
+                method="activateRuleGroup">
+			<interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+			<result name="success">
+				pages/secure/common/successfulRefresh.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/group/ruleGroupDetail.jsp
+			</result>
+        </action>
+
+        <action name="export_rule_groups_to_excel"
+			class="tavant.fleet.web.admin.rules.group.ListRuleGroups" method="downloadListingData">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation"/>
+		</action>
+		
+		<action name="list_claim_processor_routing_rules"
+			class="tavant.fleet.web.admin.rules.ListRules">			
+			<interceptor-ref name="adminParamsPrepare" />			
+			<result name="success">pages/secure/admin/rules/claimProcessorRoutingInboxView.jsp</result>
+		</action>
+		
+		<action name="create_processor_routing_rule"
+			class="tavant.fleet.web.admin.rules.CreateDomainRule"
+			method="createRule">
+			<param name="purpose">Fleet Claim Assignment</param>
+            <param name="context">ClaimProcessorRouting</param>
+            <interceptor-ref name="adminParamsPrepareWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/create_processor_routing_rule.jsp
+			</result>
+            <result name="setup">
+				pages/secure/admin/rules/userGroupsNotSetup.jsp
+			</result>
+			<result name="error">
+				pages/secure/admin/rules/group/ruleGroupsNotSetup.jsp
+			</result>
+        </action>
+        
+        
+		<action name="save_processor_routing_rule"
+			class="tavant.fleet.web.admin.rules.CreateProcessorRoutingRules"
+			method="saveRule">			
+			<interceptor-ref name="adminTwmsParamsPrepareParams" />
+			<param name="loaPurpose">CLAIM_LOA</param>
+			<param name="purpose">Fleet Claim Assignment</param>
+			<param name="context">ClaimProcessorRouting</param>
+			<result name="success">
+                pages/secure/admin/rules/createSuccess.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/create_processor_routing_rule.jsp
+			</result>
+		</action>
+		
+		<action name="get_processor_routing_rules_body"
+			class="tavant.fleet.web.admin.rules.ListRules" method="tableBody">
+			<interceptor-ref name="adminParamsPrepareWithoutValidation" />
+			<param name="context">ClaimProcessorRouting</param>
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+		
+        <action name="search_predicates_for_new_processor_routing_rule"
+			class="tavant.fleet.web.admin.rules.CreateProcessorRoutingRules"
+			method="searchPredicates">
+            <param name="loaPurpose">CLAIM_LOA</param>
+            <param name="context">ClaimProcessorRouting</param>
+            <param name="purpose">Fleet Claim Assignment</param>
+            <interceptor-ref name="adminParamsPrepareWithoutValidation" />
+			<result name="success">
+				pages/secure/admin/rules/create_processor_routing_rule.jsp
+			</result>
+            <result name="setup">
+				pages/secure/admin/rules/userGroupsNotSetup.jsp
+			</result>
+		</action>
+		
+		<action name="manage_processor_routing_rule_detail"
+			class="tavant.fleet.web.admin.rules.ManageProcessorRoutingRules"
+			method="showDomainRule">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">
+				pages/secure/admin/rules/manageProcessorRoutingRule.jsp
+			</result>
+		</action>
+
+        <action name="update_processor_routing_rule"
+			class="tavant.fleet.web.admin.rules.ManageProcessorRoutingRules"
+			method="updateDomainRule">
+			<interceptor-ref name="adminTwmsParamsPrepareParams" />
+			<param name="loaPurpose">CLAIM_LOA</param>
+			<result name="success">
+				pages/secure/admin/rules/manageProcessorRoutingRule.jsp
+			</result>
+			<result name="input">
+				pages/secure/admin/rules/manageProcessorRoutingRule.jsp
+			</result>
+        </action>
+        
+        <action name="list_casualPartNumbers" class="tavant.fleet.web.admin.rules.CreateDomainRule" method="listCasualPartNumbers">
+	         <interceptor-ref name="adminParamsWithoutValidation" />
+	         <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        <action name="list_caused_by_using_faultFound"
+                class="tavant.fleet.web.admin.rules.CreateDomainRule" method="listCausedBy">
+            <interceptor-ref name="adminParamsWithoutValidation"/>
+            <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        <action name="manage_list_caused_by_using_faultFound"
+                class="tavant.fleet.web.admin.rules.ManageDomainRules" method="listCausedBy">
+            <interceptor-ref name="adminParamsWithoutValidation"/>
+            <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        <action name="list_Labor_JobCodes"
+                class="tavant.fleet.web.admin.rules.CreateDomainRule" method="listLaborJobCodes">
+            <interceptor-ref name="adminParamsWithoutValidation"/>
+             <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        <action name="list_Manage_Labor_JobCodes"
+                class="tavant.fleet.web.admin.rules.ManageDomainRules" method="listLaborJobCodes">
+            <interceptor-ref name="adminParamsWithoutValidation"/>
+             <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+
+	</package>
+</struts>	

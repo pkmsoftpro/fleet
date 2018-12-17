@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="claim" defaultpolicy="none">
+
+		<resource type="ui" value="claimTab" operation="OR">
+			<permissions>claim:fleetClaimTab:update,claim:fleetClaimTab:view
+            </permissions>
+		</resource>
+
+		<resource type="ui" value="createClaim" operation="OR">
+			<permissions>claim:createClaim:update,claim:createClaim:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="claimInboxes" operation="OR">
+			<permissions>claim:claimInboxes:update,claim:claimInboxes:view
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="invoiceTab">
+			<permissions>claim:invoiceTab:update
+            </permissions>
+		</resource>
+
+		<resource type="ui" value="invoiceInboxes">
+			<permissions>claim:invoiceInboxes:update
+            </permissions>
+		</resource>
+
+		<resource type="ui" value="searchClaims" operation="OR">
+			<permissions>claim:searchClaims:update,claim:searchClaims:search
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="reopenClaim">
+			<permissions>claim:reopenClaim:update
+            </permissions>
+		</resource>
+
+		<resource type="ui" value="resubmitClaim">
+			<permissions>claim:resubmitClaim:update
+            </permissions>
+		</resource>
+
+	   <resource type="ui" value="dealerOwnedclaimInboxes" operation="OR">
+            <permissions>claim:dealerOwnedclaimInboxes:update,claim:dealerOwnedclaimInboxes:view
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="appealClaim">
+			<permissions>claim:appealClaim:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="cloneClaim">
+			<permissions>claim:cloneClaim:update
+            </permissions>
+		</resource>
+		
+	</functionalarea>
+
+</functionalareas>

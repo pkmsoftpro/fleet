@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contract" pageWidth="800" pageHeight="1132" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="40" bottomMargin="20" uuid="1fd0c809-d5f9-4efa-abe1-4e5ccac7faf8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="205"/>
+	<import value="tavant.twms.dateutil.TWMSDateFormatUtil"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="userType" class="java.lang.String"/>
+	<parameter name="dateFormat" class="java.lang.String"/>
+	<field name="activeContractAudit.forCustomer.name" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="type" class="java.lang.Object"/>
+	<field name="activeContractAudit.comments" class="java.lang.String"/>
+	<field name="activeContractAudit.contractInventorys" class="java.util.Collection"/>
+	<field name="activeContractAudit.applicableCostCategories" class="java.util.Collection"/>
+	<field name="activeContractAudit.forCustomer.invoicingInterval.interval" class="java.lang.String"/>
+	<field name="activeContractAudit.availability.fromDate" class="java.lang.String"/>
+	<field name="formattedContractStartDate" class="java.lang.String"/>
+	<field name="formattedContractEndDate" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="f00a3471-26ff-4afc-9a66-a21b863c4671" key="textField-29" positionType="Float" x="380" y="91" width="180" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{activeContractAudit.forCustomer.name}!=null?$F{activeContractAudit.forCustomer.name}:"--"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="11ab94a9-8fb7-4505-b276-4de5d78f82ee" key="staticText-89" positionType="Float" x="110" y="91" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e9187375-f95e-45ad-8aed-f41e79e440b4" key="staticText-110" positionType="Float" x="110" y="343" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Payment Categories Covered:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79b65954-f9e7-47d0-a8ae-ff999ec48528" x="223" y="10" width="287" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fleet Management Contract Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b81894de-5897-4bb7-8178-3386f73e3a11" key="staticText-89" positionType="Float" x="110" y="111" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Contract Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f5e15fe-47cb-4d4f-bfef-fde9d3741370" key="staticText-89" positionType="Float" x="110" y="131" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Contract Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cb20b387-f0ba-4099-a928-d6528db56ce1" key="staticText-89" positionType="Float" x="110" y="151" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Contract Start Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50195d08-b8c8-40a6-bf5a-82619e8172bd" key="staticText-89" positionType="Float" x="110" y="171" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Contract End Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c6173dd-b608-4185-8371-02f88ab594d8" key="staticText-110" positionType="Float" x="110" y="211" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Machines Covered :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="371a32ac-af34-4de2-b81e-10b6c9d9e96d" key="staticText-110" positionType="Float" x="110" y="366" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billing Frequency]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1693e0e0-d286-40d4-a67a-4a87b7eaadac" key="staticText-110" positionType="Float" x="110" y="386" width="146" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Comments]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7167b355-6491-4862-8e6d-98b86f5c0a4e" x="380" y="111" width="180" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code}!=null?$F{code}:"--"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3def3a7e-9848-451b-8246-34bf1d8059e2" x="298" y="91" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="889d0212-b8e3-4355-9b7c-e9613464c9e7" x="298" y="111" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85d9e66d-a991-4d9f-80ce-0b3b5aa568ab" x="298" y="131" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7469556e-27c1-4c88-b929-c23f1d6c974d" x="298" y="151" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a89fb10d-864d-4f60-94f2-bf05b8e5b36c" x="298" y="171" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="755420ed-95a6-489e-b12d-70ffe844be08" positionType="Float" x="298" y="366" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b80cb3cf-380e-4425-9771-9a61243bdefa" positionType="Float" x="298" y="386" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="69d40673-3e23-40bc-8258-96bf01b8e5c7" x="380" y="131" width="180" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}!=null?$F{type}:"--"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="71213b69-81c7-4402-bc36-84530d04b908" x="380" y="171" width="180" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formattedContractEndDate}!=null?$F{formattedContractEndDate}:"--"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8adb2666-a904-4896-9130-212597e69f0a" x="380" y="151" width="180" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formattedContractStartDate}!=null?$F{formattedContractStartDate}:"--"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="07cb910a-c6b7-4f31-8543-f12c3d052287" positionType="Float" x="110" y="231" width="580" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="41ac132a-8723-4abe-a30c-52fea2b34f63" positionType="Float" x="270" y="242" width="70" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Model]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="306b5b50-8b9a-4444-8a2a-909e7dc4c3dc" positionType="Float" x="410" y="242" width="70" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monthly Admin Fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="36469c5d-bc7d-4e6b-915f-9df614cb382a" positionType="Float" x="110" y="242" width="80" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serial Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2619f86a-b0fc-456a-b255-8f47b5e82b88" positionType="Float" x="340" y="242" width="70" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Brand]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ed03034-e968-4d84-a5b0-2833a068cb6b" positionType="Float" x="480" y="242" width="70" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monthly Maintenance fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="07aada56-256d-4725-9008-17da0d148f37" positionType="Float" x="190" y="242" width="80" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipment Type]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="06c94c6d-c3ef-452c-aa30-4b4e7bf02dad" positionType="Float" x="110" y="277" width="580" height="27"/>
+				<subreportParameter name="dateFormat">
+					<subreportParameterExpression><![CDATA[$P{dateFormat}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{activeContractAudit.contractInventorys})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "machinesCoveredUnderContract.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="1540350c-9690-49e4-8328-4c9b340c4f84" key="staticText-110" positionType="Float" x="110" y="442" width="450" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[ Legal Disclaimer : < TO BE MODIFIED AS PER VERBIAGE PROVIDED BY FLEET >]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="9f519c19-6d1f-4816-87d8-ae9e8896d991" key="textField" positionType="Float" x="380" y="386" width="180" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{activeContractAudit.comments}!=null?$F{activeContractAudit.comments}:"--"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ef7087d3-9951-4959-8d3a-ed11f7fddc9e" positionType="Float" x="550" y="242" width="70" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contract Start Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0034d555-0025-499d-9f67-b8900685dc8d" positionType="Float" x="620" y="242" width="70" height="35"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contract End Date]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="240e85de-a67e-40ed-ba07-f238673ee402" key="textField" positionType="Float" x="380" y="366" width="180" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{activeContractAudit.forCustomer.invoicingInterval.interval}!=null?$F{activeContractAudit.forCustomer.invoicingInterval.interval}:"--"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="4d2cbb15-e921-4a5f-a110-6bca6c230083" positionType="Float" x="110" y="342" width="450" height="18"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{activeContractAudit.applicableCostCategories})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "paymentCategoriesCovered.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="d678f44c-5a34-4335-9155-23ca1a7dc72c" positionType="Float" x="298" y="343" width="3" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

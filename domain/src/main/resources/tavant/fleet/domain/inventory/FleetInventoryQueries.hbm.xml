@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="tavant.fleet.domain.inventory">
+
+	<query name="CILookupQueryUsingSerialNumberSalesAreaAndSapEquip">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractInventory.salesAreaCode salesArea
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.serialNumber = :serialNumber
+  and contractInventory.sapEquipmentNumber = :sapEquipmentNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and salesArea.id = :salesAreaId
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingSerialNumberAndSalesArea">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractInventory.salesAreaCode salesArea
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.serialNumber = :serialNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and salesArea.id = :salesAreaId
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingSerialNumberAndSapEquip">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.serialNumber = :serialNumber
+  and contractInventory.sapEquipmentNumber = :sapEquipmentNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingSerialNumber">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.serialNumber = :serialNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingAssetNumberSalesAreaAndSapEquip">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractInventory.salesAreaCode salesArea
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.assetNumber = :assetNumber
+  and contractInventory.sapEquipmentNumber = :sapEquipmentNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and salesArea.id = :salesAreaId
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingAssetNumberAndSalesArea">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractInventory.salesAreaCode salesArea
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.assetNumber = :assetNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and salesArea.id = :salesAreaId
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingAssetNumberAndSapEquip">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.assetNumber = :assetNumber
+  and contractInventory.sapEquipmentNumber = :sapEquipmentNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+	<query name="CILookupQueryUsingAssetNumber">
+    <![CDATA[
+ select
+  contractInventory
+  from ContractInventory contractInventory
+  left join contractInventory.fleetInventoryItem fleetInventoryItem
+  left join contractInventory.contractAudit contractAudit
+  left join contractAudit.forCustomer fleetCustomer
+ where
+  fleetInventoryItem.assetNumber = :assetNumber
+  and contractInventory.status = 'ACTIVE'
+  and contractAudit.forContract is null
+  and fleetCustomer in (:customerList)
+    ]]>
+	</query>
+	
+</hibernate-mapping>

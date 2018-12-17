@@ -1,0 +1,20 @@
+Hello Valued Fleet Customer,<br/><br/>
+Notification - Quote number ${quoteNumber} has been created and is ready for disposition.Please<br/><br/>
+find the quote details in the attached document.
+You can Approve/Deny/Request for revision  through below links.
+#set ($approve = "${url}fleet/processstatus?emailTokenId=${emailTokenId}&status=Approved")
+#set ($deny = "${url}fleet/processstatus?emailTokenId=${emailTokenId}&status=Denied")
+#set ($RequestforRevision = "${url}fleet/processstatus?emailTokenId=${emailTokenId}&status=RequestRevision")
+<li><a href="$approve">Approve Quote</a></li><br/><br/>
+<li><a href="$deny">Deny Quote</a></li><br/><br/>
+<li><a href="$RequestforRevision">Request For Revision</a></li><br/>
+	
+Should you have any questions or concerns please contact NMHG Fleet at 1800-xxx-yyyy.
+<br/><br/>
+Warmest regards,<br/><br/>
+NMHG Fleet Management	
+<br/><br/>
+The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+please delete immediately and notify the sender. Thank you in advance for your cooperation.	
+	

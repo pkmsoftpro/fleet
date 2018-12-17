@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="loabour_overtime" pageWidth="600" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="600" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="overTimeLaborHours" class="java.lang.Double"/>
+	<field name="reasonForOverTimeLaborHours" class="java.lang.String"/>
+	<field name="overTimeLaborMultiplier.name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0bc51145-e635-46c2-bf56-e46a29b3e5fa" positionType="Float" stretchType="RelativeToTallestObject" x="350" y="0" width="220" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reasonForOverTimeLaborHours}!=null?$F{reasonForOverTimeLaborHours}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2d171a67-b716-4553-b2dd-00dc000c44cf" positionType="Float" stretchType="RelativeToTallestObject" x="200" y="0" width="150" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{overTimeLaborHours}!=null?$F{overTimeLaborHours}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="eedbbfba-db0a-4395-9a42-53318fa2485b" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{overTimeLaborMultiplier.name}!=null?$F{overTimeLaborMultiplier.name}:"--"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customerProgramGuideSummary" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="30a9709f-9621-452e-bd32-25646447fa60">
+	<property name="ireport.zoom" value="1.8181818181818181"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="2013"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="c6e02f6d-fec2-4773-a2bb-62dd30d4bc22"/>
+	<subDataset name="dataset1" uuid="d9840412-6e3e-448c-ae77-dec3ffd24346"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="loanerProcess" class="java.lang.String">
+		<fieldDescription><![CDATA[loanerProcess]]></fieldDescription>
+	</field>
+	<field name="periodicMaintenanceInterval" class="java.lang.String">
+		<fieldDescription><![CDATA[periodicMaintenanceInterval]]></fieldDescription>
+	</field>
+	<field name="travelStipulations" class="java.lang.String">
+		<fieldDescription><![CDATA[travelStipulations]]></fieldDescription>
+	</field>
+	<field name="responseTime" class="java.lang.String">
+		<fieldDescription><![CDATA[responseTime]]></fieldDescription>
+	</field>
+	<field name="disputeProcess" class="java.lang.String">
+		<fieldDescription><![CDATA[disputeProcess]]></fieldDescription>
+	</field>
+	<field name="quoteThreshold" class="java.lang.String">
+		<fieldDescription><![CDATA[quoteThreshold]]></fieldDescription>
+	</field>
+	<field name="billingAllowances" class="java.lang.String">
+		<fieldDescription><![CDATA[billingAllowances]]></fieldDescription>
+	</field>
+	<field name="purchaseOrderRequirement" class="java.lang.String">
+		<fieldDescription><![CDATA[purchaseOrderRequirement]]></fieldDescription>
+	</field>
+	<field name="alternateServiceProviders" class="java.lang.String">
+		<fieldDescription><![CDATA[alternateServiceProviders]]></fieldDescription>
+	</field>
+	<field name="d" class="tavant.twms.domain.common.AuditableColEntity">
+		<fieldDescription><![CDATA[d]]></fieldDescription>
+	</field>
+	<field name="reporting" class="java.lang.String">
+		<fieldDescription><![CDATA[reporting]]></fieldDescription>
+	</field>
+	<field name="serviceRequestProcess" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceRequestProcess]]></fieldDescription>
+	</field>
+	<field name="representativeContacts" class="java.lang.String">
+		<fieldDescription><![CDATA[representativeContacts]]></fieldDescription>
+	</field>
+	<field name="billingIntervals" class="java.lang.String">
+		<fieldDescription><![CDATA[billingIntervals]]></fieldDescription>
+	</field>
+	<field name="notesAndExclusions" class="java.lang.String">
+		<fieldDescription><![CDATA[notesAndExclusions]]></fieldDescription>
+	</field>
+	<field name="customer" class="tavant.fleet.domain.customer.FleetCustomer">
+		<fieldDescription><![CDATA[customer]]></fieldDescription>
+	</field>
+	<field name="businessUnitInfo" class="tavant.twms.domain.bu.BusinessUnitInfo">
+		<fieldDescription><![CDATA[businessUnitInfo]]></fieldDescription>
+	</field>
+	<field name="afterHoursProcess" class="java.lang.String">
+		<fieldDescription><![CDATA[afterHoursProcess]]></fieldDescription>
+	</field>
+	<field name="primaryProgramType" class="java.lang.String">
+		<fieldDescription><![CDATA[primaryProgramType]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="575" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-89" x="280" y="130" width="111" height="18" uuid="a3f12324-2a93-450f-949b-a66101a7222a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Representative Contacts]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="10" y="107" width="111" height="18" uuid="360f612f-206a-422d-899a-7bbebdb3d590"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Number ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="72" width="522" height="1" uuid="0f32fc1e-4e5d-4cd3-a3c8-8b14336a4e27"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-89" x="10" y="87" width="111" height="18" uuid="43f8e24b-7496-4655-908e-f8c6469b6304"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Name ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="10" y="130" width="111" height="18" uuid="60824f59-94a7-4e27-ad41-d3242063f4bd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Primary Program Type ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="55" width="110" height="17" uuid="61f2ba34-dc89-4a4b-863c-41a6b786d798"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[General Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="12" width="157" height="19" uuid="b1f73b9c-d707-45ae-b53b-e5920c4c61c5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Program Guide Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="87" width="4" height="18" uuid="08f20d2a-34b1-4055-a9c2-fab84e85e5f4"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="107" width="4" height="18" uuid="754d956c-bd36-4687-af06-59ea3e06121b"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="142" y="87" width="389" height="18" uuid="704476f7-078e-474e-b6fe-28ebf634e8cf"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer}.getName()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="142" y="107" width="389" height="18" uuid="a565bfaf-1773-4077-82bb-106b3805169b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer}.getCustomerNumber()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="147" width="251" height="1" uuid="6baa5ed5-0604-46cd-8e06-f85e67562afe"/>
+			</line>
+			<line>
+				<reportElement x="280" y="147" width="251" height="1" uuid="7e0d91d0-5fa5-4fe7-9fc7-baa32c3c0c3a"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="10" y="149" width="251" height="144" uuid="b93201ca-e503-4ba2-ba92-e94e3dae6533"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{primaryProgramType}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="280" y="149" width="251" height="144" uuid="e9659fbb-3b95-4cdd-a657-ff7cfe3b9901"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{representativeContacts}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="10" y="297" width="111" height="18" uuid="efd2e0b4-7f64-4fdf-ad16-dac96d2f06e5"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billing Intervals]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="279" y="297" width="111" height="18" uuid="b33c6389-8a9b-4463-a85e-f5445ef26477"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dispute Process]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="315" width="251" height="1" uuid="796ea994-bbf6-4e18-be91-52a0f0040042"/>
+			</line>
+			<line>
+				<reportElement x="279" y="315" width="251" height="1" uuid="b4bb11a9-7d2f-4bbe-be26-a270a7524a86"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="10" y="317" width="251" height="144" uuid="419cfc70-0c6d-4a20-bc4e-ad0e23093379"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{billingIntervals}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="279" y="317" width="251" height="144" uuid="e9ae156d-a907-4209-80f0-57fa8088c78b"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{disputeProcess}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="279" y="465" width="111" height="18" uuid="642d29cb-a951-453c-b449-dd2231916362"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Service Request Process]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="483" width="251" height="1" uuid="e0558f6d-87ef-4dcf-a9d8-5cdaa71a35a5"/>
+			</line>
+			<line>
+				<reportElement x="279" y="483" width="251" height="1" uuid="8285dad3-e7c7-4876-a05e-9b5613d82506"/>
+			</line>
+		</band>
+		<band height="576">
+			<staticText>
+				<reportElement key="staticText-89" x="9" y="-110" width="111" height="18" uuid="5a83d090-a5d6-42e2-90e1-bebd48e900e9"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Alternative Service Providers]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement positionType="Float" x="9" y="-90" width="251" height="144" uuid="3e52e0ca-95c6-4bd9-a576-0beff32056e9"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{alternateServiceProviders}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="279" y="-90" width="251" height="144" uuid="27569771-8d61-40cb-acea-b0b20ada26c9"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{serviceRequestProcess}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="8" y="58" width="111" height="18" uuid="f35b3bb9-d1a4-40e2-904e-2c58798c4815"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PO Requirement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="279" y="58" width="111" height="18" uuid="2e80429c-9d1f-4c2f-ab3e-0199c3c6bdad"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Response Time]]></text>
+			</staticText>
+			<line>
+				<reportElement x="8" y="76" width="251" height="1" uuid="158eab5f-2ea1-4dfb-9f19-a2ba74c3792a"/>
+			</line>
+			<line>
+				<reportElement x="279" y="76" width="251" height="1" uuid="312fa2fd-f100-4892-82fd-7e98ad12301b"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="8" y="78" width="251" height="144" uuid="d3231cc9-4334-4406-8f05-5a0add215770"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{purchaseOrderRequirement}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="279" y="78" width="251" height="144" uuid="0c1016e2-aba7-4662-a1b7-a07055376f60"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{responseTime}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="7" y="226" width="111" height="18" uuid="48c2e94f-428d-42d6-a620-30b33fa0ad54"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[After Hours Process]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="244" width="251" height="1" uuid="2e73f702-4142-468c-a961-e14c98a06b76"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="7" y="246" width="251" height="144" uuid="1d064b6b-0873-47d1-a4bb-b4a2bb80877e"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{afterHoursProcess}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="280" y="226" width="111" height="18" uuid="07d49c3a-77be-4fdf-8d97-00f383893201"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Quote Threshold]]></text>
+			</staticText>
+			<line>
+				<reportElement x="280" y="244" width="251" height="1" uuid="88eaa6cc-2472-4f8d-8f38-f60721ba412c"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="280" y="247" width="251" height="144" uuid="cd1ed059-7828-40b6-bd4a-84e493631bf0"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{quoteThreshold}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="7" y="394" width="111" height="18" uuid="7c8af146-238e-46bb-9164-df3a2dc5948c"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Rental/Loaner Process]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="280" y="394" width="111" height="18" uuid="c4868a17-9376-47fa-a632-ebe6af85914e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Reporting]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="412" width="251" height="1" uuid="1766a35b-100e-49cd-87f6-8c939f2351b7"/>
+			</line>
+			<line>
+				<reportElement x="280" y="412" width="251" height="1" uuid="4bb7572f-2ecb-4397-b33a-0361f6b5845f"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="7" y="414" width="251" height="144" uuid="19a56333-0edc-4833-b9a9-bbd39aeed182"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{loanerProcess}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="280" y="414" width="251" height="144" uuid="41e29fca-0e0b-4ec0-ae43-a840ccaa8c80"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{reporting}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+		</band>
+		<band height="360">
+			<staticText>
+				<reportElement key="staticText-89" x="6" y="-14" width="111" height="18" uuid="65aa99c5-67ae-4294-a4ca-59e704e92b1f"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Travel Stipulations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="280" y="-14" width="111" height="18" uuid="851a8f48-7bf9-46da-bdf1-45439d0c3aaa"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billing Allowances]]></text>
+			</staticText>
+			<line>
+				<reportElement x="280" y="4" width="251" height="1" uuid="6bccaabc-d142-4891-9e85-bceb238477ab"/>
+			</line>
+			<line>
+				<reportElement x="6" y="4" width="251" height="1" uuid="5df5ce4a-c27a-4bca-a2e0-8babdea2ce5a"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="6" y="6" width="251" height="144" uuid="4028366e-7c30-435d-bfba-a4eeba5b5217"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{travelStipulations}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="280" y="6" width="251" height="144" uuid="6bcdcb41-b509-45fc-8f9d-d2885ed804b8"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{billingAllowances}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<staticText>
+				<reportElement key="staticText-89" x="6" y="154" width="111" height="18" uuid="0b74fc31-f965-4202-bfb3-7906c120b8e5"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Notes and Exclusions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" x="279" y="154" width="111" height="18" uuid="bd9eac71-1a4c-4670-b6a4-2cd12a408acd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PM Intervals]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="172" width="251" height="1" uuid="ec1cf94b-a6a5-4b02-a199-2f6aa4f6b62e"/>
+			</line>
+			<line>
+				<reportElement x="279" y="172" width="251" height="1" uuid="87c34b5e-23d2-421a-a87a-8f1b00f0bbf7"/>
+			</line>
+			<componentElement>
+				<reportElement positionType="Float" x="6" y="174" width="251" height="144" uuid="61c441a4-42a3-44b3-8d9a-e665678ffef9"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{notesAndExclusions}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="279" y="174" width="251" height="144" uuid="5e05457f-f7c4-43b7-a563-1931d0cdcb2e"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Top">
+					<hc:htmlContentExpression><![CDATA[$F{periodicMaintenanceInterval}]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

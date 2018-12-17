@@ -1,0 +1,109 @@
+<html>
+<head>
+<style type="text/css">
+.containerDiv
+	{
+	border:1px solid #CDC9C9;
+	width:1000px;
+	height:30px;
+	margin-left:20px;
+	display:table
+	}
+.equipmentRowDivHeader
+	{
+	border:1px solid #CDC9C9;
+	background-color:#e2e6f3;
+	color:black;
+	font-weight:bold;
+	height:30px;
+	display:table-row
+	}
+.rowDiv
+	{
+	border:1px solid #668db6;
+	background-color:#EEEEEE;
+	height: 31px;
+	display:table-row
+	}
+.cellDivHeader
+	{
+	border-right:1px solid white;
+	display:table-cell;
+	width:12%;
+	padding:1px;
+	text-align:center;
+	vertical-align:middle;
+	font-size:13px
+	}
+.cellDiv
+	{
+	border-right:0px solid white;
+	display:table-cell;
+	width:10%;
+	padding-right:4px;
+	text-align:center;
+	border-bottom:none;
+	font-size:12px
+	}
+.lastCell
+	{
+	width:119px;
+	border-right:none;
+	font-size:13px;
+	margin-top:4px
+	text-align:center;
+	}
+
+</style>
+</head>
+
+<body>
+
+	Hi <b>${userName}</b>,<br/><br/>
+	
+	<u>Process Pending Quotes - <b>Automatic Notification</b> - Do not Reply to this email</u><br/><br/>
+	
+	Below mentioned Quotes are pending under Quote Received/Quote Received for Revision inbox,. Please take the action ASAP..<br/><br/>
+	
+	
+	<table  class="containerDiv">
+        <tr class="equipmentRowDivHeader">
+        	<td class="cellDivHeader">QUOTE NUMBER </td>
+            <td  class="cellDivHeader">SERVICE REQUEST NUMBER</td>
+            <td class="cellDivHeader">STATUS</td>
+            <td class="cellDivHeader">CUSTOMER NAME</td>
+            <td class="cellDivHeader">SERIAL NUMBER</td>
+            <td class="cellDivHeader">ASSET NUMBER</td>
+            <td class="cellDivHeader">DEALER</td>
+            <td class="cellDivHeader">Days for Process Quotes</td>
+        </tr>
+        #foreach( $quote in $pendingProcessQuotes )
+         <tr class="rowDiv">
+         	<td class="cellDiv"> $quote.quoteNumber</td>
+         	<td class="cellDiv"> $quote.serviceRequest.serviceRequestNumber</td>
+            <td class="cellDiv"> $quote.activeQuoteAudit.quoteState</td>
+            <td class="cellDiv"> $quote.serviceRequest.customerLocation.customer.name</td>
+            <td class="cellDiv"> $quote.serviceRequest.forItem.serialNumber</td>
+            <td class="cellDiv"> $quote.serviceRequest.forItem.assetNumber</td>
+            <td class="cellDiv"> $quote.serviceRequest.dealerType</td>
+            <td class="cellDiv"> $quote.activeQuoteAudit.numberOfDaysForProcessQuote</td>
+           
+          
+   		</tr> 
+   	#end
+   	</table>
+	<br/><br/>
+	 
+	You can sign-in to <a href="${url}">NMHG Fleet System</a> to respond on pending process quotes.<br/><br/>
+	
+	Thank you.<br/><br/>
+	
+	This is automatically generated email from an unmonitored account.<br/>
+	If you wish to reply, please call NMHG at 1800-xxx-yyyy.
+    <br/><br/>
+    The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+    It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+    please delete immediately and notify the sender. Thank you in advance for your cooperation.	
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="externalLinks" defaultpolicy="none">		
+		
+		<resource type="ui" value="materialHandlingCentral">
+			<permissions>externalLinks:materialHandlingCentral:update
+            </permissions>
+		</resource>	
+		
+		<resource type="ui" value="TVHParts">
+			<permissions>externalLinks:TVHParts:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="equipmentWatch">
+			<permissions>externalLinks:equipmentWatch:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="hyster">
+			<permissions>externalLinks:hyster:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="yale">
+			<permissions>externalLinks:yale:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="axcessOnline">
+			<permissions>externalLinks:axcessOnline:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="hypassOnline">
+			<permissions>externalLinks:hypassOnline:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="fleetInternal">
+			<permissions>externalLinks:fleetInternal:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="trainingVideos">
+			<permissions>externalLinks:trainingVideos:update
+            </permissions>
+		</resource>	
+		
+	</functionalarea>
+
+</functionalareas>

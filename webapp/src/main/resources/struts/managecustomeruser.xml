@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="managecustomeruser" extends="struts-twms-default">
+	
+		<action name="show_user" class="tavant.twms.web.actions.ManageUserAction" method="forwardToCreateUser">
+			<interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="success">pages/secure/customer/manageUser.jsp</result>
+		</action>
+
+		<action name="create_user"	class="tavant.twms.web.actions.ManageUserAction" method="create">
+			<interceptor-ref name="twmsParamsPrepareParams" />
+			<result name="input">pages/secure/customer/manageUser.jsp</result>
+			<result name="success">pages/secure/customer/manageUserResult.jsp</result>
+		</action>
+		
+		 <action name="list_fleet_customers" class="tavant.twms.web.actions.ManageUserAction" method="getListOfFleetCustomers">
+            <interceptor-ref name="paramsWithoutValidation"/>
+        </action>
+        
+        <action name="list_locations_by_customercode" class="tavant.twms.web.actions.ManageUserAction" method="getListOfCustomerLocations">
+            <interceptor-ref name="paramsWithoutValidation"/>
+        </action>
+        
+        <action name="getCustomerLocation" class="tavant.twms.web.actions.ManageUserAction" method="getCustomerLocationDescription">
+            <interceptor-ref name="paramsWithoutValidation"/>
+           <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        
+        <action name="get_states_by_country" class="tavant.twms.web.actions.ManageUserAction" method="getStatesByCountry">
+		    <interceptor-ref name="paramsWithoutValidation"/>
+		</action>	
+		
+		<action name="get_cities_by_country_and_state" class="tavant.twms.web.actions.ManageUserAction" method="getCitiesByCountryAndState">
+		    <interceptor-ref name="paramsWithoutValidation"/>
+		</action>
+		
+		<action name="get_zips_by_country_state_and_city" class="tavant.twms.web.actions.ManageUserAction" method="getZipsByCountryStateAndCity">
+		    <interceptor-ref name="paramsWithoutValidation"/>
+		</action>
+		
+		<action name="forward_to_search_user" class="tavant.twms.web.actions.ManageUserAction">
+            <interceptor-ref name="paramsPrepareWithoutValidation"/>
+            <result name="success">pages/secure/customer/searchUser.jsp</result>
+            <result name="input">pages/secure/customer/searchUser.jsp</result>
+        </action>
+
+        <action name="search_user" class="tavant.twms.web.actions.ManageUserAction" method="search">
+			<interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="input">pages/secure/customer/searchUser.jsp</result>
+            <result name="success">pages/secure/customer/searchUser.jsp</result>
+            <result name="exactMatch">pages/secure/customer/updateUser.jsp</result>
+        </action>
+        
+        <action name="forward_to_update_user" class="tavant.twms.web.actions.ManageUserAction" method="forwardToUpdateUser">
+            <interceptor-ref name="paramsPrepareWithoutValidation"/>
+            <result name="success">pages/secure/customer/updateUser.jsp</result>
+            <result name="input">pages/secure/customer/searchUser.jsp</result>
+        </action>
+
+        <action name="update_user" class="tavant.twms.web.actions.ManageUserAction" method="update">
+			<interceptor-ref name="twmsParamsPrepareParams"/>
+			<result name="input">pages/secure/customer/updateUser.jsp</result>
+            <result name="success">pages/secure/customer/manageUserResult.jsp</result>
+        </action>
+		 <action name="list_dealer_names_dealer_summary" class="tavant.twms.web.actions.ManageUserAction"
+                method="getServiceProviderNames">
+            <interceptor-ref name="paramsPrepare"/>
+        </action>
+	</package>
+</struts>

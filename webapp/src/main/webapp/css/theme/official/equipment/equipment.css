@@ -1,0 +1,38 @@
+.ngEuipmentGridView {
+	width:1000px!important;
+	border: 1px solid rgb(212, 212, 212);
+	margin-left: 15px;
+	margin-bottom: 8px;
+	height: auto;
+}
+.centered {
+   margin: 0 auto;
+   text-align: left;
+   padding-left: 400px;
+}
+
+.green {
+    background-color: lawngreen;
+    color: black;
+    height:30px;
+}
+.red {
+    background-color: red;
+    color: black;
+    height:30px;
+}
+.orange {
+    background-color: orange;
+    color: black;
+    height:30px;
+}
+
+.yellow {
+    background-color: yellow;
+    color: black;
+    height:30px;
+}
+.ngEuipmentGridView input[type=text],.telemetryDiv input[type=text]{
+	width: 50px!important;
+}
+	

@@ -1,0 +1,5 @@
+--Purpose    : Patch for altering SYNC_STATUS table
+--Author     : Suneetha Nagaboyina
+--Created On : 04-OCT-2013
+ALTER TABLE SYNC_STATUS ADD CONSTRAINT SYNC_STAT_LST_UPDT_BY_FK FOREIGN KEY (D_LAST_UPDATED_BY) REFERENCES ORG_USER (ID) ENABLE
+/

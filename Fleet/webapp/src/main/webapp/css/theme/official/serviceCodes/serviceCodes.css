@@ -1,0 +1,47 @@
+input[type="radio"] {
+	width: 25px;
+	height: 20px;
+	margin-bottom: 4px;
+}
+
+.centered {
+	margin: 0 auto;
+	text-align: left;
+	width: 500px;
+}
+
+.bottomLine {
+	border-bottom: 1px solid #CDC9C9;
+	font-size: 1em;
+	font-weight: bold;
+	text-align: left;
+}
+
+.gridStyle {
+	border: 1px solid rgb(212, 212, 212);
+	width: 1070px;
+	height: 200px;
+}
+
+#veil {
+	position: absolute;
+	filter: alpha(opacity = 60);
+	opacity: 0.6;
+	background: #000000
+		url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat
+		center;
+}
+
+#feedLoading {
+	position: absolute;
+	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 2px #021124;
+}
+
+.loadingCentered {
+	width: 36px;
+	padding-left: 504px;
+	padding-bottom: 0px;
+	margin-top: 403px;
+}

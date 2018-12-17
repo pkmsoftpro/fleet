@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.tavant.com/fleet/pricingconditions">
+
+<xs:include schemaLocation="../../Resources/Nouns/global/ApplicationAreaType.xsd" />
+
+	<xs:element name="PricingConditions">
+		<xs:complexType>
+			<xs:sequence>
+			<xs:element name="ApplicationArea" type="ApplicationAreaType"/>
+				<xs:element name="DataArea">
+					<xs:complexType>
+						<xs:sequence>
+						<!-- Pricing Conditions Info Section -->
+							<xs:element name="PricingConditionLines" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PricingConditionLine" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="SalesOrganization">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="4" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="DistributionChannel">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="2" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Division">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="2" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>	
+													<xs:element name="BusinessUnits" minOccurs="1">
+															<xs:annotation>
+					                   							<xs:documentation>Business Units : 003- AMERICAS, 065 for EMEA </xs:documentation>
+					               							</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="BUName" minOccurs="1" maxOccurs="unbounded">
+																	 <xs:simpleType>
+															            <xs:restriction base="xs:string">
+															                <xs:maxLength value="3"/>
+															                <xs:enumeration value="003"/>
+															                <xs:enumeration value="056"/>
+															            </xs:restriction>
+															      	  </xs:simpleType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="ConditionType">
+														<xs:annotation>
+															<xs:documentation>The key that uniquely identifies the condition.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="4" />
+																 <xs:enumeration value="ZFV2"/>
+															     <xs:enumeration value="ZMKP"/>
+															     <xs:enumeration value="ZPRI"/>
+															     <xs:enumeration value="ZADP"/>
+															     <xs:enumeration value="ZADI"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="CustomerNumber">
+														<xs:annotation>	
+															<xs:documentation>The customer to whom the condition or the customer-material info record applies</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="10" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="MaterialCode" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>Alphanumeric key uniquely identifying the material</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="18"/>
+												                <xs:enumeration value="LABOR"/>
+												                <xs:enumeration value="PARTS"/>
+												                <xs:enumeration value="TRAVEL"/>
+												                <xs:enumeration value="DRAYAGE"/>
+												                <xs:enumeration value="MISC"/>
+												                <xs:enumeration value=""/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="LocationNumber" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>The party who receives delivery of the goods / services.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="10" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Status">
+														<xs:annotation>
+			                   								<xs:documentation>Defines the status for Pricing Condition</xs:documentation>
+			               								</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="ACTIVE" />
+																<xs:enumeration value="INACTIVE" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="OrderReasonCode" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>Indicates the reason for creating the sales document.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="3" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Make" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>The Original Manufacturer of the Truck.  Also known as Material in SAP</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="18" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Model" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>Manufacturer Model Number.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="20" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="SubCostCode" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>sub cost code</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="15" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="SubCostCodeDescription" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>sub cost code description</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="50" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													
+													<xs:element name="ComponentCode" minOccurs="0">
+														<xs:annotation>	
+															<xs:documentation>Eg: AD, AG</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="3" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Amount">
+														<xs:annotation>
+															<xs:documentation>The rate that determines how the system calculates pricing using this condition. 
+															Depending on the condition type, the rate can be a fixed amount or a percentage. 
+															If the condition includes a pricing scale, the rate displays the first line of the scale. </xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:decimal">
+																<xs:maxInclusive value="99999999999" />
+																<xs:fractionDigits value="2"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="RateUnit">
+														<xs:annotation>	
+															<xs:documentation>The unit that determines whether the condition for a material is based on a percentage or on an amount in a particular currency.
+															 The use of the rate unit depends on the condition type (for example, whether the condition is a material price or a customer discount) 
+															 eg values: %, USD </xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="5" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="UnitOfMeasure" minOccurs="0">
+													<xs:annotation>	
+															<xs:documentation>Quantity unit to which the condition rate refers. Eg: EA, HR</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="3" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="StartDate">
+														<xs:annotation>
+			                   								<xs:documentation>yyyy-mm-dd </xs:documentation>
+			               								</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:date"/>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="EndDate">
+														<xs:annotation>
+			                   								<xs:documentation>yyyy-mm-dd </xs:documentation>
+			               								</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:date"/>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,10 @@
+--Purpose    : Patch for creating FLEET_CONTRACT_ATTACHMENTS table
+--Author     : Suneetha Nagaboyina
+--Created On : 23-SEP-2013
+
+CREATE TABLE FLEET_CONTRACT_ATTACHMENTS
+  (
+    FLEET_CONTRACT NUMBER(19,0) NOT NULL ENABLE,
+    ATTACHMENTS    NUMBER(19,0) NOT NULL ENABLE
+  )
+/

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.tavant.com/fleet/equipmentsync">
+
+<xs:include schemaLocation="../../Resources/Nouns/global/ApplicationAreaType.xsd" />
+
+	<xs:element name="EquipmentSyncRequest">
+		<xs:complexType>
+			<xs:sequence>
+			<xs:annotation>
+                    <xs:documentation>Interface Info Section </xs:documentation>
+                </xs:annotation>
+                <xs:element name="ApplicationArea" type="ApplicationAreaType"/>
+				<xs:element name="DataArea">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:annotation>
+                   			 <xs:documentation>Equipment Info Section</xs:documentation>
+              			 </xs:annotation>
+							<xs:element name="Equipment">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="SalesOrganization">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="4" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="DistributionChannel">
+										
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="2" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Division">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="2" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="BusinessUnits">
+										<xs:annotation>
+                   							<xs:documentation>Business Units : 003- AMERICAS, 065 for EMEA </xs:documentation>
+               							</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="BUName" minOccurs="1" maxOccurs="unbounded">
+														 <xs:simpleType>
+												            <xs:restriction base="xs:string">
+												                <xs:maxLength value="3"/>
+												                <xs:enumeration value="003"/>
+												                <xs:enumeration value="056"/>
+												            </xs:restriction>
+												      	  </xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>										
+										<xs:element name="SerialNumber">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="18" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CustomerNumber">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="12" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>										
+										<xs:element name="Status">
+											<xs:annotation>
+                										<xs:documentation>Defines the status for Equipment</xs:documentation>
+            										</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="8"/>
+													<xs:enumeration value="ACTIVE" />
+													<xs:enumeration value="INACTIVE" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="LocationNumber">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="12" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="MaintenanceType">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="40" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="SAPEquipmentNumber">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="18" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<!-- <xs:element name="ContractCode">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element> -->				
+										<xs:element name="AssetNumber" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="30" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Model">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="20" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Manufacturer">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="18" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element type="xs:date" name="InstallDate" />
+										<!-- <xs:element type="xs:date" name="ContractStartDate"  />
+										<xs:element type="xs:date" name="ContractEndDate" /> -->
+										<xs:element type="xs:date" name="LeaseStartDate" minOccurs="0" nillable="true"/>
+										<xs:element type="xs:date" name="LeaseExpirationDate" minOccurs="0" nillable="true" />										
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="serviceRequest" defaultpolicy="none">
+
+        <resource type="ui" value="serviceRequestTab" operation="OR">
+            <permissions>serviceRequest:serviceRequestTab:update,serviceRequest:serviceRequestTab:view
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="createServiceRequest" operation="OR">
+            <permissions>serviceRequest:createServiceRequest:update,serviceRequest:createServiceRequest:create
+            </permissions>
+        </resource>
+        
+        <!-- <resource type="ui" value="dealerType">
+            <permissions>serviceRequest:dealerType:update
+            </permissions>
+        </resource> -->
+        
+         <resource type="ui" value="afterBusinessHours" operation="OR">
+            <permissions>serviceRequest:afterBusinessHours:update,serviceRequest:afterBusinessHours:create
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="searchServiceRequests" operation="OR">
+            <permissions>serviceRequest:searchServiceRequests:update,serviceRequest:searchServiceRequests:search
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="serviceRequestInboxes" operation="OR">
+            <permissions>serviceRequest:serviceRequestInboxes:update,serviceRequest:serviceRequestInboxes:view
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="dealerOwnedServiceRequestInboxes" operation="OR">
+            <permissions>serviceRequest:dealerOwnedServiceRequestInboxes:update,serviceRequest:dealerOwnedServiceRequestInboxes:view
+            </permissions>
+        </resource>
+        
+	</functionalarea>
+
+</functionalareas>
+

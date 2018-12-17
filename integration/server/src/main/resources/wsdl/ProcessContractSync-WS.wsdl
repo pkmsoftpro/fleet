@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.tavant.com/fleet/contractsync/definition"
+				  xmlns:impl="http://www.tavant.com/fleet/contractsync/definition"
+				  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+				  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:message name="syncRequest">
+		<wsdl:part name="in0" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="syncResponse">
+		<wsdl:part name="syncResponse" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:portType name="ProcessContractSync">
+        <wsdl:operation name="sync" parameterOrder="in0">
+            <wsdl:input message="impl:syncRequest" name="syncRequest"/>
+            <wsdl:output message="impl:syncResponse" name="syncResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ProcessContractSync-WSSoapBinding" type="impl:ProcessContractSync">
+        <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="sync">
+            <wsdlsoap:operation soapAction="http://www.tavant.com/fleet/contractsync"/>
+            <wsdl:input name="syncRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="syncResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ProcessContractSync-WS">
+        <wsdl:port binding="impl:ProcessContractSync-WSSoapBinding" name="ProcessContractSync-WS">
+            <wsdlsoap:address location="http://10.5.106.208:8080/services/integration/ProcessContractSync-WS"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="equipmentManagement"
+		defaultpolicy="none">
+
+		<resource type="ui" value="equipmentManagementTab" operation="OR">
+			<permissions>equipmentManagement:equipmentManagementTab:update,equipmentManagement:equipmentManagementTab:view
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="retailInventory" operation="OR">
+			<permissions>equipmentManagement:retailInventory:update,equipmentManagement:retailInventory:search,equipmentManagement:retailInventory:view
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="warrantyInformation" operation="OR">
+			<permissions>inventory:inventoryRetailed:update,inventory:inventoryRetailed:view,inventory:inventoryStock:update,inventory:inventoryStock:view
+			</permissions>
+		</resource>
+
+		<!-- <resource type="ui" value="equipmentQuickSearch" operation="OR">
+			<permissions>equipmentManagement:equipmentQuickSearch:update,equipmentManagement:equipmentQuickSearch:search
+			</permissions>
+		</resource> -->
+
+		<resource type="ui" value="updateEquipment">
+			<permissions>equipmentManagement:updateEquipment:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="manageInventoryAttributes">
+			<permissions>equipmentManagement:manageInventoryAttributes:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="transferCustomerUnit">
+			<permissions>equipmentManagement:transferCustomerUnit:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="searchEquipment" operation="OR">
+			<permissions>equipmentManagement:searchEquipment:update,equipmentManagement:searchEquipment:search
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="deactivateEquipment">
+			<permissions>equipmentManagement:deactivateEquipment:update
+			</permissions>
+		</resource>
+		
+		<!-- <resource type="ui" value="InventoryTab" operation="OR">
+			<permissions>equipmentManagement:InventoryTab:update,equipmentManagement:InventoryTab:view
+			</permissions>
+		</resource> -->
+
+	</functionalarea>
+</functionalareas>
+			

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="sessionFactory" parent="fleetDomainSessionFactory"
+          class="tavant.twms.infra.EnhancedAnnotationSessionFactoryBean" depends-on="cacheManager">
+        <property name="moduleWiseHbmXmls">
+            <map key-type="java.lang.Integer" value-type="java.util.HashMap" merge="true">
+                <entry key="1" value-ref="Engine-Core.hbm.xmls"/>
+             <entry key="9" value-ref="Engine.hbm.xmls" /> 
+            </map>
+        </property>
+    </bean>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
+        <property name="configLocation" value="file:${TWMS_HOME}/${TWMS_ENV_MODE}/hibernate-ehcache.xml"/>
+        <property name="shared" value="true"/>
+    </bean> 
+    
+    <bean name="xlsWriter"
+          class="tavant.twms.web.xls.writer.XLSWriterImpl"/>
+          
+    <bean id="quartzMonitor" class="tavant.twms.web.mbean.QuartzMonitor" >
+        <property name="scheduler" ref="quartzScheduler"/>
+        <property name="autoStartUpEnabled" value="${autoStartupValue}" />
+    </bean>
+
+    <bean id="log4jManager" class="tavant.twms.web.mbean.Log4JManagerMBean" />
+
+    <bean id="mBeanExporter" class="org.springframework.jmx.export.MBeanExporter">
+        <property name="assembler" ref="assembler"/>
+        <property name="namingStrategy" ref="jmxNamingStrategy"/>
+        <property name="autodetect" value="true"/>
+    </bean>
+
+    <bean id="jmxAttributeSource"
+          class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+
+    <!-- will create management interface using annotation metadata -->
+    <bean id="assembler"
+          class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+        <property name="attributeSource" ref="jmxAttributeSource"/>
+    </bean>
+
+    <!-- will pick up the ObjectName from the annotation -->
+    <bean id="jmxNamingStrategy"
+          class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
+        <property name="attributeSource" ref="jmxAttributeSource"/>
+    </bean>
+
+    <bean id="i18nDomainTextReader" class="tavant.twms.web.i18n.I18nDomainTextReaderImpl"/>
+
+    <bean id="notificationService" class="tavant.fleet.common.email.NotificationServiceImpl">
+        <property name="fromAddress" value="${fromEmailAddress}"/>
+        <property name="externalUrlForEmail" value="${externalUrl}"/>
+    </bean>
+
+    <bean id="eventProcessor" class="tavant.twms.notification.handlers.EventProcessorImpl">
+        <property name="eventHandlerMap">
+            <map>
+                <entry key="defaultHandler">
+                    <ref bean="defaultEmailEventHandler"/>
+                </entry>
+                <entry key="SERVICE_REQUEST_SUBMITTED">						
+					<ref bean="serviceRequestSubmittedEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_ASSIGNED">						
+					<ref bean="serviceRequestAssignedEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_UNASSIGNED">						
+					<ref bean="serviceRequestUnassignedEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_DISPATCHED">						
+					<ref bean="serviceRequestDispatchedEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_DRAFT_DELETED">						
+					<ref bean="serviceRequestDraftDeletedEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_CLOSED">						
+					<ref bean="serviceRequestClosedEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_ON_HOLD">						
+					<ref bean="serviceRequestOnHoldEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_WORK_IN_PROGRESS">						
+					<ref bean="serviceRequestWorkInProgressEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_SEND_BACK_TO_NMHG">						
+					<ref bean="serviceRequestSendBackToNMHGEventHandler"/>
+				</entry>
+				<entry key="SERVICE_REQUEST_COMPLETED">						
+					<ref bean="serviceRequestCompletedEventHandler"/>
+				</entry>
+                <entry key="QUOTE_DENIED_AND_CLOSED">						
+					<ref bean="quoteClosedEventHandler"/>
+				</entry>
+				<entry key="QUOTE_APPROVED">						
+					<ref bean="quoteApprovedEventHandler"/>
+				</entry>
+				  <entry key="QUOTE_RECEIVED_FOR_ACCEPTANCE">						
+					<ref bean="quoteAcceptedEventHandler"/>
+				</entry>
+				  <entry key="QUOTE_RECEIVED_FOR_APPROVAL">						
+					<ref bean="quoteApprovalEventHandler"/>
+				</entry>
+				  <entry key="QUOTE_RECEIVED_FOR_REVISION">						
+					<ref bean="quoteRevisionEventHandler"/>
+				</entry>
+				<entry key="QUOTE_REQUESTED_FOR_REVISION">						
+					<ref bean="quoteRevisionEventHandler"/>
+				</entry>
+				
+				 <entry key="QUOTE_FLEET_RECOMMENDATION">						
+					<ref bean="quoteRecommendationEventHandler"/>
+				</entry>
+				<entry key="QUOTE_PROCESS_REMINDER">						
+					<ref bean="quoteAgingEventHandler"/>
+				</entry>
+				<entry key="QUOTE_EXPIRY">						
+					<ref bean="quoteExpiryEventHandler"/>
+				</entry>
+				 <entry key="EQUIPMENT_TRANSFER_CUSTOMER_LOCATION_RECIEVED">						
+					<ref bean="equipmentTransferEventHandler"/>
+				</entry>
+				<entry key="CONTRACT_EXPIRY">
+					<ref bean="contractExpiryEventHandler" />
+				</entry>			
+				<entry key="SERVICE_REQUEST_AGING_REMINDER">
+					<ref bean="serviceRequestAgingEventHandler" />
+				</entry>
+				<entry key="FLEET_CLAIM_REJECTED">
+					<ref bean="claimRejectedEventHandler" />
+				</entry>
+				<entry key="FLEET_CLAIM_RESUBMITTED">
+					<ref bean="claimResubmittedByDealerEventHandler" />
+				</entry>				
+				<entry key="FLEET_CLAIM_TRANSFERRED">
+					<ref bean="claimTransferredEventHandler" />
+				</entry>
+				<entry key="FLEET_CLAIM_RECEIVED_IN_PROCESSOR_REVIEW">
+					<ref bean="claimReceivedInProcessorReviewEventHandler" />
+				</entry>
+				<entry key="FLEET_CLAIM_FORWARDED">
+					<ref bean="claimForwardedEventHandler" />
+				</entry>
+				<entry key="FLEET_CLAIM_APPEALED">
+					<ref bean="claimAppealedEventHandler" />
+				</entry>
+				<entry key="EQUIPMENT_SCRAPPED_OR_INACTIVE">
+					<ref bean="equipmentScrapppedEventHandler" />
+				</entry>
+				<entry key="FLEET_CLAIM_PRE_INVOICE_APPROVED">
+					<ref bean="fleetClaimEventHandler" />
+				</entry>	
+				<entry key="EQUIPMENT_MOVED">						
+					<ref bean="equipmentSyncTransferEventHandler"/>
+				</entry>			
+            </map>
+        </property>
+    </bean>
+
+	<bean id="serviceRequestEventHandler" class="tavant.twms.notification.handlers.ServiceRequestEventHandler"/>
+    <bean id="defaultEmailEventHandler" class="tavant.twms.notification.handlers.DefaultEmailEventHandler"/>
+    <bean id="quoteClosedEventHandler" class="tavant.twms.notification.handlers.QuoteClosedEventHandler"/>
+    <bean id="quoteApprovedEventHandler" class="tavant.twms.notification.handlers.QuoteApprovedEventHandler"/>
+    <bean id="quoteAcceptedEventHandler" class="tavant.twms.notification.handlers.QuoteAcceptedEventHandler"/>
+    <bean id="quoteApprovalEventHandler" class="tavant.twms.notification.handlers.QuoteApprovalEventHandler"/>
+    <bean id="quoteRevisionEventHandler" class="tavant.twms.notification.handlers.QuoteRevisionEventHandler"/>
+    <bean id="quoteAgingEventHandler" class="tavant.twms.notification.handlers.QuoteAgingEventHandler"/>
+    <bean id="quoteExpiryEventHandler" class="tavant.twms.notification.handlers.QuoteExpiryEventHandler"/>
+    <bean id="equipmentTransferEventHandler" class="tavant.twms.notification.handlers.EquipmentTransferEventHandler"/>
+    <bean id="quoteRecommendationEventHandler" class="tavant.twms.notification.handlers.QuoteRecommendationEventHandler"/>
+    <bean id="serviceRequestSubmittedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestSubmittedEventHandler"/>
+    <bean id="serviceRequestAssignedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestAssignedEventHandler"/>
+    <bean id="serviceRequestUnassignedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestUnassignedEventHandler"/>
+    <bean id="serviceRequestDispatchedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestDispatchedEventHandler"/>
+    <bean id="serviceRequestDraftDeletedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestDraftDeletedEventHandler"/>
+    <bean id="serviceRequestClosedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestClosedEventHandler"/>
+    <bean id="serviceRequestOnHoldEventHandler" class="tavant.twms.notification.handlers.ServiceRequestOnHoldEventHandler"/>
+	<bean id="serviceRequestWorkInProgressEventHandler" class="tavant.twms.notification.handlers.ServiceRequestWorkInProgressEventHandler"/>
+	<bean id="serviceRequestSendBackToNMHGEventHandler" class="tavant.twms.notification.handlers.ServiceRequestSendBackToNMHGEventHandler"/>
+	<bean id="serviceRequestCompletedEventHandler" class="tavant.twms.notification.handlers.ServiceRequestCompletedEventHandler"/>
+    <bean id="contractExpiryEventHandler" class="tavant.twms.notification.handlers.ContractExpiryEventHandler" />
+    <bean id="serviceCodeValidation" class="tavant.fleet.controller.admin.ServiceCodeValidation"/> 
+    <bean id="serviceRequestAgingEventHandler" class="tavant.twms.notification.handlers.ServiceRequestAgingEventHandler"/>    
+    <bean id="fleetClaimEventHandler" class="tavant.twms.notification.handlers.FleetClaimEventHandler"/>
+    <bean id="claimRejectedEventHandler" class="tavant.twms.notification.handlers.ClaimRejectedEventHandler"/>    
+    <bean id="claimResubmittedByDealerEventHandler" class="tavant.twms.notification.handlers.ClaimResubmittedEventHandler"/>    
+    <bean id="claimTransferredEventHandler" class="tavant.twms.notification.handlers.ClaimTransferredEventHandler"/>    
+    <bean id="claimReceivedInProcessorReviewEventHandler" class="tavant.twms.notification.handlers.ClaimReceivedEventHandler"/>
+    <bean id="claimForwardedEventHandler" class="tavant.twms.notification.handlers.ClaimForwardedEventHandler"/>
+    <bean id="claimAppealedEventHandler" class="tavant.twms.notification.handlers.ClaimAppealedEventHandler"/>
+    <bean id="equipmentScrapppedEventHandler" class="tavant.twms.notification.handlers.EquipmentScrapppedEventHandler"/>
+    <bean id="deserialize" class="tavant.fleet.converter.deserializer.DeserializerThreadLocal" />
+     <bean id="equipmentSyncTransferEventHandler" class="tavant.twms.notification.handlers.EquipmentSyncTransferEventHandler"/>
+    <bean id="jasperToPdfConverter" class="tavant.fleet.common.pdfConverter.JasperToPdfConverter"/>
+    <bean id="asmTreeJSONifier" class="tavant.twms.jobcode.AssemblyTreeJSONifier" />
+
+    <bean id="serializerFactory" class="tavant.fleet.web.rules.SerializerFactory" depends-on="businessObjectModelFactory">
+        <property name="serializers">
+            <map>
+                <entry key="ServiceRequestEntryValidationRules">
+                    <bean id="ServiceRequestEntryValidationRulesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">
+                        <constructor-arg value="ServiceRequestEntryValidationRules"/>
+                    </bean>
+                </entry>
+                 <entry key="QuoteEntryValidationRules">
+                    <bean id="QuoteEntryValidationRulesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">
+                        <constructor-arg value="QuoteEntryValidationRules"/>
+                    </bean>
+                </entry>
+                 <entry key="ClaimEntryValidationRules">
+                    <bean id="fleetClaimEntryValidationRulesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">
+                        <constructor-arg value="ClaimEntryValidationRules"/>
+                    </bean>
+                </entry>
+                <entry key="FleetClaimRules">
+  				<bean id="FleetClaimRulesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="FleetClaimRules"/>
+				</bean>
+  			  </entry>
+  			   <entry key="ClaimDuplicacyRules">
+  				<bean id="ClaimDuplicacyRulesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="ClaimDuplicacyRules"/>
+				</bean>
+  			  </entry>
+  			   <entry key="ClaimProcessorRouting">
+  				<bean id="ClaimProcessorRoutingJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="ClaimProcessorRouting"/>
+				</bean>
+  			  </entry>
+  			<entry key="ServiceRequestSearches">
+  				<bean id="ServiceRequestSearchesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="ServiceRequestSearches"/>
+				</bean>
+  			</entry>
+  			 <entry key="QuoteSearches">
+  				<bean id="QuoteSearchesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="QuoteSearches"/>
+				</bean>
+  			</entry>
+  			 <entry key="FleetClaimSearches">
+  				<bean id="FleetClaimSearchesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="FleetClaimSearches"/>
+				</bean>
+  			</entry>
+	         <entry key="InventorySearches">
+		        <bean id="InventorySearchesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">
+			        <constructor-arg value="InventorySearches" />
+		        </bean>
+	        </entry>
+	        <entry key="ContractSearches">
+  				<bean id="ContractSearchesJSONSerializer" class="tavant.fleet.web.rules.RuleJSONSerializer">  
+			  	    <constructor-arg value="ContractSearches"/>
+				</bean>
+  			</entry>
+             </map>
+        </property>
+    </bean>
+    
+    <bean id="aesBasedUsernameDecrypter"
+		class="tavant.twms.web.security.authn.decrypter.AesBasedUsernameDecrypter">
+		<constructor-arg value="7vRbsM=M>*zaGg-oa+E5Guc]Hw=Rz}=T" />
+    </bean>
+    
+     <bean id="fleetCommonUtil"
+		class="tavant.fleet.controller.common.FleetCommonUtil">
+    </bean>
+    
+</beans>

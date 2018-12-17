@@ -1,0 +1,75 @@
+<!DOCTYPE validators PUBLIC 
+    "-//Apache Struts//XWork Validator 1.0.2//EN"   
+    "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="user.firstName">
+		<field-validator type="requiredstring" >
+	        <param name="trim">true</param>
+		    <message key="error.manageCustomerUsers.firstName"/>
+		</field-validator>
+	</field>
+	
+	<field name="user.lastName">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.lastName"/>
+		</field-validator>
+	</field>
+	
+	<field name="user.password">
+	  <field-validator type="regex">
+		    <param name="expression">[[a-zA-Z0-9]$]+</param>
+		    <message key="error.manageCustomerUsers.invalidPassword"/>
+	  </field-validator>
+	</field>
+    <field name="user.name">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.login.required"/>
+		</field-validator>
+	</field>
+	<field name="user.address.addressLine1">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.requiredAddress"/>
+		</field-validator>
+	</field>
+	<field name="user.address.country">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.requiredCountry"/>
+		</field-validator>
+	</field>
+	<field name="defaultLocale">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.requiredLocale"/>
+		</field-validator>
+	</field>
+	<field name="user.email">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.requiredEmail"/>
+		</field-validator>
+		<field-validator type="email">
+			<param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.invalidEmail"/>
+		</field-validator>
+	</field>
+	<field name="user.address.phone">
+		<field-validator type="requiredstring">
+		    <param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.requiredPhone"/>
+		</field-validator>
+		<field-validator type="phone">
+			<param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.invalidPhone"/>
+		</field-validator>
+	</field>
+	<field name="user.address.fax">
+		<field-validator type="phone">
+			<param name="trim">true</param>		
+			<message key="error.manageCustomerUsers.invalidFax"/>
+		</field-validator>
+	</field>
+</validators>

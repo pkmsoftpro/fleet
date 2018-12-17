@@ -1,0 +1,16 @@
+<html>
+<body>
+
+Hello <b>${userName}</b>,<br/><br/>
+
+Notification - Equipment serial number ${serialNumber} has been made ${maintenanceType}.
+To view this piece of equipment directly please log into SLMS at <a href="${url}">NMHG Fleet System</a>  
+Should you have any questions concerning this notification, please feel free to call 1-866-395-9609.<br/><br/>
+Best regards,<br/>
+${buName}  Fleet Management
+<br/><br/>
+The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+please delete immediately and notify the sender. Thank you in advance for your cooperation.	
+</body>
+</html>

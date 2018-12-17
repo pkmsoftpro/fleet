@@ -1,0 +1,4 @@
+<xwss:SecurityConfiguration xmlns:xwss="http://java.sun.com/xml/ns/xwss/config">
+    <xwss:UsernameToken name="sign.in@tavant.com" password="F5phUXub"
+                        digestPassword="false" useNonce="true"/>
+</xwss:SecurityConfiguration>

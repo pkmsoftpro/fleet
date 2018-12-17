@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+   <bean name="Engine.hbm.xmls" class="java.util.HashMap">
+		<constructor-arg>
+			<map key-type="java.lang.Integer" value-type="java.lang.String">
+     <entry key="1" value="tavant/fleet/worklist/WorkList.hbm.xml" />
+     <entry key="2" value="tavant/fleet/jbpm/infra/CustomTaskInstance.hbm.xml" />
+			</map>
+		</constructor-arg>
+	</bean>
+    <!-- Beans specific to jBPM -->
+    <bean id="jbpmConfiguration"
+          class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
+        <property name="configuration" value="classpath:jbpm.cfg.xml"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="workListItemService" class="tavant.fleet.worklist.WorkListItemServiceImpl" />
+    <bean id="workListService" class="tavant.fleet.worklist.WorkListServiceImpl" />
+    <bean id="workListDao" class="tavant.fleet.worklist.WorkListDaoImpl" />
+	<bean id="assignmentRuleExecutor" class="tavant.fleet.jbpm.assignment.AssignmentRuleExecutor"/>
+	<bean id="loadBalancingDao" class="tavant.fleet.jbpm.assignment.LoadBalancingDao"/>
+    <bean id="loadBalancingService" class="tavant.fleet.jbpm.assignment.LoadBalancingServiceImpl"/> 
+    <bean id="paymentAsyncService" class="tavant.fleet.external.PaymentAsyncServiceImpl"/>
+</beans>

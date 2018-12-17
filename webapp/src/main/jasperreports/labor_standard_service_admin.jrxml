@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="labour_standard_service" pageWidth="800" pageHeight="50" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="standardHours" class="java.math.BigDecimal"/>
+	<field name="serviceCodeDefinition.code" class="java.lang.String"/>
+	<field name="serviceCodeDefinition.description" class="java.lang.String"/>
+	<field name="additionalLaborHours" class="java.math.BigDecimal"/>
+	<field name="reasonForAdditionalHours" class="java.lang.String"/>
+	<field name="flatFeeForDealer" class="java.lang.Object"/>
+	<field name="extendedPriceDealer" class="java.lang.Object"/>
+	<field name="flatFeeForCustomer" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="852e984b-cb43-4057-89bd-3dfe6244714f" positionType="Float" stretchType="RelativeToTallestObject" x="490" y="0" width="130" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reasonForAdditionalHours}!=null?$F{reasonForAdditionalHours}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ff25ae81-49a3-4d51-8106-9f8c23a38ce0" positionType="Float" stretchType="RelativeToTallestObject" x="200" y="0" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{standardHours}!=null?$F{standardHours}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="8809c9c2-d632-45ab-86f6-60221c59173c" positionType="Float" stretchType="RelativeToTallestObject" x="70" y="0" width="130" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serviceCodeDefinition.description}!=null?$F{serviceCodeDefinition.description}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="5cd71c14-76b6-486c-9814-1b30ec8b60dd" positionType="Float" stretchType="RelativeToTallestObject" x="270" y="0" width="50" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{flatFeeForDealer}!=null?$F{flatFeeForDealer}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="df6e0816-724a-4d1b-9a99-feb6242cd94d" positionType="Float" stretchType="RelativeToTallestObject" x="430" y="0" width="60" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{extendedPriceDealer}!=null?$F{extendedPriceDealer}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="80f9a18b-a841-41ee-8501-e1601c7f75c8" positionType="Float" stretchType="RelativeToTallestObject" x="320" y="0" width="50" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{flatFeeForCustomer}!=null?$F{flatFeeForCustomer}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c0369b00-8cff-4821-9775-54aed53aef93" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serviceCodeDefinition.code}!=null?$F{serviceCodeDefinition.code}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a624320e-b422-4b33-97f9-907fea9010d4" positionType="Float" stretchType="RelativeToTallestObject" x="370" y="0" width="60" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{additionalLaborHours}!=null?$F{additionalLaborHours}:"--"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

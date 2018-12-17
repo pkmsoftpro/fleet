@@ -1,0 +1,27 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
+    <deployment>
+        <dependencies>
+            <module name="org.jboss.ironjacamar.jdbcadapters"/>
+            <module name="javax.mail.api"/>
+            <module name="com.oracle.ojdbc6"/>
+            <system export="true">
+                <paths>
+                    <path name="javax/xml/soap"/>
+                    <path name="com/sun"/>
+                    <path name="com/sun/org/apache/xml/internal/security"/>
+                    <path name="com/sun/org/apache/xml/internal/security/exceptions"/>
+                    <path name="com/sun/xml/internal/messaging/saaj/soap"/>
+                    <path name="com/sun/xml/internal/messaging/saaj/util"/>
+                    <path name="com/sun/xml/internal/messaging/saaj/soap/name"/>
+                    <path name="com/sun/xml/internal/messaging/saaj/soap/impl"/>
+                    <path name="com/sun/xml/internal/messaging/saaj/soap/ver1_1"/>
+                </paths>
+            </system>
+        </dependencies>
+        
+		<exclusions>
+			<module name="org.hibernate"/>
+            <module name="org.apache.log4j"/>
+        </exclusions>
+    </deployment>
+</jboss-deployment-structure>

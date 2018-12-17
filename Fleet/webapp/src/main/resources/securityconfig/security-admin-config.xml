@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="admin" defaultpolicy="none">
+
+		<!-- <resource type="ui" value="businessUnitConfiguration"> <permissions>buConfigurations:buConfigurationsSetup:update 
+			</permissions> </resource> -->
+
+		<resource type="ui" value="fleetAdminTab" operation="OR">
+			<permissions>fleetadmin:fleetAdminTab:update,fleetadmin:fleetAdminTab:view
+            </permissions>
+		</resource>
+
+		<resource type="ui" value="manageBusinessConfigurations" operation="OR">
+			<permissions>fleetadmin:fleetBusinessConfigurations:update,fleetadmin:fleetBusinessConfigurations:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="manageServiceCodes" operation="OR">
+			<permissions>fleetadmin:manageServiceCodes:update,fleetadmin:manageServiceCodes:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="manageErrorCodes" operation="OR">
+			<permissions>fleetadmin:manageErrorCodes:update,fleetadmin:manageErrorCodes:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="manageBusinessRules" operation="OR">
+			<permissions>fleetadmin:fleetBusinessRules:update,fleetadmin:fleetBusinessRules:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="manageUserAvailability" operation="OR">
+			<permissions>fleetadmin:fleetUserAvailability:update,fleetadmin:fleetUserAvailability:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="listOfValues" operation="OR">
+			<permissions>fleetadmin:fleetListOfValues:update,fleetadmin:fleetListOfValues:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="additionalAttributes" operation="OR">
+			<permissions>fleetadmin:fleetAdditionalAttributes:update,fleetadmin:fleetAdditionalAttributes:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="managePricingConditions" operation="OR">
+			<permissions>fleetadmin:managePricingConditions:update,fleetadmin:managePricingConditions:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="labels" operation="OR">
+			<permissions>fleetadmin:fleetLabels:update,fleetadmin:fleetLabels:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="manageLOASchemes" operation="OR">
+			<permissions>fleetadmin:fleetLOASchemes:update,fleetadmin:fleetLOASchemes:create
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="multiClaimMaintenance" operation="OR">
+			<permissions>fleetadmin:fleetMultiClaimMaintenance:update,fleetadmin:fleetMultiClaimMaintenance:create
+			</permissions>
+		</resource>
+		
+        <resource type="ui" value="contractManagementTab" operation="OR">
+			<permissions>contractManagement:contractManagementTab:update,contractManagement:contractManagementTab:view
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="manageContract" operation="OR">
+			<permissions>contractManagement:manageContract:update,contractManagement:manageContract:create
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="businessConfigReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetBusinessConfigurations:view,fleetadmin:fleetBusinessConfigurations:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="serviceCodesReadOnlyView" operation="OR">
+			<permissions>fleetadmin:manageServiceCodes:view,fleetadmin:manageServiceCodes:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="errorCodesReadOnlyView" operation="OR">
+			<permissions>fleetadmin:manageErrorCodes:view,fleetadmin:manageErrorCodes:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="businessRulesReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetBusinessRules:view,fleetadmin:fleetBusinessRules:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="userAvailabilityReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetUserAvailability:view,fleetadmin:fleetUserAvailability:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="listOfValuesReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetListOfValues:view,fleetadmin:fleetListOfValues:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="additionalAttributesReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetAdditionalAttributes:view,fleetadmin:fleetAdditionalAttributes:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="pricingConditionsReadOnlyView" operation="OR">
+			<permissions>fleetadmin:managePricingConditions:view,fleetadmin:managePricingConditions:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="labelsReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetLabels:view,fleetadmin:fleetLabels:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="loaSchemesReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetLOASchemes:view,fleetadmin:fleetLOASchemes:update
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="multiClaimMaintenanceReadOnlyView" operation="OR">
+			<permissions>fleetadmin:fleetMultiClaimMaintenance:view,fleetadmin:fleetMultiClaimMaintenance:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="contractReadOnlyView" operation="OR">
+			<permissions>contractManagement:manageContract:view,contractManagement:manageContract:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="messagesAndBulletinsTab" operation="OR">
+			<permissions>fleetadmin:messagesAndBulletinsTab:view,fleetadmin:messagesAndBulletinsTab:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="createMessage" operation="OR">
+			<permissions>fleetadmin:createMessage:create,fleetadmin:createMessage:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="switchUser">
+            <permissions>fleetadmin:switchUser:update
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="manageUserRole">
+            <permissions>fleetadmin:manageRole:update
+            </permissions>
+        </resource>
+         <resource type="ui" value="createRole">
+            <permissions>fleetadmin:createRole:update
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="manageCallType">
+			<permissions>fleetadmin:manageCallType:update
+			</permissions>
+		</resource>
+		 <resource type="ui" value="manageCompetitorInfo">
+			<permissions>fleetadmin:manageCompetitorInfo:update
+			</permissions>
+		</resource>
+ 		<resource type="ui" value="manageProgramGuideSummary">
+			<permissions>fleetadmin:manageProgramGuideSummary:update
+			</permissions>
+		</resource>
+		<resource type="ui" value="createDealerOwnedContract">
+			<permissions>contractManagement:createContract:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="contractSearch">
+			<permissions>contractManagement:searchContract:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="subContractsTab">
+			<permissions>contractManagement:subContractsTab:update
+			</permissions>
+		</resource>
+		
+		<resource type="ui" value="subContractInboxes">
+			<permissions>contractManagement:subContractInboxes:update
+			</permissions>
+		</resource>
+         
+        <resource type="ui" value="unPublishedSubContracts">
+			<permissions>contractManagement:unPublishedSubContracts:update
+			</permissions>
+		</resource>	
+				
+		<resource type="ui" value="dealerOwnedInvoiceTab">
+			<permissions>fleetadmin:dealerOwnedInvoiceTab:update
+            </permissions>
+		</resource>
+		
+		<resource type="ui" value="dealerManagementTab">
+			<permissions>dealerManagement:dealerManagementTab:update</permissions>
+		</resource>
+
+		<resource type="ui" value="dealerManagementInboxes">
+			<permissions>dealerManagement:dealerManagementInboxes:update</permissions>
+		</resource>
+	
+		<resource type="ui" value="dealerManagementCreate">
+			<permissions>dealerManagement:dealerManagementCreate:update</permissions>
+		</resource>
+		
+		<resource type="ui" value="createCustomerPricingConditions">
+			<permissions>fleetadmin:createCustomerPricingConditions:update
+			</permissions>
+		</resource>
+		
+	</functionalarea>
+
+</functionalareas>

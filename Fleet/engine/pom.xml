@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>server</artifactId>
+        <groupId>tavant.fleet.FLEET_DEV</groupId>
+        <version>0.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>engine</artifactId>
+    <name>server-engine</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>tavant.twms.TWMS_DEV</groupId>
+            <artifactId>domain-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>tavant.fleet.FLEET_DEV</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>tavant.twms.TWMS_DEV</groupId>
+            <artifactId>engine-core</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

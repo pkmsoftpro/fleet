@@ -1,0 +1,23 @@
+.tablerow {
+  border: 1px solid #CDC9C9;
+  background-color: #CDC9C9;
+  color: black;
+  font-weight: bold; height: 30px;
+  display:table-row
+ 
+}
+
+.tabledata {
+  border: 1px solid #CDC9C9;
+  background-color: #CDC9C9;
+  color: black;
+  font-weight: bold; height: 30px;
+  display:table-row
+ 
+}
+
+.gridStyle {
+	border: 1px solid rgb(212, 212, 212);
+	width: 900px;
+	height: 200px;
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="callTypes" extends="struts-twms-default">
+		
+		<default-interceptor-ref name="adminTwmsParamsWithoutPrepare"/>
+		
+		<action name="listCallTypes" class="tavant.twms.web.admin.callTypes.ManageCallTypesAction" >
+        	<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">pages/secure/admin/callTypes/callTypesInboxView.jsp</result>
+        </action>
+        
+        <action name="callTypesBody" class="tavant.twms.web.admin.callTypes.ManageCallTypesAction" method="tableBody">
+        	<interceptor-ref name="adminParamsPrepare" />
+		    <result name="success">pages/secure/home/json.jsp</result>	
+        </action>
+        
+        <action name="callTypeDetail" class="tavant.twms.web.admin.callTypes.ManageCallTypesAction" method="callTypeDetail">
+        	<interceptor-ref name="adminParamsPrepare" />
+		    <result name="success">pages/secure/admin/callTypes/callTypeDetail.jsp</result>	
+		    <result name="input">pages/secure/admin/callTypes/callTypeDetail.jsp</result>	
+        </action>
+        
+        <action name="updateCallType" class="tavant.twms.web.admin.callTypes.ManageCallTypesAction" method="updateCallType">
+        	<interceptor-ref name="adminParamsPrepare" />
+		    <result name="success">pages/secure/admin/callTypes/callTypeDetail.jsp</result>	
+		    <result name="input">pages/secure/admin/callTypes/callTypeDetail.jsp</result>	
+        </action>
+        
+	</package>
+</struts>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="tavant.fleet.domain.admin.prices">
+
+	<query name="pricingConditionLookupQueryByConditionType">
+    <![CDATA[
+ select
+  pricingCondition 
+  from PricingCondition pricingCondition left join pricingCondition.pricingConditionCriteria.customerLocation specifiedCustomerLocation 
+  left join  pricingCondition.pricingConditionCriteria.model specifiedModel 
+  left join  pricingCondition.competitorBrandModel specifiedcompetitorModel 
+  left join  pricingCondition.pricingConditionCriteria.customerBillto customerBillTo , ConditionType conditionType 
+ where 
+  pricingCondition.duration.fromDate <= :asOfDate and :asOfDate <= pricingCondition.duration.tillDate  
+  and pricingCondition.d.active=1 and pricingCondition.status=1
+  and (pricingCondition.pricingConditionCriteria.callType is null or pricingCondition.pricingConditionCriteria.callType=:callType) 
+ and (pricingCondition.pricingConditionCriteria.make is null or pricingCondition.pricingConditionCriteria.make=:make) 
+ and customerBillTo.salesAreaCode = :salesAreaCode 
+ and pricingCondition.materialCode = :materialCode 
+ and pricingCondition.type = :type 
+ and ( specifiedModel is null  or specifiedModel = :model )
+ and ( specifiedcompetitorModel is null or specifiedcompetitorModel = :competitorBrandModel)
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))  
+ and customerBillTo.customer = :fleetCustomer
+ and (pricingCondition.type = 'CUSTOMER' or pricingCondition.dealer = :dealer)
+ and (conditionType.id = pricingCondition.conditionType.id) 
+ and (conditionType.code = :conditionTypeCode)
+ order by pricingCondition.pricingConditionCriteria.relevanceScore desc,pricingCondition.conditionType.priority asc
+    ]]>
+	</query>
+	
+	<query name="pricingConditionLookupQuery">
+    <![CDATA[
+ select
+  pricingCondition 
+  from PricingCondition pricingCondition left join pricingCondition.pricingConditionCriteria.customerLocation specifiedCustomerLocation 
+  left join  pricingCondition.pricingConditionCriteria.model specifiedModel 
+  left join  pricingCondition.competitorBrandModel specifiedcompetitorModel 
+  left join  pricingCondition.pricingConditionCriteria.customerBillto customerBillTo 
+ where 
+  pricingCondition.duration.fromDate <= :asOfDate and :asOfDate <= pricingCondition.duration.tillDate  
+  and pricingCondition.d.active=1 and pricingCondition.status=1
+  and (pricingCondition.pricingConditionCriteria.callType is null or pricingCondition.pricingConditionCriteria.callType=:callType) 
+ and (pricingCondition.pricingConditionCriteria.make is null or pricingCondition.pricingConditionCriteria.make=:make) 
+ and (customerBillTo.salesAreaCode = :salesAreaCode or customerBillTo = :customerBillTo) 
+ and pricingCondition.materialCode = :materialCode 
+ and pricingCondition.type = :type 
+ and ( specifiedModel is null  or specifiedModel = :model)
+ and ( specifiedcompetitorModel is null or specifiedcompetitorModel = :competitorBrandModel)
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))  
+ and customerBillTo.customer = :fleetCustomer
+ and (pricingCondition.type = 'CUSTOMER' or pricingCondition.dealer = :dealer)
+ order by pricingCondition.pricingConditionCriteria.relevanceScore desc,pricingCondition.conditionType.priority asc
+    ]]>
+	</query>
+	
+	
+ <query name="pricingConditionLookupQueryForOemParts">
+    <![CDATA[
+ select 
+ pricingCondition 
+ from PricingCondition pricingCondition  join pricingCondition.subCodeItem subCodeItem 
+ left join pricingCondition.pricingConditionCriteria.customerLocation specifiedCustomerLocation 
+ left join  pricingCondition.pricingConditionCriteria.model specifiedModel 
+ left join  pricingCondition.competitorBrandModel specifiedcompetitorModel 
+ left join  pricingCondition.pricingConditionCriteria.customerBillto customerBillTo  where
+ pricingCondition.duration.fromDate <= :asOfDate and :asOfDate <= pricingCondition.duration.tillDate  
+ and pricingCondition.d.active=1 and pricingCondition.status=1
+ and (pricingCondition.pricingConditionCriteria.callType is null or pricingCondition.pricingConditionCriteria.callType=:callType) 
+ and (pricingCondition.pricingConditionCriteria.make is null or pricingCondition.pricingConditionCriteria.make=:make) 
+ and (customerBillTo.salesAreaCode = :salesAreaCode or customerBillTo = :customerBillTo) 
+ and pricingCondition.materialCode = :materialCode 
+ and pricingCondition.type = :type 
+ and ( specifiedModel is null  or specifiedModel = :model )
+ and ( specifiedcompetitorModel is null or specifiedcompetitorModel = :competitorBrandModel)
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))  
+ and customerBillTo.customer = :fleetCustomer
+ and (subCodeItem.nonOemPart is null) 
+ and (subCodeItem.itemReference is null or (subCodeItem.itemReference = :item)) 
+ and (pricingCondition.type = 'CUSTOMER' or pricingCondition.dealer = :dealer)
+ order by pricingCondition.pricingConditionCriteria.relevanceScore desc,subCodeItem.itemReference asc,pricingCondition.conditionType.priority asc
+    ]]>
+	</query>
+	
+	
+<query name="pricingConditionLookupQueryForNonOemParts">
+    <![CDATA[
+ select 
+ pricingCondition 
+ from PricingCondition pricingCondition  join pricingCondition.subCodeItem subCodeItem 
+ left join pricingCondition.pricingConditionCriteria.customerLocation specifiedCustomerLocation 
+ left join pricingCondition.pricingConditionCriteria.model specifiedModel
+ left join pricingCondition.competitorBrandModel specifiedcompetitorModel
+ left join pricingCondition.pricingConditionCriteria.customerBillto customerBillTo where
+ pricingCondition.duration.fromDate <= :asOfDate and :asOfDate <= pricingCondition.duration.tillDate  
+ and pricingCondition.d.active=1 and pricingCondition.status=1
+ and (pricingCondition.pricingConditionCriteria.callType is null or pricingCondition.pricingConditionCriteria.callType=:callType) 
+ and (pricingCondition.pricingConditionCriteria.make is null or pricingCondition.pricingConditionCriteria.make=:make) 
+ and (customerBillTo.salesAreaCode = :salesAreaCode or customerBillTo = :customerBillTo)  
+ and pricingCondition.materialCode = :materialCode 
+ and pricingCondition.type = :type 
+ and ( specifiedModel is null  or specifiedModel = :model )
+ and ( specifiedcompetitorModel is null or specifiedcompetitorModel = :competitorBrandModel)
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))  
+ and customerBillTo.customer = :fleetCustomer
+ and (subCodeItem.nonOemPart is null or (upper(subCodeItem.nonOemPart) = upper(:nonOemPartNumber)))
+ and (subCodeItem.itemReference is null)  
+ and (pricingCondition.type = 'CUSTOMER' or pricingCondition.dealer = :dealer)
+ order by pricingCondition.pricingConditionCriteria.relevanceScore desc,subCodeItem.nonOemPart asc,pricingCondition.conditionType.priority asc
+    ]]>
+	</query>
+	
+<query name="pricingConditionLookupQueryForMisc">
+    <![CDATA[
+ select 
+ pricingCondition 
+ from PricingCondition pricingCondition join pricingCondition.subCodeItem subCodeItem 
+ left join pricingCondition.pricingConditionCriteria.customerLocation specifiedCustomerLocation 
+ left join  pricingCondition.pricingConditionCriteria.model specifiedModel 
+ left join  pricingCondition.competitorBrandModel specifiedcompetitorModel
+ left join  pricingCondition.pricingConditionCriteria.customerBillto customerBillTo where
+ pricingCondition.duration.fromDate <= :asOfDate and :asOfDate <= pricingCondition.duration.tillDate  
+ and pricingCondition.d.active=1 and pricingCondition.status=1
+ and (pricingCondition.pricingConditionCriteria.callType is null or pricingCondition.pricingConditionCriteria.callType=:callType) 
+ and (pricingCondition.pricingConditionCriteria.make is null or pricingCondition.pricingConditionCriteria.make=:make) 
+ and (customerBillTo.salesAreaCode = :salesAreaCode or customerBillTo = :customerBillTo) 
+ and pricingCondition.materialCode = :materialCode 
+ and pricingCondition.type = :type 
+ and ( specifiedModel is null  or specifiedModel = :model )
+ and ( specifiedcompetitorModel is null or specifiedcompetitorModel = :competitorBrandModel)
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))  
+ and customerBillTo.customer = :fleetCustomer
+ and (subCodeItem.miscSubcostcodeRef is null or (subCodeItem.miscSubcostcodeRef = :miscSubcostcodeRef)) 
+ and (pricingCondition.type = 'CUSTOMER' or pricingCondition.dealer = :dealer)
+ order by pricingCondition.pricingConditionCriteria.relevanceScore desc,pricingCondition.conditionType.priority asc
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForOemMod">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems 
+ left join SubCodeItems.itemReference ItemReference
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and ItemReference.number=:subCostCode
+ and priceConditions.salesAreaCode=:salesArea
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType) 
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForOemTest">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and SubCodeItems.itemReference  is null
+ and SubCodeItems.miscSubcostcodeRef is null
+ and SubCodeItems.nonOemPart is null
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.salesAreaCode=:salesArea
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForNonOemPartMod">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and SubCodeItems.nonOemPart=:subCostCode
+ and priceConditions.salesAreaCode=:salesArea
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForNonOemPartTest">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.salesAreaCode=:salesArea
+ and SubCodeItems.nonOemPart is null
+ and SubCodeItems.itemReference  is null
+ and SubCodeItems.miscSubcostcodeRef is null
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForMiscMod">
+    <![CDATA[
+ select
+ priceConditions
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems 
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ left join SubCodeItems.miscSubcostcodeRef MiscSubCostCode
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and MiscSubCostCode.code=:subCostCode
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make is null
+ and priceConditions.pricingConditionCriteria.model is null
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForMiscTest">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.salesAreaCode=:salesArea
+ and SubCodeItems.miscSubcostcodeRef is null
+ and SubCodeItems.itemReference  is null
+ and SubCodeItems.nonOemPart is null
+ and priceConditions.pricingConditionCriteria.make is null
+ and priceConditions.pricingConditionCriteria.model is null
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForMiscUsingItemGroupMod">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems 
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ left join SubCodeItems.miscSubcostcodeRef MiscSubCostCode
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and MiscSubCostCode.code=:subCostCode
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make=:make
+ and priceConditions.pricingConditionCriteria.model.id=:model
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="pricingConditionLookupQueryForMiscUsingItemGroupTest">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make=:make
+ and priceConditions.pricingConditionCriteria.model.id=:model
+ and SubCodeItems.miscSubcostcodeRef is null
+ and SubCodeItems.itemReference  is null
+ and SubCodeItems.nonOemPart is null
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="PCLookupQueryForMiscCompBrandModelMod">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems 
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ left join SubCodeItems.miscSubcostcodeRef MiscSubCostCode
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and MiscSubCostCode.code=:subCostCode
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make=:make
+ and priceConditions.competitorBrandModel=:model
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="PCLookupQueryForMiscCompBrandModelTest">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.subCodeItem SubCodeItems
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make=:make
+ and priceConditions.competitorBrandModel=:model
+ and SubCodeItems.miscSubcostcodeRef is null
+ and SubCodeItems.itemReference  is null
+ and SubCodeItems.nonOemPart is null
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+
+<query name="PCLookupQueryForZADPorZADI">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make is null
+ and priceConditions.pricingConditionCriteria.model is null
+ and priceConditions.materialCode is null
+ and priceConditions.pricingConditionCriteria.callType is null
+    ]]>
+</query>
+
+<query name="PCLookupQueryForMaterialCode">
+    <![CDATA[
+ select 
+ priceConditions 
+ from PricingCondition priceConditions
+ left join priceConditions.pricingConditionCriteria.customerLocation specifiedCustomerLocation
+ where priceConditions.type='CUSTOMER'
+ and priceConditions.conditionType=:conditionType
+ and priceConditions.pricingConditionCriteria.fleetCustomer=:customer
+ and priceConditions.materialCode=:materialCode
+ and (specifiedCustomerLocation is null or (specifiedCustomerLocation = :customerLocation))
+ and priceConditions.salesAreaCode=:salesArea
+ and priceConditions.pricingConditionCriteria.make is null
+ and priceConditions.pricingConditionCriteria.model is null
+ and (priceConditions.pricingConditionCriteria.callType is null or priceConditions.pricingConditionCriteria.callType=:callType)
+    ]]>
+</query>
+</hibernate-mapping>

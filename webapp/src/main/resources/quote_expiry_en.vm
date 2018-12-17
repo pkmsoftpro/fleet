@@ -1,0 +1,16 @@
+
+Hello <b></b>${userName},<br/><br/>
+Notification - Quote number ${quoteNumber} has been expired due to inactivity.<br/><br/>  
+Should you wish for the work quoted to be re-quoted please create another service request for the desired work.<br/><br/>  
+Note that all services provided up to this point will be closed and included in the next consolidated invoice.
+Why Expired - Quotes must be provided a finite term due to possible fluctuations in parts pricing that could 
+impact to value of the quote.  <br/><br/> 
+To avoid these possible discrepancies, and to ensure that you are provided with the most up-to-date information possible, 
+we limit the term of your quote to [Number of days specified at customer level].<br/><br/> 
+Should you have any questions concerning this notification please feel free to call 1-800-XXX-XXXX.<br/><br/>
+Warmest regards,<br/><br/>
+NMHG Fleet Management
+<br/><br/>
+The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+please delete immediately and notify the sender. Thank you in advance for your cooperation.	

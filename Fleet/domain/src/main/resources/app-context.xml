@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       default-autowire="byName">
+
+    <bean name="ServiceRequest.annotated.classes" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="tavant.fleet.domain.serviceRequest.CallType"/>
+                <entry key="2" value="tavant.fleet.domain.serviceRequest.ServiceRequest"/>
+                <entry key="3" value="tavant.fleet.domain.serviceRequest.TechnicianDetail"/>
+                <entry key="4" value="tavant.fleet.domain.serviceRequest.ServiceRequestAudit"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean name="Quote.annotated.classes" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="tavant.fleet.domain.quote.Quote"/>
+                <entry key="2" value="tavant.fleet.domain.quote.QuoteAudit"/>
+                <entry key="3" value="tavant.fleet.domain.quote.FleetAvailability"/>
+                <entry key="4" value="tavant.fleet.domain.customer.FleetCustomer"/>
+                <entry key="5" value="tavant.fleet.domain.customer.CustomerLocation"/>
+                <entry key="6" value="tavant.fleet.domain.inventory.InventoryItem"/>
+                <entry key="7" value="tavant.fleet.domain.inventory.FleetInventoryItem"/>
+                 <entry key="8" value="tavant.fleet.domain.customer.CustomerContact"/>
+                <entry key="9" value="tavant.fleet.domain.quote.ServiceInformation"/>
+                <entry key="10" value="tavant.fleet.domain.quote.ServiceDetail"/>
+                <entry key="11" value="tavant.fleet.domain.quote.parts.OEMPartReplaced"/>
+                <entry key="12" value="tavant.fleet.domain.quote.parts.InstalledParts"/>
+                <entry key="13" value="tavant.fleet.domain.quote.parts.MiscPartInstalled"/>
+                <entry key="14" value="tavant.fleet.domain.quote.parts.NonOEMPartReplaced"/>
+                <entry key="15" value="tavant.fleet.domain.quote.parts.LaborDetails"/>                              
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean name="ContractManagement.annotated.classes" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="tavant.fleet.domain.contract.Contract"/>
+                <entry key="2" value="tavant.fleet.domain.contract.ContractAudit"/>
+                <entry key="3" value="tavant.fleet.domain.contract.TaxDetails"/>
+                <entry key="4" value="tavant.fleet.domain.payment.PaymentExceptions"/>
+                <entry key="5" value="tavant.fleet.domain.payment.OEMPartExceptions"/>
+                <entry key="6" value="tavant.fleet.domain.payment.NonOEMPartExceptions"/>
+                <entry key="7" value="tavant.fleet.domain.payment.LaborRateExceptions"/>
+                <entry key="8" value="tavant.fleet.domain.payment.TravelRateExceptions"/>
+                <entry key="9" value="tavant.fleet.domain.payment.DrayageExceptions"/>
+                <entry key="10" value="tavant.fleet.domain.payment.MiscellaneousExceptions"/>
+                <entry key="11" value="tavant.fleet.domain.payment.PaymentOverrides"/>
+                <entry key="12" value="tavant.fleet.domain.payment.LaborPaymentExceptions"/>
+                <entry key="13" value="tavant.fleet.domain.payment.ServiceCodeExceptions"/>
+                <entry key="14" value="tavant.fleet.domain.contract.TravelMatrix"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    
+    <bean name="fleetadmin.annotated.classes" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="tavant.fleet.domain.admin.servicecodes.ManageServiceCodes"/>
+                <entry key="2" value="tavant.fleet.domain.admin.servicecodes.ServiceCodeInterval"/>
+                <entry key="3" value="tavant.fleet.domain.admin.servicecodes.ServiceCodeFee"/>
+                <entry key="4" value="tavant.fleet.domain.admin.servicecodes.ManageServiceCodeAudit"/>
+                <entry key="5" value="tavant.fleet.domain.admin.servicecodes.InclusiveServiceCodes"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean name="FleetCommon.annotated.classes" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="tavant.fleet.domain.common.NumberPattern"/>
+            </map>
+        </constructor-arg>
+    </bean>     
+
+    <bean id="fleetDomainSessionFactory" parent="domainSessionFactory" abstract="true"
+          class="tavant.twms.infra.EnhancedAnnotationSessionFactoryBean">
+        <property name="moduleWiseAnnotatedClasses">
+            <map key-type="java.lang.Integer" value-type="java.util.HashMap" merge="true">
+                <entry key="6" value-ref="ServiceRequest.annotated.classes"/>
+                <entry key="7" value-ref="Quote.annotated.classes"/>
+                <entry key="8" value-ref="FleetCommon.annotated.classes"/>
+                <entry key="9" value-ref="ContractManagement.annotated.classes"/>
+                <entry key="10" value-ref="fleetadmin.annotated.classes"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="lovRepository" class="tavant.twms.domain.common.LovRepositoryImpl">
+		<property name="repoMap">
+			<map>
+				<entry key="CallType">
+					<bean class="tavant.twms.infra.GenericRepositoryImpl">
+						<property name="entityType">
+							<value type="java.lang.Class">
+								tavant.fleet.domain.serviceRequest.CallType
+							</value>
+						</property>
+					</bean>
+				</entry>
+			 </map>
+		 </property>
+		 <property name="classMap">
+			<map>
+				<entry key="CallType">
+					<value type="java.lang.Class">
+						tavant.fleet.domain.serviceRequest.CallType
+					</value>
+				</entry>
+			</map>
+		 </property>
+	</bean>
+    
+    <bean id="serviceRequestService" class="tavant.fleet.domain.serviceRequest.ServiceRequestServiceImpl"/>
+    <bean id="serviceRequestRepository" class="tavant.fleet.domain.serviceRequest.ServiceRequestRepositoryImpl"/>
+          
+    <bean id="numberPatternService" class="tavant.fleet.domain.common.NumberPatternServiceImpl"/>
+    <bean id="numberPatternRepository" class="tavant.fleet.domain.common.NumberPatternRepositoryImpl"/>
+
+    <bean id="contractRepository" class="tavant.fleet.domain.contract.ContractRepositoryImpl"/>
+    <bean id="contractService" class="tavant.fleet.domain.contract.ContractServiceImpl"/>
+    
+    <!-- <bean id="configService" class="tavant.fleet.domain.BusinessConfig.ConfigServiceImpl"/> -->
+    <bean id="configParamRepository" class="tavant.twms.domain.configuration.ConfigParamRepositoryImpl"/>
+
+    <bean id="fleetCustomerRepository" class="tavant.fleet.domain.customer.FleetCustomerRepositoryImpl"/>
+    <bean id="fleetCustomerService" class="tavant.fleet.domain.customer.FleetCustomerServiceImpl"/>
+
+    <bean id="fleetInventoryItemRepository" class="tavant.fleet.domain.inventory.FleetInventoryItemRepositoryImpl"/>
+    <bean id="fleetInventoryItemService" class="tavant.fleet.domain.inventory.FleetInventoryItemServiceImpl"/>
+    
+    <bean id="inventoryItemRepository" class="tavant.fleet.domain.inventory.InventoryItemRepositoryImpl"/>
+    <bean id="inventoryItemService" class="tavant.fleet.domain.inventory.InventoryItemServiceImpl"/>
+
+    <bean id="quoteService" class="tavant.fleet.domain.quote.QuoteServiceImpl"/>
+	<bean id="quoteRepository" class="tavant.fleet.domain.quote.QuoteRepositoryImpl"/>
+	         
+    <bean id="technicianDetailService" class="tavant.fleet.domain.serviceRequest.TechnicianDetailServiceImpl"/>
+    <bean id="technicianDetailRepository" class="tavant.fleet.domain.serviceRequest.TechnicianDetailRepositoryImpl"/>
+    
+    <bean id="customerLocationService" class="tavant.fleet.domain.customer.CustomerLocationServiceImpl"/>
+    <bean id="customerLocationRepository" class="tavant.fleet.domain.customer.CustomerLocationRepositoryImpl"/>
+       
+    <bean id="itemService" class="tavant.fleet.domain.catalog.ItemServiceImpl"/>
+    <bean id="itemRepository" class="tavant.fleet.domain.catalog.ItemRepositoryImpl"/>
+    
+    <bean id="taxDetailsService" class="tavant.fleet.domain.contract.TaxDetailsServiceImpl"/>
+    <bean id="taxDetailsRepository" class="tavant.fleet.domain.contract.TaxDetailsRepositoryImpl"/>
+    
+    <bean id="OEMPartExceptionsService" class="tavant.fleet.domain.payment.OEMPartExceptionsServiceImpl" />
+	<bean id="OEMPartExceptionsRepository" class="tavant.fleet.domain.payment.OEMPartExceptionsRepositoryImpl" />
+	
+	<bean id="paymentExceptionsRepository" class="tavant.fleet.domain.payment.PaymentExceptionsRepositoryImpl" />
+	<bean id="laborPaymentExceptionsRepository" class="tavant.fleet.domain.payment.LaborPaymentExceptionsRepositoryImpl" />
+    <bean id="paymentOverridesRepository" class="tavant.fleet.domain.payment.PaymentOverridesRepositoryImpl" />
+    
+    <bean id="manageServiceCodeService" class="tavant.fleet.domain.admin.servicecodes.ManageServiceCodeServiceImpl"/>
+    <bean id="manageServiceCodeRepository" class="tavant.fleet.domain.admin.servicecodes.ManageServiceCodeRepositoryImpl"/>
+    <bean id="itemGroupService" class="tavant.fleet.domain.item.ItemGroupServiceImpl"/>
+    <bean id="itemGroupRepository" class="tavant.fleet.domain.item.ItemGroupRepositoryImpl"/>
+
+    <bean id="inclusiveServiceCodesService" class="tavant.fleet.domain.admin.servicecodes.InclusiveServiceCodesServiceImpl"/>
+    <bean id="inclusiveServiceCodesRepository" class="tavant.fleet.domain.admin.servicecodes.InclusiveServiceCodesRepositoryImpl"/>
+
+    <bean name="taskViewService"    class="tavant.fleet.domain.xforms.TaskViewServiceImpl" />
+
+    
+    
+
+</beans>

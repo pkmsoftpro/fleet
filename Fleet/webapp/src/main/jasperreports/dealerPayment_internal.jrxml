@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dealerPayment_internal" pageWidth="650" pageHeight="40" whenNoDataType="AllSectionsNoDetail" columnWidth="650" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="userType" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="category" class="java.lang.String"/>
+	<field name="askedAmountDealer" class="java.lang.Object"/>
+	<field name="partNumber" class="java.util.Collection"/>
+	<field name="quantity" class="java.util.List"/>
+	<field name="conditionTypeDealer" class="java.util.Collection"/>
+	<field name="conditionTypeValueDealer" class="java.util.Collection"/>
+	<field name="price" class="java.util.Collection"/>
+	<field name="adjustedPriceDealer" class="java.util.Collection"/>
+	<field name="currentAmountDealer" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="d70536a8-ec10-4e4e-a76a-358b58910bb8" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="ef1e443d-8c8f-4e12-b128-7049f227f3a5" positionType="Float" x="70" y="0" width="100" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{partNumber})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "partNumbersForPayment.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="30541eed-72fc-4fa4-aa4d-597cd839ac85" positionType="Float" stretchType="RelativeToBandHeight" x="510" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{askedAmountDealer}!=null?$F{askedAmountDealer}:"$0.00"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="57f6e2c0-402f-47fa-b20a-64d792aacd6f" positionType="Float" x="170" y="0" width="60" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{quantity})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "quantity.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="32a6c1cf-9496-40c1-86ad-952249db634e" positionType="Float" x="300" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{conditionTypeDealer})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "conditionTypeDealer.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="c49df73c-2a2f-409d-80ba-89f459159022" positionType="Float" x="370" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{conditionTypeValueDealer})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "conditionTypeValueDealer.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="9b157f2d-4642-4eb0-be7d-5314c7681183" positionType="Float" x="230" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{price})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "price.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="f1e03739-5700-4f00-809d-8222224fef73" positionType="Float" x="440" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{adjustedPriceDealer})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "adjustedPriceDealer.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="196f9454-20cf-48bf-9acf-f7c3bab3071d" positionType="Float" stretchType="RelativeToBandHeight" x="580" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currentAmountDealer}!=null?$F{currentAmountDealer}:"$0.00"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="08cf70db-bc45-4451-b49c-cde653a2c727" x="70" y="20" width="100" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ff9ff68-0c53-47ab-9636-fa17712ccb67" positionType="Float" x="170" y="20" width="60" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="5a5052b6-5982-477f-9905-42a81ed547d0" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="b8e1b16f-923e-418e-80b0-cd8b67f23e97" positionType="Float" stretchType="RelativeToBandHeight" x="510" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{askedAmountDealer}!=null?$F{askedAmountDealer}:"$0.00"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="f0f54481-9673-4e6e-a02b-a72344909d19" positionType="Float" stretchType="RelativeToBandHeight" x="580" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currentAmountDealer}!=null?$F{currentAmountDealer}:"$0.00"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="d3d7adda-9103-42fd-a905-5c0965ef5f91" positionType="Float" x="230" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{price})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "price.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="8e2881cc-6f53-492e-a706-655dc6e3ace5" positionType="Float" x="440" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{adjustedPriceDealer})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "adjustedPriceDealer.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="944ecdd8-02b8-48a3-adc2-b3788c6d2df2" positionType="Float" x="230" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1 && $F{price}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9012c531-25e4-4c18-bb77-cdb28a286216" positionType="Float" x="230" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0 && $F{price}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="62c66bb1-c7dd-499e-9599-f941b002ed50" positionType="Float" x="300" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{conditionTypeDealer})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "conditionTypeDealer.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="b5870c15-ecd7-43e9-a314-e796dc8ad56d" positionType="Float" x="370" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="userType"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{conditionTypeValueDealer})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "conditionTypeValueDealer.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="e9937706-c2c4-4728-875f-60dee682124e" x="370" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0 && $F{conditionTypeValueDealer}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fc1a3b3c-d6b8-4203-b7b6-eec1b8d95d05" x="370" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1 && $F{conditionTypeValueDealer}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e1f9ebd8-213d-484a-a16e-b9fefff959c2" x="300" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1 && $F{conditionTypeDealer}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5e69a496-5807-4d86-b461-2aac23607a72" x="300" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0 && $F{conditionTypeDealer}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ea8e322d-602f-4827-8b1b-cf0e0ce5cc4f" positionType="Float" x="440" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()>0 && $F{adjustedPriceDealer}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e5cf605-ae73-43e1-816d-9b8be0a0e4f4" positionType="Float" x="440" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{partNumber}.size()<1 && $F{adjustedPriceDealer}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c454a67-e5a8-442e-9a7b-5fb1a1631744" positionType="Float" x="170" y="20" width="60" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{category}.equalsIgnoreCase( "Miscellaneous" ) && $F{partNumber}.size()<1]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="55c09b34-0eb2-46d8-9620-8a2f021427ba" positionType="Float" x="170" y="0" width="60" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{category}.equalsIgnoreCase( "Miscellaneous" ) && $F{partNumber}.size()>0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[--]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

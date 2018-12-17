@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="history" pageWidth="555" pageHeight="35" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.9487171000000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="userType" class="java.lang.String"/>
+	<field name="workOrderNumber" class="java.lang.String"/>
+	<field name="d.createdTime" class="java.util.Date"/>
+	<field name="quoteState.state" class="java.lang.String"/>
+	<field name="d.lastUpdatedBy.lastName" class="java.lang.String"/>
+	<field name="d.lastUpdatedBy.firstName" class="java.lang.String"/>
+	<field name="d.lastUpdatedBy.userType" class="java.lang.String"/>
+	<field name="d.internalComments" class="java.lang.String"/>
+	<field name="notesForNMHG" class="java.lang.String"/>
+	<field name="notesForCustomer" class="java.lang.String"/>
+	<field name="notesForDealer" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="f5595e68-3ec6-4755-b8a4-c62c9d3b290d" positionType="Float" stretchType="RelativeToTallestObject" x="408" y="0" width="84" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notesForCustomer}!=null?$F{notesForCustomer}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="dc8adf63-ee19-4994-96cc-d7d752bb27d0" positionType="Float" stretchType="RelativeToTallestObject" x="324" y="0" width="84" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notesForDealer}!=null?$F{notesForDealer}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c253742b-3b4f-46a5-8183-d65d86361dce" positionType="Float" stretchType="RelativeToTallestObject" x="240" y="0" width="84" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notesForNMHG}!=null?$F{notesForNMHG}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="79a7fc8f-034f-419c-8487-a27361b4f9d1" positionType="Float" stretchType="RelativeToTallestObject" x="170" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d.lastUpdatedBy.userType}!=null?$F{d.lastUpdatedBy.userType}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="5acb73fe-9b09-42f9-a217-d9fd78ab5d85" positionType="Float" stretchType="RelativeToTallestObject" x="120" y="0" width="50" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d.lastUpdatedBy.firstName}.concat( $F{d.lastUpdatedBy.lastName} )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ce098080-f5a9-4e01-87bb-73f698ae149c" positionType="Float" stretchType="RelativeToTallestObject" x="50" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quoteState.state}!=null?$F{quoteState.state}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="88f57726-b26e-4cf8-bcbd-5b4e3d1593d5" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d.createdTime}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

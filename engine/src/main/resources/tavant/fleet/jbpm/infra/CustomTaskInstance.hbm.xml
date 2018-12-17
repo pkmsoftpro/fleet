@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <subclass name="tavant.fleet.jbpm.infra.CustomTaskInstance"
+              extends="org.jbpm.taskmgmt.exe.TaskInstance" discriminator-value="C" >
+        <many-to-one name="quoteId" column="QUOTE_ID" class="tavant.fleet.domain.quote.Quote" />
+        <many-to-one name="serviceRequestId" column="SERVICE_REQUEST_ID" class="tavant.fleet.domain.serviceRequest.ServiceRequest" />
+        <many-to-one name="fleetClaimId" column="FLEET_CLAIM_ID" class="tavant.fleet.domain.fleetClaim.FleetClaim" />
+    </subclass>
+</hibernate-mapping>

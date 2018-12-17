@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-autowire="byName">
+
+	<!-- components definitions -->
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate" />
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate" />
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+    
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+    	<constructor-arg index="0" ref="messageSource"/>
+     </bean>
+    
+	<bean id="validator"
+      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+      
+	<bean id="fleetCustomerSync" 
+		class="tavant.fleet.integration.layer.component.fleetCustomer.FleetCustomerSync"/>
+		
+	<bean id="equipmentSync" 
+		class="tavant.fleet.integration.layer.component.equipment.EquipmentSync"/>
+		
+	<bean id="equipmentBillingSync" 
+		class="tavant.fleet.integration.layer.component.equipment.EquipmentBillingSync"/>
+		
+	<bean id="fleetContractSync"
+		class="tavant.fleet.integration.layer.component.contract.FleetContractSync" />
+		
+	<bean id="commonSyncProcessor"
+		class="tavant.fleet.integration.layer.component.global.CommonSyncProcessor" />
+		
+	<bean id="fleetNotificationSync"
+		class="tavant.fleet.integration.layer.component.notification.FleetNotificationSync" />
+	
+	<bean id="fleetClaimPaymentSubmissionSync" class="tavant.fleet.integration.layer.fleetclaim.submission.FleetClaimPaymentSubmissionSync"/>	
+		
+	<bean id="priceCheckSync"
+		class="tavant.fleet.integration.layer.component.priceCheck.PriceCheckSync" />
+		
+	<bean id="telemetrySync" 
+		class="tavant.fleet.integration.layer.component.telemetry.TelemetrySync"/>
+		
+	<bean id="claimSubmissionSync" 
+		class="tavant.fleet.integration.layer.component.claimSubmission.ClaimSubmissionSync"/>
+		
+	<bean id="globalPriceCheckResponseTransformer"
+		class="tavant.fleet.integration.layer.transformer.GlobalPriceCheckResponseTransformer" />
+		
+	<bean id="pricingConditionSync"
+		class="tavant.fleet.integration.layer.component.pricingconditions.PricingConditionSync"/>
+		
+	<bean id="fleetNotificationValidator" 
+		class="tavant.fleet.integration.layer.validator.FleetNotificationValidator"/>		
+		
+	<bean id="contractValidator" 
+		class="tavant.fleet.integration.layer.validator.FleetContractValidator"/>	
+		
+	<bean id="customerValidator" 
+		class="tavant.fleet.integration.layer.validator.FleetCustomerValidator"/>
+		
+	<bean id="priceConditionValidator"
+		class="tavant.fleet.integration.layer.validator.PriceConditionValidator"/>
+		
+	<bean id="serviceRequestValidation"
+		class="tavant.fleet.integration.layer.validator.ServiceRequestValidation"/>
+		
+	<bean id="quoteValidation"
+		class="tavant.fleet.integration.layer.validator.QuoteValidation"/>
+		
+	<bean id="locationValidator" 
+		class="tavant.fleet.integration.layer.validator.CustomerLocationValidator"/>
+		
+	<bean id="equipmentValidator" 
+		class="tavant.fleet.integration.layer.validator.EquipmentValidator"/>
+		
+	<bean id="equipmentBillingValidator" 
+		class="tavant.fleet.integration.layer.validator.EquipmentBillingValidator"/>
+		
+	<bean id="claimValidator" 
+		class="tavant.fleet.integration.layer.validator.FleetClaimValidator"/>
+		
+	<bean id ="travelDetailsCalculator"
+		class="tavant.fleet.integration.layer.transformer.dealerInterfaces.claimSubmission.TravelDetailsCalculator"/>
+		
+	<bean id ="googleMapDistanceCalculator"
+		class="tavant.fleet.integration.layer.util.GoogleMapDistanceCalculator"/>
+		
+	<bean id="syncResponseTransformer"
+		class="tavant.fleet.integration.layer.transformer.SyncResponseTransformer" />
+		
+	<bean id="serverResponseTransformer"
+		class="tavant.fleet.integration.layer.transformer.ServerResponseTransformer" />
+   
+	<!-- transformer definitions -->
+	<!-- <bean id="syncResponseTransformer"
+		class="tavant.twms.integration.layer.transformer.SyncResponseTransformer" />
+	<bean id="serverResponseTransformer"
+		class="tavant.twms.integration.layer.transformer.ServerResponseTransformer" />
+	 -->
+		
+	<!--Outgoing calls from TWMS are made through integration bridge.-->
+	<bean id="integrationBridge"
+		class="tavant.fleet.integration.layer.IntegrationBridgeImpl" />
+
+	<!-- <bean id="commonSyncProcessor"
+		class="tavant.fleet.integration.layer.component.global.CommonSyncProcessor" /> -->
+		
+
+	<bean id="integrationServiceInterceptor"
+			class="tavant.fleet.integration.layer.interceptor.IntegrationServiceInterceptor" />
+			
+	<bean id="integrationService"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>
+				tavant.fleet.integration.layer.IntegrationService
+			</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>integrationServiceInterceptor</value>
+			</list>
+		</property>
+		<property name="target">
+			<bean id="integrationServiceImpl"
+				class="tavant.fleet.integration.layer.IntegrationServiceImpl" />
+		</property>
+	</bean>
+
+    <!-- Uploads BEGIN -->
+    <bean id="uploadService"
+          class="tavant.twms.integration.layer.upload.UploadService" />
+    <bean id="scheduledPMService"
+          class="tavant.fleet.integration.layer.upload.scheduledpm.ScheduledPMService" />
+    <bean id="scheduledPMValidator"
+          class="tavant.fleet.integration.layer.upload.scheduledpm.ScheduledPMValidator" />
+    <bean id="scheduledPMTransformer"
+          class="tavant.fleet.integration.layer.upload.scheduledpm.ScheduledPMTransformer" />
+          
+    <!-- Service Request Uploads -->
+
+	<bean id="serviceRequestUploadService"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.ServiceRequestUploadService" />
+	<bean id="serviceRequestValidator"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.ServiceRequestValidator" />
+	<bean id="serviceRequestTransformer"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.ServiceRequestTransformer" />
+		
+	<!-- Quote Uploads -->
+
+	<bean id="quoteUploadService"
+		class="tavant.fleet.integration.layer.upload.quote.QuoteUploadService" />
+	<bean id="quoteValidator"
+		class="tavant.fleet.integration.layer.upload.quote.QuoteValidator" />
+	<bean id="quoteTransformer"
+		class="tavant.fleet.integration.layer.upload.quote.QuoteTransformer" />
+	
+	<!-- Fleet Claim Uploads -->
+
+	<bean id="fleetClaimUploadService"
+		class="tavant.fleet.integration.layer.upload.fleetClaim.FleetClaimUploadService" />
+	<bean id="fleetClaimValidator"
+		class="tavant.fleet.integration.layer.upload.fleetClaim.FleetClaimValidator" />
+	<bean id="fleetClaimTransformer"
+		class="tavant.fleet.integration.layer.upload.fleetClaim.FleetClaimTransformer" />          
+          
+    <bean id="equipmentUploadService"
+		class="tavant.fleet.integration.layer.upload.dealerAdmin.equipment.EquipmentUploadService" />
+	<bean id="equipmentDealerOwnedValidator"
+		class="tavant.fleet.integration.layer.upload.dealerAdmin.equipment.EquipmentValidator" />
+	<bean id="equipmentTransformer"
+		class="tavant.fleet.integration.layer.upload.dealerAdmin.equipment.EquipmentTransformer" />
+		          
+   <!-- Equipment Information  Uploads -->
+   
+   <bean id="equipmentInfoUploadService"
+		class="tavant.fleet.integration.layer.upload.equipmentManagement.EquipmentInfoUploadService" />
+	<bean id="equipmentInfoValidator"
+		class="tavant.fleet.integration.layer.upload.equipmentManagement.EquipmentInfoValidator" />
+	<bean id="equipmentInformationTransformer"
+		class="tavant.fleet.integration.layer.upload.equipmentManagement.EquipmentInformationTransformer" />
+		
+	<bean id="travelMatrixUploadService"
+		class="tavant.fleet.integration.layer.upload.contractManagement.TravelMatrixUploadService" />
+	<bean id="travelMatrixValidator"
+		class="tavant.fleet.integration.layer.upload.contractManagement.TravelMatrixValidator" />
+	<bean id="travelMatrixTransformer"
+		class="tavant.fleet.integration.layer.upload.contractManagement.TravelMatrixTransformer" />
+   
+<!--    Self Diagnosis Uploads -->
+   
+   <bean id="diagnosticGuideUploadService"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticGuideUploadService" />
+	<bean id="diagnosticGuideValidator"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticGuideValidator" />
+	<bean id="diagnosticGuideTransformer"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticGuideTransformer" />	
+		
+	<bean id="processServiceChannelRequest" 
+		class="tavant.fleet.integration.layer.component.serviceChannel.ProcessServiceChannelRequest"/>
+	<bean id="processCreditSubmission" 
+		class="tavant.fleet.integration.layer.component.creditSubmission.ProcessCreditSubmission"/>
+				
+		<bean id="diagnosticProcedureUploadService"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticProcedureUploadService" />
+	<bean id="diagnostiProcedureValidator"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticProcedureValidator" />
+	<bean id="diagnosticProcedureTransformer"
+		class="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticProcedureTransformer" />			
+	<!-- Customer Contact Uploads -->
+		
+	<bean id="customerContactUploadService"
+		class="tavant.fleet.integration.layer.upload.customerContactManagement.CustomerContactUploadService" />
+	<bean id="customerContactValidator"
+		class="tavant.fleet.integration.layer.upload.customerContactManagement.CustomerContactValidator" />
+	<bean id="customerContactTransformer"
+		class="tavant.fleet.integration.layer.upload.customerContactManagement.CustomerContactTransformer" />	
+		
+	<!-- Customer Location Upload -->
+	<bean id="customerLocationUploadService" class="tavant.fleet.integration.layer.upload.customerlocation.CustomerLocationUploadService" />
+	<bean id="customerLocationUploadValidator" class="tavant.fleet.integration.layer.upload.customerlocation.CustomerLocationUploadValidator" />
+	<bean id="customerLocationUploadTransfer" class="tavant.fleet.integration.layer.upload.customerlocation.CustomerLocationUploadTransformer" />
+	
+	<!-- Equipment And Contract Association Upload -->
+	<bean id="equipmentContractUploadService" class="tavant.fleet.integration.layer.upload.equipment.association.EquipmentContractUploadService" />
+	<bean id="equipmentContractUploadValidator" class="tavant.fleet.integration.layer.upload.equipment.association.EquipmentContractUploadValidator" />
+	<bean id="equipmentContractUploadTransformer" class="tavant.fleet.integration.layer.upload.equipment.association.EquipmentContractUploadTransformer" />
+		
+    <!-- Uploads END -->
+
+	<!-- ServiceRequest Updates BEGIN -->
+	
+	<bean id="serviceRequestRestService" class="tavant.fleet.restapi.ServiceRequestRestService"/>
+		
+	<!-- ServiceRequest Updates END -->
+	
+	<!-- Quote Updates BEGIN -->
+	
+	<bean id="quoteRestService" class="tavant.fleet.restapi.QuoteRestService"/>
+	
+	<!-- Quote Updates END -->
+
+	<!-- Used by Dozer -->
+	<bean id="mapper" class="net.sf.dozer.util.mapping.DozerBeanMapper"
+		scope="singleton">
+		<property name="mappingFiles">
+			<list>
+				<value>integration-dozer-mapping.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="integrationPropertiesBean"
+		class="tavant.fleet.integration.layer.IntegrationPropertiesBean">
+		<property name="priceCheckEnabled"
+			value="${pricecheck.externalservice.enabled}" />
+		<property name="priceCheckURL"
+			value="${priceCheck.webservice.url}" />
+			
+		<property name="priceChkMethod" value="${priceChkMethod}" />
+		<property name="priceChkInParam" value="${priceChkInParam}" />
+		<property name="priceChkOutParam" value="${priceChkOutParam}" />
+		
+		<property name="logicalIdForPriceFetch" value="${logicalIdForPriceFetch}" />
+		<property name="bodIdIdForPriceFetch" value="${bodIdIdForPriceFetch}" />
+		<property name="taskIdForPriceFetch" value="${taskIdIdForPriceFetch}" />
+		<property name="priceFetchAciton" value="${pricecheck.webservice.action}" />
+		<property name="serviceRequestUpdateURL" value="${serviceRequest.restServices.url}" />
+		<property name="pin" value="${serviceChannel.webservice.pin}" />
+		<property name="googleAPIClientID" value="${googleMapsAPI.business.clientId}" />
+		<property name="googleAPILicence" value="${googleMapsAPI.privateKey}" />
+	</bean>
+	
+	<!--<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">-->
+    <bean id="customWebServiceTemplate" class="tavant.fleet.integration.layer.CustomWebServiceTemplate" >
+        <constructor-arg ref="messageFactory"/>
+        <property name="messageSender">
+            <bean class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+                <property name="credentials">
+                    <bean class="org.apache.commons.httpclient.UsernamePasswordCredentials">
+                        <constructor-arg value="${pricefetchServiceUsername}"/>
+                        <constructor-arg value="${pricefecthSerivicePassword}"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+        <property name="interceptors">
+            <list>
+                <ref local="xwsSecurityInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+        <property name="messageFactory">
+            <bean class="com.sun.xml.internal.messaging.saaj.soap.ver1_1.SOAPMessageFactory1_1Impl"/>
+        </property>    
+    </bean>
+    
+    <bean id="xwsSecurityInterceptor"
+          class="org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor">
+        <property name="policyConfiguration" value="classpath:securityPolicy.xml"/>
+       <property name="callbackHandlers">
+            <list>
+                <ref bean="callbackHandler"/>
+            </list>
+        </property> 
+    </bean>
+    
+    <bean id="callbackHandler" class="org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler">
+         <property name="users">
+            <props>
+                <prop key="mojo">F5phUXub</prop>
+                <prop key="user">sign.in@tavant.com</prop>
+            </props>
+        </property> 
+    </bean>
+
+    <!-- end here -->
+    
+</beans>

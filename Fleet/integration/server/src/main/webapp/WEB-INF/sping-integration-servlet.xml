@@ -1,0 +1,72 @@
+<!--
+Integration is simple following are the steps done in Integration Server.
+1. Inbound web service gateway listens to any web services requests, places the payload to an inbound channel
+2. Service Activator kicks in, picking the message from this channel and invokes IntegrationService (configured through Spring Http invoker)
+3. Intercept Messages on Outbound gateway, and forward request to Web app for processing, after massaging the input XML as per webapp's requirement
+4. Interceptor logs request / response from webapp in Sync_tracker
+5. Reply back to caller with the response.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:integration="http://www.springframework.org/schema/integration"
+       xmlns:si-ws="http://www.springframework.org/schema/integration/ws"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/integration
+    http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+    http://www.springframework.org/schema/integration/ws
+    http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.1.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="file:${TWMS_HOME}/${TWMS_ENV_MODE}/integration-server.properties"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
+    <!-- Annotation Scanning root -->
+    <context:component-scan base-package="tavant.fleet.integration.server.sync.inbound"/>
+    <integration:annotation-config />
+
+    <bean id="endpointMapping" class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping" />
+
+    <!-- Webservice inbound gateway	-->
+    <si-ws:inbound-gateway id="inboundWSGateway" request-channel="inboundChannel"  />
+
+    <!-- Required channels -->
+    <integration:channel id="inboundChannel" />
+
+    <!-- All WSDLs go here.. -->
+   <bean id="ProcessCustomerSync-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessCustomerSync-WS.wsdl"/>
+    </bean>
+    
+    <bean id="ProcessEquipmentSync-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessEquipmentSync-WS.wsdl"/>
+    </bean>
+    
+	<bean id="ProcessEquipmentBillingSync-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessEquipmentBillingSync-WS.wsdl"/>
+    </bean>
+
+	<bean id="ProcessContractSync-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessContractSync-WS.wsdl"/>
+    </bean>
+    
+    <bean id="ProcessPriceConditionSync-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessPriceConditionSync-WS.wsdl"/>
+    </bean>
+    
+    <bean id="ProcessNotificationSync-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessNotificationSync-WS.wsdl"/>
+    </bean>
+    
+    <bean id="ProcessClaimSubmission-WS" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+        <property  name="wsdl" value="classpath:wsdl/ProcessClaimSubmission-WS.wsdl"/>
+    </bean>
+   
+
+</beans>
+

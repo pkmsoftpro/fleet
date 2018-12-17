@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<!-- Task for creating EmailMessage for sending mail -->
+	<bean id="createEventMessageTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="createEventMessageJobDetail" />
+        <property name="cronExpression" value="${emailRelatedCronExpression}" />
+	</bean>
+
+	<bean id="createEventMessageJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="eventProcessor" />
+		<property name="targetMethod" value="processPendingEvent" />
+        <property name="concurrent" value="false" />
+    </bean>
+	
+	<bean id="sendEmailTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="sendEmailJobDetail" />
+        <property name="cronExpression" value="${emailRelatedCronExpression}" />
+	</bean>
+	
+	<bean id="sendEmailJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="notificationService" />
+		<property name="targetMethod" value="sendPendingMail" />
+        <property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="contractExpiryAlertTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="createContractExpiryAlertJobDetail" />
+		<property name="cronExpression" value="${contractExpiryAlertCronExpression}" />
+	</bean>
+
+	<bean id="createContractExpiryAlertJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="contractService" />
+		<property name="targetMethod" value="contractExpiryAlertNotification" />
+		<property name="concurrent" value="false" />
+	</bean>	
+	
+	<bean id="resetNumberPatternJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="storedProcedureJob" />
+		<property name="targetMethod" value="executeProcedure" />
+		 <property name="arguments" value="call RESET_SEQ_NUMBER()"/>
+		<property name="concurrent" value="false" />
+	</bean>	
+	<bean id="resetNumberPatternAlertTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="resetNumberPatternJobDetail" />
+		<property name="cronExpression" value="${resetNumberPatternCronExpression}" />
+	</bean>
+	
+	<bean id="serviceScheduleDueDateJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="storedProcedureJob" />
+		<property name="targetMethod" value="executeProcedure" />
+		 <property name="arguments" value="call FLEET_UTILS.SERVICE_SCHEDULE()"/>
+		<property name="concurrent" value="false" />
+	</bean>	
+	<bean id="serviceScheduleDueDateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="serviceScheduleDueDateJobDetail" />
+		<property name="cronExpression" value="${PMDueDateGenaratorCronExpression}" />
+	</bean>
+	
+	<bean id="dealerDashboardUpdateJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="storedProcedureJob" />
+		<property name="targetMethod" value="executeProcedure" />
+		 <property name="arguments" value="call PKG_DEALER_DASHBOARD.JOB_UPDATE_DEALER_DASHBOARD()"/>
+		<property name="concurrent" value="false" />
+	</bean>	
+	
+	<bean id="dealerDashboardUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="dealerDashboardUpdateJob" />
+		<property name="cronExpression" value="${dealerDashboardUpdateCronExpression}" />
+	</bean>
+	
+	<bean id="customerDashboardUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="customerDashboardUpdateJob" />
+		<property name="cronExpression" value="${customerDashboardUpdateCronExpression}" />
+	</bean>
+	
+	<bean id="customerDashboardUpdateJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="storedProcedureJob" />
+		<property name="targetMethod" value="executeProcedure" />
+		 <property name="arguments" value="call PKG_CUSTOMER_DASHBOARD.JOB_UPDATE_CUSTOMER_DASHBOARD()"/>
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="internalDashboardUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="internalDashboardUpdateJob" />
+		<property name="cronExpression" value="${internalDashboardUpdateCronExpression}" />
+	</bean>
+	
+	<bean id="internalDashboardUpdateJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="storedProcedureJob" />
+		<property name="targetMethod" value="executeProcedure" />
+		 <property name="arguments" value="call PKG_INTERNAL_DASHBOARD.JOB_UPDATE_INTERNAL_DASHBOARD()"/>
+		<property name="concurrent" value="false" />
+	</bean>
+
+    <bean id="ehpCalculationsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="storedProcedureJob" />
+        <property name="targetMethod" value="executeProcedure" />
+        <property name="arguments" value="call PKG_EQUIPMENT_CALCULATIONS.JOB_UPDATE_EHP_DATA()"/>
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <bean id="ehpCalculationsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="ehpCalculationsJob" />
+        <property name="cronExpression" value="${ehpCalculationsCronExpression}" />
+    </bean>
+	
+	<bean id="serviceRequestAgingAlertTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="serviceRequestAgingAlertJobDetail" />
+		<property name="cronExpression" value="${serviceRequestAgingAlertCronExpression}" />
+	</bean>
+	
+	<bean id="serviceRequestAgingAlertJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="serviceRequestService" />
+		<property name="targetMethod" value="alertServiceRequestAgingReminder" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="quoteAgingAlertTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="qutoeAgingAlertJobDetail"/>
+		<property name="cronExpression" value="${quoteAgingAlertCronExpression}"/>
+	</bean>
+	<bean id="qutoeAgingAlertJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="quoteService"/>
+		<property name="targetMethod" value="createQuoteAgingEvent"/>
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="quoteExpiryAlertTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="QuoteExpiryAlertJobDetail"/>
+		<property name="cronExpression" value="${quoteExpiryAlertCronExpression}"/>
+	</bean>
+	<bean id="QuoteExpiryAlertJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="quoteService"/>
+		<property name="targetMethod" value="createQuoteExpiryEvent"/>
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="serviceRequestOnServiceCallTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="serviceRequestOnServiceCallJobDetail" />
+		<property name="cronExpression" value="${serviceRequestOnServiceCallCronExpression}" />
+	</bean>
+
+	<bean id="serviceRequestOnServiceCallJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="serviceCallService" />
+		<property name="targetMethod" value="createServiceRequestOnServiceCall" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<!-- Task for creating EmailMessage for sending mail END -->
+
+    <bean id="jbpmTimerProcessor" class="tavant.twms.jbpm.infra.JbpmScheduler"/>
+
+    <bean id="jbpmTimerJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="jbpmTimerJobDetail"/>
+        <property name="cronExpression" value="${jbpmTimerJobCronExpression}"/>
+    </bean>
+
+    <bean id="jbpmTimerJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="jbpmTimerProcessor"/>
+        <property name="targetMethod" value="executeTimers"/>
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <!-- Upload Tasks BEGIN -->
+    <bean id="scheduledPMUploadTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="scheduledPMUploadJobDetail" />
+        <property name="cronExpression" value="${scheduledPMUploadCronExpression}" />
+    </bean>
+
+    <bean id="scheduledPMUploadJobDetail"
+          class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.layer.upload.scheduledpm.ScheduledPMUploadJob" />
+    </bean>
+
+	<bean id="uploadServiceRequestTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadServiceRequestJobTrigger" />
+		<property name="cronExpression" value="${uploadServiceRequestCronExpression}" />
+	</bean>
+
+	<bean id="uploadServiceRequestJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.serviceRequest.ServiceRequestUploadJob" />
+	</bean>
+	
+	<!-- Fleet Claims Bulk Upload -->
+	<bean id="uploadFleetClaimTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadFleetClaimJobTrigger" />
+		<property name="cronExpression" value="${uploadFleetClaimCronExpression}" />
+	</bean>
+
+	<bean id="uploadFleetClaimJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.fleetClaim.FleetClaimUploadJob" />
+	</bean>
+    
+	<!-- Upload Equipment Information Begin-->
+	<bean id="uploadEquipmentInfoTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadEquipmentInfoJobTrigger" />
+		<property name="cronExpression" value="${uploadEquipmentInfoCronExpression}" />
+	</bean>
+
+	<bean id="uploadEquipmentInfoJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="tavant.fleet.integration.layer.upload.equipmentManagement.EquipmentInfoUploadJob"/>
+	</bean>
+
+	<!-- Machine Hours Upload Begin-->
+	<bean id="machineHoursUploadTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadMachineHoursJobTrigger" />
+		<property name="cronExpression" value="${machineHoursUploadCronExpression}" />
+	</bean>
+
+	<bean id="uploadMachineHoursJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="tavant.fleet.integration.layer.upload.equipmentManagement.MachineHoursUploadJob"/>
+	</bean>
+
+	<!-- Upload Travel Matrix -->
+	<bean id="uploadTravelMatrixTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadTravelMatrixJobTrigger" />
+		<property name="cronExpression" value="${uploadTravelMatrixCronExpression}" />
+	</bean>
+
+	<bean id="uploadTravelMatrixJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.contractManagement.TravelMatrixUploadJob" />
+	</bean>
+	
+	<!-- Upload SelfDiagnosis -->
+	<bean id="uploadDiagnosticGuideTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadDiagnosticGuideJobTrigger" />
+		<property name="cronExpression" value="${uploadDiagnosticGuideCronExpression}" />
+	</bean>
+
+	<bean id="uploadDiagnosticGuideJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiganosticGuideUploadJob" />
+	</bean>
+	
+	<!-- Upload Customer Location -->
+	<bean id="uploadCustomerLocationTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadCustomerLocationJobTrigger"/>
+		<property name="cronExpression" value="${uploadCustomerLocationCronExpression}"/>
+	</bean>
+	<bean id="uploadCustomerLocationJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="tavant.fleet.integration.layer.upload.customerlocation.CustomerLocationUploadJob" />
+	</bean>
+	
+
+	<!-- Upload Customer Contact -->
+	<bean id="uploadCustomerContactTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadCustomerContactJobTrigger" />
+		<property name="cronExpression" value="${uploadCustomerContactCronExpression}" />
+	</bean>
+
+	<bean id="uploadCustomerContactJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.customerContactManagement.CustomerContactUploadJob" />
+	</bean>
+	
+		<bean id="uploadDiagnosticProcedureTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadDiagnosticProcedureJobTrigger" />
+		<property name="cronExpression" value="${uploadDiagnosticProcedureCronExpression}" />
+	</bean>
+
+	<bean id="uploadDiagnosticProcedureJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.serviceRequest.selfDiagnosis.DiagnosticProcedureUploadJob" />
+	</bean>
+	<!-- Upload Equipment -->	
+	<bean id="uploadDealerAdminEquipmentTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadDealerAdminEquipmentJobTrigger" />
+		<property name="cronExpression" value="${uploadDealerAdminCronExpression}" />
+	</bean>
+
+	<bean id="uploadDealerAdminEquipmentJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="tavant.fleet.integration.layer.upload.dealerAdmin.equipment.EquipmentUploadJob" />
+	</bean>
+	<!-- End of Equipment Upload	 -->
+	
+	<!-- Upload Equipment Contract  -->
+	<bean id="uploadEquipmentContractTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="uploadEquipmentContractJobTrigger"/>
+		<property name="cronExpression" value="${uploadEquipmentContractCronExpression}"/>
+	</bean>
+	<bean id="uploadEquipmentContractJobTrigger" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="tavant.fleet.integration.layer.upload.equipment.association.EquipmentContractUploadJob" />
+	</bean>
+	
+	<!-- Upload Tasks END -->
+    <bean id="quartzScheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">
+		<property name="triggers">
+			<list>
+                <ref bean="createEventMessageTrigger" />
+                <ref bean="sendEmailTrigger" />
+                <ref bean="contractExpiryAlertTrigger" />
+                <ref bean="serviceRequestAgingAlertTrigger" />
+                <ref bean="scheduledPMUploadTrigger" />
+                <ref bean="uploadServiceRequestTrigger" />
+                <ref bean="uploadFleetClaimTrigger" />
+                <ref bean="resetNumberPatternAlertTrigger"/>
+                <ref bean="uploadEquipmentInfoTrigger" />
+                <ref bean="machineHoursUploadTrigger" />
+                <ref bean="serviceScheduleDueDateTrigger"/>
+                <ref bean="serviceRequestOnServiceCallTrigger"/>
+                <ref bean="uploadTravelMatrixTrigger" />
+                <ref bean="uploadDiagnosticGuideTrigger" />
+                <ref bean="uploadCustomerLocationTrigger" />
+                <ref bean="uploadDiagnosticProcedureTrigger" />
+                <ref bean="uploadEquipmentContractTrigger" />
+                <ref bean="jbpmTimerJobTrigger" />
+                <ref bean="uploadCustomerContactTrigger" />
+                <ref bean="quoteAgingAlertTrigger" />
+                <ref bean="quoteExpiryAlertTrigger" />
+                <ref bean="uploadDealerAdminEquipmentTrigger" />
+                <ref bean="dealerDashboardUpdateTrigger" />
+                <ref bean="customerDashboardUpdateTrigger" />
+                <ref bean="internalDashboardUpdateTrigger" />
+                <ref bean="ehpCalculationsTrigger" />
+            </list>
+		</property>
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.jobStore.class">
+					org.quartz.simpl.RAMJobStore
+				</prop>
+				<prop key="org.quartz.threadPool.class">
+					org.quartz.simpl.SimpleThreadPool
+				</prop>
+			</props>
+		</property>
+		<property name="autoStartup" value="${autoStartupValue}"/>
+        <property name="schedulerName" value="Background Tasks Scheduler" />
+        <property name="applicationContextSchedulerContextKey" value="springApplicationContext" />
+	</bean>
+
+</beans>

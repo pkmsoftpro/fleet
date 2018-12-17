@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="QuoteSubmission">
+
+    <!-- Swimlane Definition starts here -->
+    <swimlane name="quoteInboxes-fleetServiceSpecialist">
+        <assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+            <ruleSet>FSS_Assignment</ruleSet>
+            <variables>
+                <variable>quote</variable>
+            </variables>
+        </assignment>
+    </swimlane>
+    
+    <swimlane name="quoteInboxes-dealerOwnedServiceWriter">
+        <assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+            <ruleSet>DealerOwnedServiceWriterAssignment</ruleSet>
+            <variables>
+                <variable>quote</variable>
+            </variables>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="quoteInboxes-dealerQuoteCreator">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{quote.forDealer.id}</expression>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="quoteInboxes-customerQuoteApprover">
+        <assignment class="tavant.fleet.jbpm.assignment.CustomerAssignmentHandler">
+            <variables>
+            	<variable>quote</variable>
+            </variables>
+        </assignment>
+    </swimlane>
+
+    <start-state name="Start">
+        <transition name="Draft" to="DraftQuote">
+            <script>
+                quote.setState(tavant.fleet.domain.quote.QuoteState.DRAFT);
+                quote.getServiceRequest().setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.IN_PROGRESS);
+            </script>
+        </transition>
+        <transition name="Submit Quote" to="generateQuoteNumber">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.SUBMITTED)</script>
+        </transition>
+    </start-state>
+
+    <task-node name="DraftQuote">
+        <task name="Quotes Drafted" swimlane="quoteInboxes-dealerQuoteCreator" />
+        <transition name="Submit Quote" to="generateQuoteNumber">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.SUBMITTED)</script>
+        </transition>
+        <transition name="Delete Draft" to="End">
+            <script>
+                quote.setState(tavant.fleet.domain.quote.QuoteState.DRAFT_DELETED);
+                quote.getServiceRequest().setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING);
+            </script>
+        </transition>
+        <transition name="Save Draft" to="DraftQuote"/>
+    </task-node>
+
+    <serviceNode name="generateQuoteNumber">
+        <beanName>quoteService</beanName>
+        <methodName>generateNextQuoteNumber</methodName>
+        <parameters>
+            <variable>quote</variable>
+        </parameters>
+        <transition name="goToSpecialistReview" to="ForkQuoteSubmitted">
+            <script>
+                quote.getServiceRequest().setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED);
+            </script>
+        </transition>
+    </serviceNode>
+
+	<decision name="ForkQuoteSubmitted">
+		<transition to="ForkQuoteSubmittedByDealer">
+			<condition>#{!quote.customerQuoteReceived}</condition>
+		</transition>
+		<transition to="ForkQuoteSentToAll">
+			<condition>#{quote.customerQuoteReceived}</condition>
+		</transition>
+	</decision>
+ 
+    <fork name="ForkQuoteSubmittedByDealer">
+        <transition name="DealerQuoteSubmitted" to="QuoteSubmitted"/>
+        <transition name="QuoteReceivedNotification" to="isQuoteReceivedByNMHG"/>
+    </fork>
+    
+     <fork name="ForkQuoteSentToAll">
+        <transition name="DealerQuoteSubmitted" to="QuoteSubmitted"/>
+        <transition name="QuoteReceivedNotification" to="isQuoteReceivedByNMHG"/>
+        <transition name="CustomerQuoteRevision" to="CustomerQuoteSentForRevision"/>
+    </fork>
+
+    <task-node name="QuoteSubmitted">
+        <task name="Quotes Submitted" swimlane="quoteInboxes-dealerQuoteCreator" />
+        <transition name="Move Quote for next process" to="JoinAfterSubmitted"/>
+        <transition name="JoinAfterQuoteApproved" to="JoinAfterAccepted"/>
+        <transition name="JoinToMoveQuoteForRevision" to="joinToSendForDealerRevision"/>
+        <transition name="Quote Reverted" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.REVERTED)</script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="JoinAfterSubmitted">
+        <transition name="checkForApprovedOrReverted" to="ApprovedOrReverted"/>
+    </single-token-join>
+
+    <decision name="ApprovedOrReverted">
+        <transition name="Move To Customer Received" to="IsCustomerApprovalReq">
+            <condition>#{quote.state.state=="Accepted"}</condition>
+        </transition>
+        <transition name="move to Approved" to="ForkQuoteApprovedWithOutCustomerInvolvement">
+            <condition>#{quote.state.state=="Approved"}</condition>
+        </transition>
+        <transition name="Denied By Specialist" to="ForkQuoteDeniedBySpecialist">
+            <condition>#{!quote.customerQuoteReceived and quote.state.state=="Denied"}</condition>
+        </transition>
+        <transition name="Denied By FSS Need to Move Customer" to="ForkMoveToCustomerQuoteDenied">
+            <condition>#{quote.customerQuoteReceived and quote.state.state=="Denied"}</condition>
+        </transition>
+        <transition name="Specialist Sent For Revision" to="ForkQuoteSpecialistSentForRevision">
+            <condition>#{quote.state.state=="Request Revision"}</condition>
+        </transition>
+         <transition name="move to Reverted" to="ForkQuoteReverted">
+            <condition>#{quote.state.state=="Reverted"}</condition>
+        </transition>
+    </decision>
+
+    <fork name="ForkQuoteReverted">
+        <transition name="DealerQuoteReverted" to="goToDealerQuoteReverted"/>
+        <transition name="specialistQuoteReverted" to="isQuoteRevertedByNMHG"/>
+    </fork>
+
+    <fork name="ForkQuoteApprovedWithOutCustomerInvolvement">
+        <transition name="fleetSpecialistQuoteApproved" to="isNMHGQuote"/>
+        <transition name="DealerQuoteApproved" to="DealerQuoteApproved"/>
+    </fork>
+
+    <task-node name="goToDealerQuoteReverted">
+        <task name="Quotes Reverted" swimlane="quoteInboxes-dealerQuoteCreator" />
+        <transition name="Dealer Quote ReSubmit" to="JoinAfterQuoteReverted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RESUBMITTED)</script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <task-node name="goToSpecialistQuoteReverted">
+        <task name="Quotes Reverted Internal" swimlane="quoteInboxes-fleetServiceSpecialist" />
+        <transition name="Move to Quote Resubmit" to="JoinAfterQuoteReverted"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+    
+    <task-node name="goToDealerOwnedQuoteReverted">
+        <task name="Quotes Reverted Dealer Owned" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+        <transition name="Move to Quote Resubmit" to="JoinAfterQuoteReverted"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="JoinAfterQuoteReverted">
+        <transition name="Dealer Resubmit quote" to="ForkQuoteSubmitted"/>
+    </single-token-join>
+
+    <task-node name="QuoteReceived">
+        <task name="Quotes Received" swimlane="quoteInboxes-fleetServiceSpecialist" />
+        <transition name="Move Quote for next process" to="JoinAfterSubmitted"/>
+        <transition name="Approved" to="JoinAfterSubmitted">
+            <script>
+                quote.setState(tavant.fleet.domain.quote.QuoteState.ACCEPTED);
+                quote.setCustomerQuoteReceived(true);
+            </script>
+        </transition>
+        
+         <transition name="ApproveAndTransferOnBehalfOfCustomer" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_BEHALF_CUSTOMER)</script>
+        </transition>
+        
+        <transition name="ApproveOnBehalfOfCustomer" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        
+        <transition name="ApproveAndTransferWithoutCustomerBilling" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_WITHOUT_BILLING)</script>
+        </transition>
+        
+        <transition name="ApproveWithoutCustomerBilling" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        <transition name="Service Specialist Denied" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.DENIED)</script>
+        </transition>
+        <transition name="Service Specialist Sent For RequestRevision" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.REQUEST_REVISION)</script>
+        </transition>
+        <transition name="Transfer" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.TRANSFERRED)</script>
+        </transition>
+        <transition name="Seek Advice" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.ADVICE_REQUEST)</script>
+        </transition>
+        <transition name="Approved and Transfer" to="isQuoteReceivedByNMHG">
+        	<script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER)</script>
+         </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+    
+    <task-node name="QuoteReceivedByDealerOwned">
+        <task name="Quotes Received" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+        <transition name="Move Quote for next process" to="JoinAfterSubmitted"/>
+        <transition name="Approved" to="JoinAfterSubmitted">
+            <script>
+                quote.setState(tavant.fleet.domain.quote.QuoteState.ACCEPTED);
+                quote.setCustomerQuoteReceived(true);
+            </script>
+        </transition>
+        
+         <transition name="ApproveAndTransferOnBehalfOfCustomer" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_BEHALF_CUSTOMER)</script>
+        </transition>
+        
+        <transition name="ApproveOnBehalfOfCustomer" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        
+        <transition name="ApproveAndTransferWithoutCustomerBilling" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_WITHOUT_BILLING)</script>
+        </transition>
+        
+        <transition name="ApproveWithoutCustomerBilling" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        <transition name="Service Specialist Denied" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.DENIED)</script>
+        </transition>
+        <transition name="Service Specialist Sent For RequestRevision" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.REQUEST_REVISION)</script>
+        </transition>
+        <transition name="Transfer" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.TRANSFERRED)</script>
+        </transition>
+        <transition name="Seek Advice" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.ADVICE_REQUEST)</script>
+        </transition>
+        <transition name="Approved and Transfer" to="isQuoteReceivedByNMHG">
+        	<script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER)</script>
+         </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+	<decision name="IsCustomerApprovalReq">
+		<handler class="tavant.fleet.jbpm.decision.quote.IsCustomerApprovalReq"/>
+		<transition name="Yes" to="ForkQuoteApprovedWithCustomer"/>
+		<transition name="No" to="ForkQuoteApprovedWithOutCustomer"/>
+	</decision>
+
+    <fork name="ForkQuoteApprovedWithCustomer">
+        <transition name="fleetSpecialistQuoteApproved" to="isNMHGQuote"/>
+        <transition name="CustomerQuoteReceivedForApproval" to="CustomerQuoteReceived"/>
+        <transition name="Dealer Quote submitted" to="DealerQuoteApproved"/>
+    </fork>
+    
+    <fork name="ForkQuoteApprovedWithOutCustomer">
+        <transition name="fleetSpecialistQuoteApproved" to="isNMHGQuote">
+        	<script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        <transition name="Dealer Quote submitted" to="DealerQuoteApproved"/>
+    </fork>
+
+    <task-node name="QuoteApproved">
+        <task name="Quotes Accepted Internal" swimlane="quoteInboxes-fleetServiceSpecialist" />
+        <transition name="JoinAfterQuoteApproved" to="JoinAfterAccepted"/>
+        <transition name="Move to Quote Resubmit" to="JoinAfterQuoteReverted"/>
+        <transition name="Quote Reverted" to="JoinAfterSubmitted"/>
+        <transition name="JoinAfterFleetSpecialistQuoteApproved" to="JoinAfterFSSAccepted"/>
+        <transition name="Quote Reopen by ServiceSpecialist" to="JoinAfterFSSAccepted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RE_OPENED)</script>
+        </transition>
+        <transition name="Transfer" to="isNMHGQuote"/>
+        <transition name="Quote Closed" to="moveToClosed"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+    
+    <task-node name="QuoteApprovedDealerOwned">
+        <task name="Quotes Accepted Dealer Owned" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+        <transition name="JoinAfterQuoteApproved" to="JoinAfterAccepted"/>
+        <transition name="Move to Quote Resubmit" to="JoinAfterQuoteReverted"/>
+        <transition name="Quote Reverted" to="JoinAfterSubmitted"/>
+        <transition name="JoinAfterFleetSpecialistQuoteApproved" to="JoinAfterFSSAccepted"/>
+        <transition name="Quote Reopen by ServiceSpecialist" to="JoinAfterFSSAccepted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RE_OPENED)</script>
+        </transition>
+        <transition name="Transfer" to="isNMHGQuote"/>
+        <transition name="Quote Closed" to="moveToClosed"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="JoinAfterFSSAccepted">
+        <transition name="move to Dealer submitted inbox" to="ForkQuoteReceived"/>
+    </single-token-join>
+    
+    <fork name="ForkQuoteReceived">
+        <transition name="Move to Specialist Quote Received" to="isQuoteReceivedByNMHG"/>
+          <transition name="Move to Dealer quote Accepted" to="QuoteSubmitted"/>
+    </fork>
+
+    <task-node name="DealerQuoteApproved">
+        <task name="Quotes Accepted" swimlane="quoteInboxes-dealerQuoteCreator" />
+        <transition name="move out from sent for revision" to="JoinAfterSubmitted"/>
+        <transition name="Quote Closed" to="moveToClosed"/>
+          <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="JoinAfterAccepted">
+        <transition name="checkForCustomerApprovedOrRevertedOrRequestRevision"
+                    to="CustomerApprovedOrRevertedOrRequestRevision"/>
+    </single-token-join>
+
+    <decision name="CustomerApprovedOrRevertedOrRequestRevision">
+        <transition name="Customer approved" to="ForkMoveToCustomerApproved">
+            <condition>#{quote.state=="Approved"}</condition>
+        </transition>
+        <transition name="Customer Denied" to="ForkMoveToCustomerQuoteDenied">
+            <condition>#{quote.state=="Denied"}</condition>
+        </transition>
+        <transition name="Customer Request Revision" to="ForkMoveToQuoteRequestRevision">
+            <condition>#{quote.state=="Request Revision"}</condition>
+        </transition>
+    </decision>
+
+    <fork name="ForkMoveToCustomerApproved">
+        <transition name="fleetSpecialistQuoteApproved" to="isNMHGQuote"/>
+        <transition name="CustomerQuoteReceivedForApproval" to="CustomerQuoteApproved"/>
+        <transition name="DealerQuoteApproved" to="DealerQuoteApproved"/>
+    </fork>
+
+    <fork name="ForkMoveToCustomerQuoteDenied">
+        <transition name="fleetSpecialistQuoteRejected" to="isQuoteRejectedByNMHG"/>
+        <transition name="CustomerQuoteRejected" to="QuoteRejectedForCustomer"/>
+        <transition name="DealerQuoteRejected" to="QuoteRejectedForDealer"/>
+    </fork>
+
+    <fork name="ForkQuoteDeniedBySpecialist">
+        <transition name="fleetSpecialistQuoteRejected" to="isQuoteRejectedByNMHG"/>
+        <transition name="DealerQuoteRejected" to="QuoteRejectedForDealer"/>
+    </fork>
+
+    <task-node name="QuoteRejectedBySpecialist">
+        <task name="Quotes Rejected Internal" swimlane="quoteInboxes-fleetServiceSpecialist" />
+        <transition name="Quote Resubmitted by Dealer" to="joinAfterRejected"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+        <transition name="Quote Reopen by ServiceSpecialist" to="JoinAfterFSSRejected">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RE_OPENED)</script>
+        </transition>
+    </task-node>
+    
+    <task-node name="QuoteRejectedByDealerOwnedServiceWriter">
+        <task name="Quotes Rejected Dealer Owned" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+        <transition name="Quote Resubmitted by Dealer" to="joinAfterRejected"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+        <transition name="Quote Reopen by ServiceSpecialist" to="JoinAfterFSSRejected">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RE_OPENED)</script>
+        </transition>
+    </task-node>
+    
+     <single-token-join name="JoinAfterFSSRejected">
+        <transition name="Quote Resubmitted by Dealer" to="ForkQuoteMoveTOReceived"/>
+    </single-token-join>
+    
+     <fork name="ForkQuoteMoveTOReceived">
+        <transition name="Move to Specialist Quote Received" to="isQuoteReceivedByNMHG"/>
+          <transition name="Move to Dealer Quote Submitted" to="QuoteSubmitted"/>
+    </fork>
+
+    <task-node name="QuoteRejectedForCustomer">
+        <task name="Quotes Rejected" swimlane="quoteInboxes-customerQuoteApprover" />
+        <transition name="Quote Resubmitted by Dealer" to="joinAfterRejected"/>
+        <transition name="Quote Reopen by ServiceSpecialist" to="JoinAfterFSSRejected" />
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <task-node name="QuoteRejectedForDealer">
+        <task name="Quotes Rejected" swimlane="quoteInboxes-dealerQuoteCreator" />
+         <transition name="Quote Reopen" to="joinAfterRejected"/>
+        <transition name="Quote Resubmitted by Dealer" to="joinAfterRejected">
+            <script>
+            quote.setState(tavant.fleet.domain.quote.QuoteState.RESUBMITTED);
+            quote.setCustomerQuoteReceived(false);
+            </script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="joinAfterRejected">
+        <transition name="Quote Resubmitted by Dealer" to="ForkQuoteSubmitted"/>
+    </single-token-join>
+
+    <fork name="ForkMoveToQuoteRequestRevision">
+        <transition name="fleetSpecialistQuoteRevision" to="isNMHGQuoteSentForRevision"/>
+        <transition name="CustomerQuoteRevision" to="CustomerQuoteSentForRevision"/>
+        <transition name="Dealer Quote submitted" to="DealerQuoteApproved"/>
+    </fork>
+
+    <fork name="ForkQuoteSpecialistSentForRevision">
+        <transition name="Specialist sent for revision" to="isNMHGQuoteSent"/>
+        <transition name="Dealer Quote Received For Revision" to="DealerQuoteReceivedForRevision"/>
+    </fork>
+    
+     <fork name="ForkQuoteFssSentForRevisionForCustomer">
+        <transition name="Specialist sent for revision" to="isNMHGQuoteSent"/>
+        <transition name="Dealer Quote Received For Revision" to="DealerQuoteReceivedForRevision"/>
+         <transition name="Move to Customer Sent For Revision " to="CustomerQuoteSentForRevision"/>
+    </fork>
+
+    <task-node name="SpecialistQuoteSentForRevision">
+        <task name="Quotes Sent For Revision" swimlane="quoteInboxes-fleetServiceSpecialist" />
+        <transition name="Resubmit quote" to="joinAfterQuoteRevision"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+    
+     <task-node name="ServiceWriterQuoteSentForRevision">
+        <task name="Quotes Sent For Revision" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+        <transition name="Resubmit quote" to="joinAfterQuoteRevision"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <task-node name="DealerQuoteReceivedForRevision">
+        <task name="Quotes Received For Revision from Owner" swimlane="quoteInboxes-dealerQuoteCreator" />
+        <transition name="Resubmit quote" to="joinAfterQuoteRevision">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.SUBMITTED)</script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="joinAfterQuoteRevision">
+        <transition name="join After Quote Revision" to="ForkQuoteSubmitted"/>
+    </single-token-join>
+
+    <task-node name="SpecialistQuoteReceivedForRevision">
+        <task name="Quotes Received For Revision from Customer" swimlane="quoteInboxes-fleetServiceSpecialist" />
+         <transition name="Approved" to="JoinAfterSubmitted">
+            <script>
+                quote.setState(tavant.fleet.domain.quote.QuoteState.ACCEPTED);
+                quote.setCustomerQuoteReceived(true);
+            </script>
+        </transition>
+          <transition name="ApproveAndTransferOnBehalfOfCustomer" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_BEHALF_CUSTOMER)</script>
+        </transition>
+         <transition name="ApproveOnBehalfOfCustomer" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+         <transition name="ApproveAndTransferWithoutCustomerBilling" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_WITHOUT_BILLING)</script>
+        </transition>
+         <transition name="ApproveWithoutCustomerBilling" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        <transition name="Seek Advice" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.ADVICE_REQUEST)</script>
+        </transition>
+        <transition name="Approved and Transfer" to="isQuoteReceivedByNMHG">
+        	<script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER)</script>
+         </transition>
+        <transition name="sent for dealer revision" to="joinToSendForDealerRevision">
+         <script>quote.setState(tavant.fleet.domain.quote.QuoteState.REQUEST_REVISION)</script>
+        </transition>
+        <transition name="quote Resubmit To Customer" to="joinAfterQuoteReSubmit">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RESUBMITTED)</script>
+        </transition>
+        <transition name="Quote Denied By Specialist" to="JoinAfterSubmitted">
+        <script>quote.setState(tavant.fleet.domain.quote.QuoteState.DENIED)</script>
+        </transition>
+        <transition name="Quote Transfer to Internal" to="isQuoteReceivedByNMHG">
+        <script>quote.setState(tavant.fleet.domain.quote.QuoteState.TRANSFERRED)</script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+	
+	<task-node name="ServiceWriterQuoteReceivedForRevision">
+        <task name="Quotes Received For Revision from Customer" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+         <transition name="Approved" to="JoinAfterSubmitted">
+            <script>
+                quote.setState(tavant.fleet.domain.quote.QuoteState.ACCEPTED);
+                quote.setCustomerQuoteReceived(true);
+            </script>
+        </transition>
+          <transition name="ApproveAndTransferOnBehalfOfCustomer" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_BEHALF_CUSTOMER)</script>
+        </transition>
+         <transition name="ApproveOnBehalfOfCustomer" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+         <transition name="ApproveAndTransferWithoutCustomerBilling" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER_WITHOUT_BILLING)</script>
+        </transition>
+         <transition name="ApproveWithoutCustomerBilling" to="JoinAfterSubmitted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        <transition name="Seek Advice" to="isQuoteReceivedByNMHG">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.ADVICE_REQUEST)</script>
+        </transition>
+        <transition name="Approved and Transfer" to="isQuoteReceivedByNMHG">
+        	<script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER)</script>
+         </transition>
+        <transition name="sent for dealer revision" to="joinToSendForDealerRevision">
+         <script>quote.setState(tavant.fleet.domain.quote.QuoteState.REQUEST_REVISION)</script>
+        </transition>
+        <transition name="quote Resubmit To Customer" to="joinAfterQuoteReSubmit">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.RESUBMITTED)</script>
+        </transition>
+        <transition name="Quote Denied By Specialist" to="JoinAfterSubmitted">
+        <script>quote.setState(tavant.fleet.domain.quote.QuoteState.DENIED)</script>
+        </transition>
+        <transition name="Quote Transfer to Internal" to="isQuoteReceivedByNMHG">
+        <script>quote.setState(tavant.fleet.domain.quote.QuoteState.TRANSFERRED)</script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="joinToSendForDealerRevision">
+        <transition name="Dealer Revision required" to="ForkQuoteFssSentForRevisionForCustomer"/>
+    </single-token-join>
+
+    <single-token-join name="joinAfterQuoteReSubmit">
+        <transition name="joinAfterQuoteReSubmit" to="ForkQuoteSentBackToCustomer"/>
+    </single-token-join>
+
+    <fork name="ForkQuoteSentBackToCustomer">
+        <transition name="fleetSpecialistQuoteApproved" to="isNMHGQuote"/>
+        <transition name="CustomerQuoteReceivedForApproval" to="CustomerQuoteReceived"/>
+    </fork>
+
+    <task-node name="CustomerQuoteSentForRevision">
+        <task name="Quotes Sent For Revision" swimlane="quoteInboxes-customerQuoteApprover" />
+        <transition name="sent for dealer revision" to="joinToSendForDealerRevision"/>
+          <transition name="move out from sent for revision" to="JoinAfterSubmitted"/>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <task-node name="CustomerQuoteReceived">
+        <task name="Quotes Received" swimlane="quoteInboxes-customerQuoteApprover" />
+        <transition name="Quote Reverted" to="JoinAfterSubmitted"/>
+        <transition name="JoinAfterQuoteApproved" to="JoinAfterAccepted"/>
+        <transition name="Approved and Transfer" to="CustomerQuoteReceived">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_TRANSFER)</script>
+        </transition>
+        <transition name="Approved" to="JoinAfterAccepted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED)</script>
+        </transition>
+        <transition name="Denied" to="JoinAfterAccepted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.DENIED)</script>
+        </transition>
+        <transition name="RequestRevision" to="JoinAfterAccepted">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.REQUEST_REVISION)</script>
+        </transition>
+        <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <task-node name="CustomerQuoteApproved">
+        <task name="Quotes Accepted" swimlane="quoteInboxes-customerQuoteApprover" />
+         <transition name="Quote Reopen by ServiceSpecialist" to="JoinAfterFSSAccepted" />
+        <transition name="Quote Closed" to="moveToClosed">
+            <script>quote.setState(tavant.fleet.domain.quote.QuoteState.APPROVED_AND_CLOSED)</script>
+        </transition>
+          <transition name="Move to Quote Expired" to="moveToQuoteExpired"/>
+    </task-node>
+
+    <single-token-join name="moveToQuoteExpired">
+        <transition name="Move Quote to expired" to="ForkQuoteMovedToExpired">
+         <script>quote.setState(tavant.fleet.domain.quote.QuoteState.EXPIRED)</script>
+        </transition>
+    </single-token-join>
+
+    <fork name="ForkQuoteMovedToExpired">
+        <transition name="Customer Quote Expired" to="CustomerQuoteExpired"/>
+        <transition name="Dealer Quote Expired" to="DealerQuoteExpired"/>
+        <transition name="FleetServiceSpecialist Quote Expired" to="didNMHGQuoteExpire"/>
+    </fork>
+
+    <task-node name="CustomerQuoteExpired">
+        <task name="Quotes Expired" swimlane="quoteInboxes-customerQuoteApprover" />
+        <transition name="Quote Expired And Closed" to="moveToClosed"/>
+    </task-node>
+
+    <task-node name="DealerQuoteExpired">
+        <task name="Quotes Expired" swimlane="quoteInboxes-dealerQuoteCreator" />
+        <transition name="Quote Expired And Closed" to="moveToClosed">
+        <script>quote.setState(tavant.fleet.domain.quote.QuoteState.CLOSED)</script>
+        </transition>
+    </task-node>
+
+    <task-node name="FleetServiceSpecialistQuoteExpired">
+        <task name="Quotes Expired Internal" swimlane="quoteInboxes-fleetServiceSpecialist" />
+        <transition name="Quote Expired And Closed" to="moveToClosed"/>
+    </task-node>
+    
+    <task-node name="DealerOwnedServiceWriterQuoteExpired">
+        <task name="Quotes Expired Dealer Owned" swimlane="quoteInboxes-dealerOwnedServiceWriter" />
+        <transition name="Quote Expired And Closed" to="moveToClosed"/>
+    </task-node>
+
+    <single-token-join name="moveToClosed">
+        <transition name="goToEnd" to="End"/>
+    </single-token-join>
+    
+   <decision name="isNMHGQuote">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="QuoteApproved"/>
+	    <transition name="No" to="QuoteApprovedDealerOwned"/>
+	</decision> 
+	
+	<decision name="isQuoteRejectedByNMHG">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="QuoteRejectedBySpecialist"/>
+	    <transition name="No" to="QuoteRejectedByDealerOwnedServiceWriter"/>
+	</decision>
+	
+	<decision name="isQuoteRevertedByNMHG">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="goToSpecialistQuoteReverted"/>
+	    <transition name="No" to="goToDealerOwnedQuoteReverted"/>
+	</decision>
+	
+	<decision name="didNMHGQuoteExpire">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="FleetServiceSpecialistQuoteExpired"/>
+	    <transition name="No" to="DealerOwnedServiceWriterQuoteExpired"/>
+	</decision>
+	
+	<decision name="isQuoteReceivedByNMHG">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="QuoteReceived"/>
+	    <transition name="No" to="QuoteReceivedByDealerOwned"/>
+	</decision>
+	
+	<decision name="isNMHGQuoteSentForRevision">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="SpecialistQuoteReceivedForRevision"/>
+	    <transition name="No" to="ServiceWriterQuoteReceivedForRevision"/>
+	</decision>
+	
+	<decision name="isNMHGQuoteSent">
+    <handler class="tavant.fleet.jbpm.decision.quote.IsNMHGQuote"/>
+		<transition name="Yes" to="SpecialistQuoteSentForRevision"/>
+	    <transition name="No" to="ServiceWriterQuoteSentForRevision"/>
+	</decision>
+
+    <end-state name="End" />
+       
+</process-definition>

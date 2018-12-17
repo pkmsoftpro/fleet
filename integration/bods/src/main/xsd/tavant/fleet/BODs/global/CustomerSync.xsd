@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.tavant.com/fleet/customersync"
+	xmlns="http://www.tavant.com/fleet/customersync" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="unqualified" elementFormDefault="unqualified">
+	<xs:include schemaLocation="../../Resources/Nouns/global/ApplicationAreaType.xsd" />
+
+	<xs:element name="CustomerSyncRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Interface Info Section </xs:documentation>
+				</xs:annotation>
+				 <xs:element name="ApplicationArea" type="ApplicationAreaType"/>
+				<xs:element name="DataArea">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:annotation>
+								<xs:documentation>Customer Info Section </xs:documentation>
+							</xs:annotation>
+							<xs:element name="BusinessUnits">
+								<xs:annotation>
+									<xs:documentation>Business Units : 003- AMERICAS, 065 for EMEA
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="BUName" minOccurs="1" maxOccurs="unbounded">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3" />
+													<xs:enumeration value="003" />
+													<xs:enumeration value="056" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="CustomerName">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="100" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="PartnerType">
+								<xs:annotation>
+									<xs:documentation>if PartnerType as "C" BillToAddress will be
+										used for customer level address and contacts
+										if PartnerType as "L" ShipToLocation will be used for customer
+										location level address and contacts
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="1" />
+										<xs:enumeration value="C" />
+										<xs:enumeration value="L" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+
+							<xs:element name="Customers" minOccurs="1" >
+								<xs:annotation>
+									<xs:documentation>Customer Info Section</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PrimaryCustomer" minOccurs="1" maxOccurs="1">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="SalesOrganization">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="4" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="DistributionChannel">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="2" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="Division">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="2" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="CustomerNumber">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="50" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="Status">
+														<xs:annotation>
+															<xs:documentation>Defines the status for Customer
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="8" />
+																<xs:enumeration value="ACTIVE" />
+																<xs:enumeration value="INACTIVE" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+
+										<xs:element name="AlternateCustomer" minOccurs="0" maxOccurs="1" nillable="true">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="SalesOrganization">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="4" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="DistributionChannel">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="2" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="Division">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="2" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="CustomerNumber">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="50" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+
+													<xs:element name="Status">
+														<xs:annotation>
+															<xs:documentation>Defines the status for Customer
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="8" />
+																<xs:enumeration value="ACTIVE" />
+																<xs:enumeration value="INACTIVE" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+
+							<xs:element name="BillToAddress" minOccurs="0"
+								maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>Customer Bill-To Info Section
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Addressline1">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline2" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline3" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline4" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="City">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="40" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="State">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CountyCode" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="50" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Country">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Zipcode">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="ZipExtension" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Phone" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="30" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="PhoneExtension" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Fax" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="30" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="FaxExtension" minOccurs="0" nillable="true">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Email" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="241" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Currency">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="5" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Status" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Defines the status for BillToAddress
+												</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="8" />
+													<xs:enumeration value="ACTIVE" />
+													<xs:enumeration value="INACTIVE" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+
+							<xs:element name="ShipToLocation" minOccurs="0"
+								maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>Location Info Section </xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LocationNumber" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="LocationName" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline1">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline2" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline3" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Addressline4" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="60" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="City">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="40" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="State">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CountyCode" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="50" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Country">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Zipcode">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="ZipExtension" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Phone" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="30" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="PhoneExtension" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Fax" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="30" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="FaxExtension" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Email" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="241" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Status" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Defines the status for ShipToLocation
+												</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="8" />
+													<xs:enumeration value="ACTIVE" />
+													<xs:enumeration value="INACTIVE" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+
+							<xs:element name="CustomerContacts" minOccurs="0"
+								maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>Contact Info Section</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="CustomerContact" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="FirstName">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="40" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="LastName">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="40" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Department">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="40" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Title">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="40" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Phone">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="30" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="PhoneExtension">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="10" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Fax">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="30" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="FaxExtension">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="10" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Email" minOccurs="1">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:maxLength value="241" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

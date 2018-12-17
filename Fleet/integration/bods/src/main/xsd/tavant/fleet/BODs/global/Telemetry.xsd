@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.nmhg.com"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.nmhg.com">
+	<xs:import
+		schemaLocation="https://webservice.yalevision.com/NTPWebService.svc?xsd=xsd2"
+		namespace="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+	<xs:element name="GetEquipmentList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetEquipmentListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="GetEquipmentListResult"
+					nillable="true" type="q1:ArrayOfEquipment"
+					xmlns:q1="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetOperatorList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetOperatorListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="GetOperatorListResult"
+					nillable="true" type="q2:ArrayOfOperator"
+					xmlns:q2="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetSessionsByEquipProductIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipProductID" type="xs:long" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetSessionsByEquipProductIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetSessionsByEquipProductIDAndDatesResult" nillable="true"
+					type="q3:ArrayOfSessionEvent"
+					xmlns:q3="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetSessionsBySerialNumberAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipSerialNumber"
+					nillable="true" type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetSessionsBySerialNumberAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetSessionsBySerialNumberAndDatesResult" nillable="true"
+					type="q4:ArrayOfSessionEvent"
+					xmlns:q4="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetSessionsByServiceIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipServiceID" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetSessionsByServiceIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetSessionsByServiceIDAndDatesResult" nillable="true"
+					type="q5:ArrayOfSessionEvent"
+					xmlns:q5="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkSessionsByDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkSessionsByDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="GetBulkSessionsByDatesResult"
+					nillable="true" type="q6:ArrayOfSessionEvent"
+					xmlns:q6="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetLatestSessions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetLatestSessionsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="GetLatestSessionsResult"
+					nillable="true" type="q7:ArrayOfSessionEvent"
+					xmlns:q7="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANOpenEventsByEquipProductIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipProductID" type="xs:long" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANOpenEventsByEquipProductIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANOpenEventsByEquipProductIDAndDatesResult" nillable="true"
+					type="q8:ArrayOfDTCCANOpenEvent"
+					xmlns:q8="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANOpenEventsBySerialNumberAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipSerialNumber"
+					nillable="true" type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANOpenEventsBySerialNumberAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANOpenEventsBySerialNumberAndDatesResult" nillable="true"
+					type="q9:ArrayOfDTCCANOpenEvent"
+					xmlns:q9="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANOpenEventsByServiceIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipServiceID" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANOpenEventsByServiceIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANOpenEventsByServiceIDAndDatesResult" nillable="true"
+					type="q10:ArrayOfDTCCANOpenEvent"
+					xmlns:q10="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCCANOpenEventsByDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCCANOpenEventsByDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetBulkDTCCANOpenEventsByDatesResult" nillable="true"
+					type="q11:ArrayOfDTCCANOpenEvent"
+					xmlns:q11="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANj1939EventsByEquipProductIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipProductID" type="xs:long" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANj1939EventsByEquipProductIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANj1939EventsByEquipProductIDAndDatesResult" nillable="true"
+					type="q12:ArrayOfDTCCANj1939Event"
+					xmlns:q12="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANj1939EventsBySerialNumberAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipSerialNumber"
+					nillable="true" type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANj1939EventsBySerialNumberAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANj1939EventsBySerialNumberAndDatesResult" nillable="true"
+					type="q13:ArrayOfDTCCANj1939Event"
+					xmlns:q13="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANj1939EventsByServiceIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipServiceID" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANj1939EventsByServiceIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANj1939EventsByServiceIDAndDatesResult" nillable="true"
+					type="q14:ArrayOfDTCCANj1939Event"
+					xmlns:q14="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCCANj1939EventsByDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCCANj1939EventsByDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetBulkDTCCANj1939EventsByDatesResult" nillable="true"
+					type="q15:ArrayOfDTCCANj1939Event"
+					xmlns:q15="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANZapiEventsByEquipProductIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipProductID" type="xs:long" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANZapiEventsByEquipProductIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANZapiEventsByEquipProductIDAndDatesResult" nillable="true"
+					type="q16:ArrayOfDTCCANZapiEvent"
+					xmlns:q16="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANZapiEventsBySerialNumberAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipSerialNumber"
+					nillable="true" type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANZapiEventsBySerialNumberAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANZapiEventsBySerialNumberAndDatesResult" nillable="true"
+					type="q17:ArrayOfDTCCANZapiEvent"
+					xmlns:q17="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANZapiEventsByServiceIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipServiceID" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCCANZapiEventsByServiceIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCCANZapiEventsByServiceIDAndDatesResult" nillable="true"
+					type="q18:ArrayOfDTCCANZapiEvent"
+					xmlns:q18="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCCANZapiEventsByDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCCANZapiEventsByDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetBulkDTCCANZapiEventsByDatesResult" nillable="true"
+					type="q19:ArrayOfDTCCANZapiEvent"
+					xmlns:q19="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaHydraulicEventsByEquipProductIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipProductID" type="xs:long" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaHydraulicEventsByEquipProductIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCDanaHydraulicEventsByEquipProductIDAndDatesResult"
+					nillable="true" type="q20:ArrayOfDTCDanaHydraulicEvent"
+					xmlns:q20="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaHydraulicEventsBySerialNumberAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipSerialNumber"
+					nillable="true" type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaHydraulicEventsBySerialNumberAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCDanaHydraulicEventsBySerialNumberAndDatesResult"
+					nillable="true" type="q21:ArrayOfDTCDanaHydraulicEvent"
+					xmlns:q21="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaHydraulicEventsByServiceIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipServiceID" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaHydraulicEventsByServiceIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCDanaHydraulicEventsByServiceIDAndDatesResult" nillable="true"
+					type="q22:ArrayOfDTCDanaHydraulicEvent"
+					xmlns:q22="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCDanaHydraulicEventsByDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCDanaHydraulicEventsByDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetBulkDTCDanaHydraulicEventsByDatesResult" nillable="true"
+					type="q23:ArrayOfDTCDanaHydraulicEvent"
+					xmlns:q23="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaTransmissionEventsByEquipProductIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipProductID" type="xs:long" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element
+		name="GetDTCDanaTransmissionEventsByEquipProductIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCDanaTransmissionEventsByEquipProductIDAndDatesResult"
+					nillable="true" type="q24:ArrayOfDTCDanaTransmissionEvent"
+					xmlns:q24="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaTransmissionEventsBySerialNumberAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipSerialNumber"
+					nillable="true" type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element
+		name="GetDTCDanaTransmissionEventsBySerialNumberAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCDanaTransmissionEventsBySerialNumberAndDatesResult"
+					nillable="true" type="q25:ArrayOfDTCDanaTransmissionEvent"
+					xmlns:q25="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaTransmissionEventsByServiceIDAndDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="equipServiceID" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDTCDanaTransmissionEventsByServiceIDAndDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetDTCDanaTransmissionEventsByServiceIDAndDatesResult"
+					nillable="true" type="q26:ArrayOfDTCDanaTransmissionEvent"
+					xmlns:q26="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCDanaTransmissionEventsByDates">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="startDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="endDateEq" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetBulkDTCDanaTransmissionEventsByDatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0"
+					name="GetBulkDTCDanaTransmissionEventsByDatesResult" nillable="true"
+					type="q27:ArrayOfDTCDanaTransmissionEvent"
+					xmlns:q27="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UploadCostsOfOperation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="costRecords" nillable="true"
+					type="q28:ArrayOfEqOperationCost"
+					xmlns:q28="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UploadCostsOfOperationResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="UploadCostsOfOperationResult"
+					nillable="true" type="q29:ArrayOfErrorRecords"
+					xmlns:q29="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UploadPMServiceRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="pmServiceRecords"
+					nillable="true" type="q30:ArrayOfPMServiceRecord"
+					xmlns:q30="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UploadPMServiceRecordsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="UploadPMServiceRecordsResult"
+					nillable="true" type="q31:ArrayOfErrorRecords"
+					xmlns:q31="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UploadOpTrainingRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="username" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="password" nillable="true"
+					type="xs:string" />
+				<xs:element minOccurs="0" name="opTrainingRecords"
+					nillable="true" type="q32:ArrayOfOpTrainingRecord"
+					xmlns:q32="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+				<xs:element minOccurs="0" name="cultureCode" nillable="true"
+					type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UploadOpTrainingRecordsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="UploadOpTrainingRecordsResult"
+					nillable="true" type="q33:ArrayOfErrorRecords"
+					xmlns:q33="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parts_components_tobe_installed_purchased" pageWidth="600" pageHeight="15" whenNoDataType="AllSectionsNoDetail" columnWidth="600" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="installedPartSerialNumber" class="java.lang.String"/>
+	<field name="installedBrandItem.itemNumber" class="java.lang.String"/>
+	<field name="installedBrandItem.item.itemDescription" class="java.lang.String"/>
+	<field name="numberOfUnits" class="java.lang.Number"/>
+	<field name="basePricePerUnitDealer" class="java.lang.Object"/>
+	<field name="extendedPricePerUnit" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e5b4eccd-1748-4f99-b121-a20c7cbe4560" positionType="Float" stretchType="RelativeToTallestObject" x="500" y="0" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{extendedPricePerUnit}!=null?$F{extendedPricePerUnit}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="548d675e-b180-49ea-93ec-7541f4fbc31f" positionType="Float" stretchType="RelativeToTallestObject" x="450" y="0" width="50" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{basePricePerUnitDealer}!=null?$F{basePricePerUnitDealer}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d5da4071-a8d8-4c94-8211-560681dd8242" positionType="Float" stretchType="RelativeToTallestObject" x="400" y="0" width="50" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numberOfUnits}!=null?$F{numberOfUnits}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c1904375-c6be-45f9-b2db-453c817c0ddb" positionType="Float" stretchType="RelativeToTallestObject" x="200" y="0" width="200" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{installedBrandItem.item.itemDescription}!=null?$F{installedBrandItem.item.itemDescription}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2816bde0-d581-40bf-9eba-c567b8036547" positionType="Float" stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{installedBrandItem.itemNumber}!=null?$F{installedBrandItem.itemNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="bb8a655b-3591-4d14-8a3a-8c9961efdb60" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{installedPartSerialNumber}!=null?$F{installedPartSerialNumber}:"--"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

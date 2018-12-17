@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="programGuideSummary" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b69e9321-eecf-4245-b366-651e813e9e80">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="51"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="customerProgramGuideSummary" class="tavant.fleet.domain.admin.programGuideSummary.CustomerProgramGuideSummary">
+		<fieldDescription><![CDATA[customerProgramGuideSummary]]></fieldDescription>
+	</field>
+	<field name="dealerProgramGuideSummary" class="tavant.fleet.domain.admin.programGuideSummary.DealerProgramGuideSummary">
+		<fieldDescription><![CDATA[dealerProgramGuideSummary]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="574" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="231" width="146" height="18" uuid="92918790-ffdf-4656-a587-88b528bbe7cf"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Quote Requirement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="249" width="3" height="18" uuid="321009eb-c08f-4e0a-8c2f-a69e305a948e"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="10" width="199" height="18" uuid="d18482bb-4455-4f8d-b18e-e977936934c5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dealer Program Guide Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="329" width="3" height="18" uuid="526cb37b-67c5-4b0b-a3f0-966e88c36469"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="271" width="146" height="18" uuid="7f27b0e4-652c-41be-b68c-c6a67fd03d98"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Service Request]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="289" width="3" height="18" uuid="988a28f7-d0af-436e-96e4-1fd3a3ee4fe6"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="389" width="3" height="18" uuid="98ab65f9-0ae5-47f2-8b81-ce0c62f41171"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="111" width="332" height="18" uuid="fb51bd11-df7d-4601-85c5-1b7d4ba17618"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getCustomer().getName()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="331" width="332" height="18" uuid="4fa61df4-ccbf-408e-9d7a-240f9ecd65a3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getClaimSubmissionInstructions()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="391" width="332" height="18" uuid="168ed50f-4a40-440c-80d4-af2b07130e48"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getProgramExclusions()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="211" width="332" height="18" uuid="c3e2eba9-3734-48dc-b1cd-29c2f3c9dfc0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getTravel()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="209" width="3" height="18" uuid="0729d719-def3-4e7d-972d-6c955011206e"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="89" width="3" height="18" uuid="cb0cb891-4e82-48fd-a437-2c85a5becff5"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="169" width="3" height="18" uuid="2b081cec-e470-46dc-bcbc-da457c7d6cd8"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="309" width="3" height="18" uuid="521822e8-995a-4eaa-bd37-0f6a338d21bf"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="371" width="146" height="18" uuid="4db06a8c-2f9c-4493-93d2-97604c7fc31d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billing Allowances]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="151" width="332" height="18" uuid="b9016eac-520a-4db8-92ba-aecfeaac7893"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getKeyContacts()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="109" width="3" height="18" uuid="f28dc1ba-eaf0-488e-9071-c2f37d794ca2"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="311" width="332" height="18" uuid="b9d95e73-0645-4fab-9f06-96dd87ba250c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getTiresAndWheels()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="291" width="332" height="18" uuid="dbcd4fe2-3b63-4de9-8609-0ae22cdc0749"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getServiceExpectations()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="129" width="3" height="18" uuid="12a92a59-7fa7-4a2f-88f9-4a6814660507"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="52" width="100" height="20" uuid="ac01dbd8-b70b-49df-b693-d591c47ca6cf"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[General Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="229" width="3" height="18" uuid="b6dcf1c1-dcba-4aa0-b4b0-d3ff90296715"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="291" width="146" height="18" uuid="4d873699-1175-48ee-b5b9-a15c343452a3"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Service Expectations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="311" width="146" height="18" uuid="69436b2e-9bb0-42ae-8205-246c1c37f57e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tires and Wheels]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="171" width="146" height="18" uuid="56deca92-265a-4062-ac86-1076a01a7490"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Labour Rates]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-29" positionType="Float" x="199" y="91" width="332" height="18" uuid="4d2f46f9-ec1b-42c6-a994-ae9fcdb2028d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getDealer().getName()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="191" width="332" height="18" uuid="727b7a32-00a0-4f96-a669-560931a2f846"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getPartsPricing()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="151" width="146" height="18" uuid="08130734-b157-462b-ae2e-a91553a3208d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Key Contacts]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="269" width="3" height="18" uuid="527e5a6c-a381-43ff-b7ed-60c823a2206e"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="211" width="146" height="18" uuid="bc97c74b-cf71-43e4-8e88-07d6002249d5"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Travel]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="269" width="332" height="18" uuid="079f639e-4958-42a1-9f7c-bb5eed940d24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getServiceRequest()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="349" width="3" height="18" uuid="2fc3a1da-400c-45c9-8bb0-676e0fdca0a2"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="111" width="146" height="18" uuid="f9c3cf56-fe4b-4b0d-b881-88b3c2cf1b06"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Name ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="131" width="332" height="18" uuid="7a861dd5-967d-4ecd-9c7e-baa11c9a8d67"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getCustomer().getCustomerNumber()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="351" width="332" height="18" uuid="de0b8d4d-d5b5-4d14-9344-f4ac43fb7a8d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getLoanerProvision()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="191" width="146" height="18" uuid="3768f442-d29d-4bb1-b2ea-e448d5150637"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Parts Pricing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="331" width="146" height="18" uuid="c6f96fbe-e0a6-4bcc-a344-72bfeee82080"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Claim Submissions Instructions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="131" width="146" height="18" uuid="6b191e4d-e7f5-4aee-9ac8-3548b4c0ba72"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Number ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="149" width="3" height="18" uuid="d2040ec3-bed5-43de-8e79-c66dd310ac15"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="231" width="332" height="18" uuid="7d4fe509-0120-4d83-99d5-3a74ef6f4c6b"/>
+				<box topPadding="0" leftPadding="0">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getQuoteRequirement()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="369" width="3" height="18" uuid="dc9f564f-fdc7-47af-9bc1-5a2db2df5c92"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="371" width="332" height="18" uuid="72c86eb6-860a-4edf-9e3d-dadd4fff50a1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getBillingAllowances()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="189" width="3" height="18" uuid="0eb134c4-1810-4906-8ce6-982a489ce8ad"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="171" width="332" height="18" uuid="6cbd5baf-8db5-415f-9c84-677bd59f3add"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getLabourRates()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="391" width="146" height="18" uuid="d9c09ea3-f9a0-455c-a32f-9d26e9cc6749"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Program Exclusions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="251" width="146" height="18" uuid="311e3516-38a6-4526-93a0-1629e97a22a6"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PO Requirement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="91" width="146" height="18" uuid="9fd6c7d0-d73f-43ac-b078-15d66f1a089a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dealer Name ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="72" width="521" height="1" uuid="40b9382c-b11b-41c2-9987-92ccc858510f"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="351" width="146" height="18" uuid="3578f5fe-d7f6-4a1a-a5f4-1e0e2317487f"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Rental/Loaner Provision]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="251" width="332" height="18" uuid="4abe34aa-13fb-47c0-9b18-e9566c284048"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getPurchaseOrderRequirement()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="573" width="522" height="1" uuid="197c57c3-6ba4-4f28-8a0b-64824873d53c"/>
+			</line>
+			<line>
+				<reportElement x="11" y="438" width="205" height="1" uuid="bca9ad5a-cc07-4816-828f-5293cc1d81ca"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="254" y="419" width="146" height="18" uuid="785c8951-c1bb-40ba-9772-b4df5a911423"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PM Services]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="446" width="206" height="113" uuid="5e683d91-e695-45c9-9804-43db004f206c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dealerProgramGuideSummary}.getSpecialInstructions()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="254" y="437" width="278" height="1" uuid="53be3ab4-8821-4a0d-9d86-6bbd1290e1fd"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="11" y="419" width="146" height="19" uuid="db8e8742-b81f-4b9a-ab56-14d36341f9d3"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Special Instructions]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="254" y="446" width="278" height="124" uuid="7b37b918-9d6c-46fc-85b9-ca0ccf4bcc58"/>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Middle">
+					<hc:htmlContentExpression><![CDATA[$F{dealerProgramGuideSummary}.getPeriodicMaintenanceServices()]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+		</band>
+		<band height="588">
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="191" width="146" height="18" uuid="51121ffb-ca1b-4154-86e5-64501e0ca376"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dispute Process]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="331" width="146" height="18" uuid="0096c96c-af66-4bc0-8493-2140998ecda9"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Rental/Loaner Process]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="171" width="334" height="18" uuid="5b357183-79f7-492a-8995-dd4e8c39a6ae"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getBillingIntervals()]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-29" positionType="Float" x="197" y="91" width="334" height="18" uuid="cacdefe3-bff3-419f-9a10-e63ad6da1273"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getCustomer().getFirstName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="172" y="391" width="3" height="18" uuid="7b4abba9-f89b-448d-befd-9ba604d6f42f"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="291" width="146" height="18" uuid="ed545619-c8c4-4a9d-8eac-416c530dda61"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[After Hours Process]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="251" width="3" height="18" uuid="db014212-3ca5-4c60-a844-83e2da80a9b2"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="231" width="146" height="18" uuid="1cb466cd-1781-45db-a561-9ef64dec4b9f"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Service Request Process]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="151" width="3" height="18" uuid="f25a2114-1d45-4bbf-87b0-8e6e195cccc0"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="198" y="131" width="334" height="18" uuid="39d80672-672a-4f5d-8157-275df06a8a19"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getPrimaryProgramType()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="331" width="334" height="18" uuid="055f598b-0596-4cfc-8469-67cc9d195bef"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getLoanerProcess()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="231" width="334" height="18" uuid="4a735056-82ac-43ef-b964-96a85bca1305"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getServiceRequestProcess()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="391" width="334" height="18" uuid="6e8f213e-4096-418b-a2fc-dd6280cc989d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getBillingAllowances()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="191" width="334" height="18" uuid="3f29e29f-527e-4de1-9a1c-119fcd34f19a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getDisputeProcess()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="198" y="291" width="334" height="18" uuid="00a856a0-11df-4ede-b3a9-3a346b964acb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getAfterHoursProcess()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="111" width="146" height="18" uuid="b0126a2b-e85e-4e14-a353-b1050326c96d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Number ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="371" width="334" height="18" uuid="1c8eb5c6-d3a9-46b0-b935-6b26177c48b5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getTravelStipulations()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="131" width="146" height="18" uuid="90aa3949-436e-4226-8c8b-a4df9aeb073d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Primary Program Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="131" width="3" height="18" uuid="f808be63-10c5-47a0-a097-fa52afc72822"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="111" width="334" height="18" uuid="38e84346-ca2d-482d-a924-2142533d610d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getCustomer().getCustomerNumber()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="52" width="100" height="20" uuid="84938681-b62d-489e-8272-123c2af70f33"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[General Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="91" width="3" height="18" uuid="3b540c91-6973-482c-a2d6-4021acd9db8a"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="271" width="3" height="18" uuid="9d211084-ffe3-47e6-9464-4bdc630e35d3"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="271" width="334" height="18" uuid="b2eb990e-bab7-499a-a655-0f4959c35312"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getResponseTime()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="311" width="334" height="18" uuid="2c65eb44-eaea-4da1-86c8-c363244276c8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getQuoteThreshold()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="172" y="211" width="3" height="18" uuid="ed7683e4-2e61-4e3d-941b-e0dafe73ba60"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="171" width="146" height="18" uuid="4d0a703a-4bb8-4e1b-89d8-95fedda7f2c8"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billing Intervals]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="371" width="3" height="18" uuid="1201a8a2-9a06-49d3-a221-bb880fa7aff3"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="231" width="3" height="18" uuid="f420265d-0177-4922-98d5-6f636476750c"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="311" width="146" height="18" uuid="b0d2c1b5-225a-4733-8921-5928a1c4b34f"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Quote Threshold]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="91" width="146" height="18" uuid="611d6022-deab-438f-a2aa-92d2810cdfa2"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Customer Name ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="211" width="334" height="18" uuid="1395abbc-b45c-40b8-a05b-22b1eb1bd9f4"/>
+				<box topPadding="0" leftPadding="0">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getAlternateServiceProviders()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="249" width="334" height="18" uuid="5076fa88-a3c7-4c45-965b-04beb4eb2e55"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getPurchaseOrderRequirement()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-89" positionType="Float" x="10" y="151" width="146" height="18" uuid="b59cde91-d71e-4ed2-9add-f47fe29596cb"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Representative Contacts]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="351" width="3" height="18" uuid="d88daac1-e790-4558-a6ee-0f6ebe1d4853"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="311" width="3" height="18" uuid="6d666b93-d072-411a-b136-f5dcef182871"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="351" width="146" height="18" uuid="eb1370e3-64c5-414e-9b95-140c50dd959c"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Reporting]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="198" y="151" width="334" height="18" uuid="15f4e3d0-4df2-43e2-b094-fb1f1929de3c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getRepresentativeContacts()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="172" y="191" width="3" height="18" uuid="d7b742cf-b941-4113-a8ad-b2a2f8045a76"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="211" width="146" height="18" uuid="76a8156a-0e14-4450-8d8b-919c0284ab32"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Alternative Service Providers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="111" width="3" height="18" uuid="8ba27e98-2ef1-4978-99a8-0f48d6a4f806"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="371" width="146" height="18" uuid="75655969-87b0-426a-ac7f-ec86a96612ae"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Travel Stipulations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="251" width="146" height="18" uuid="2f1638c8-d390-498f-8123-40740fd31174"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PO Requirement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="171" width="3" height="18" uuid="3f272f98-d7d5-4280-951e-ed10d058ebd3"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="331" width="3" height="18" uuid="617afe4b-04fb-4a2b-8c00-f0417111ede0"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="10" width="210" height="18" uuid="9939c5fa-53eb-48b9-9dad-68a0e189952a"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Program Guide Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="291" width="3" height="18" uuid="0edc9e00-e37d-449d-bde0-c66d95fe0b5b"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="351" width="334" height="18" uuid="546e0729-6b04-4285-a32f-867b509fd392"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getReporting()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="271" width="146" height="18" uuid="a7e91b26-b522-4f0c-bfd7-e07b29f9d7ef"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Response Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="10" y="391" width="146" height="18" uuid="d7633978-1dbc-4180-9603-076378523297"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Billing Allowances]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="72" width="522" height="1" uuid="84d9cb1e-b8b8-49ea-8495-5a7af5985fb0"/>
+			</line>
+			<componentElement>
+				<reportElement x="258" y="448" width="274" height="140" uuid="af0294a8-edca-4fb7-9a45-bfb904ddee1f">
+					<property name="net.sf.jasperreports.export.pdf.tag.h1" value="start"/>
+				</reportElement>
+				<hc:html xmlns:hc="http://jasperreports.sourceforge.net/htmlcomponent" xsi:schemaLocation="http://jasperreports.sourceforge.net/htmlcomponent http://jasperreports.sourceforge.net/xsd/htmlcomponent.xsd" scaleType="RetainShape" horizontalAlign="Left" verticalAlign="Middle">
+					<hc:htmlContentExpression><![CDATA[$F{customerProgramGuideSummary}.getPeriodicMaintenanceInterval()]]></hc:htmlContentExpression>
+				</hc:html>
+			</componentElement>
+			<line>
+				<reportElement x="9" y="437" width="204" height="1" uuid="ff6b27f2-cde7-4402-86a7-fc45ac72ff2e"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="9" y="448" width="207" height="130" uuid="25e625fd-e48d-4aa4-bf50-7e75f2a7fa58"/>
+				<textElement markup="styled">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerProgramGuideSummary}.getNotesAndExclusions()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="9" y="419" width="146" height="18" uuid="e6bb086c-58cd-4e54-92bd-1848dc003cd4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Notes and Exclusions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-110" positionType="Float" x="258" y="419" width="146" height="18" uuid="19e2c352-d5ef-4b35-a6b6-89630c9315c4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PM Intervals]]></text>
+			</staticText>
+			<line>
+				<reportElement x="258" y="438" width="273" height="1" uuid="a110969e-f605-4c4c-ac22-7ff0d898c549"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

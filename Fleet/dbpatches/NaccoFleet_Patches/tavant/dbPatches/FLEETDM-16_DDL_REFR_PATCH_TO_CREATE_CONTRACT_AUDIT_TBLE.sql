@@ -1,0 +1,7 @@
+--Purpose    : Patch for creating CONTRACT_AUDIT table
+--Author     : Suneetha Nagaboyina
+--Created On : 23-SEP-2013
+
+
+ALTER TABLE CONTRACT_AUDIT add CONSTRAINT CONTAUDIT_UPDATEDBY_FK FOREIGN KEY (UPDATED_BY) REFERENCES ORG_USER (ID) ENABLE
+/

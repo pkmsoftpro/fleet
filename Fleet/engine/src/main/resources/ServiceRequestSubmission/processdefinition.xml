@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition name="ServiceRequestSubmission">
+
+    <!-- Swimlane Definition starts here -->
+    <swimlane name="fleetServiceSpecialist">
+        <assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+            <ruleSet>ServiceSpecialistAssignment</ruleSet>
+            <variables>
+                <variable>serviceRequest</variable>
+            </variables>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="customer">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{serviceRequest.filedBy.name}</expression>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="baserole">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{serviceRequest.filedBy.name}</expression>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="dealer">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{serviceRequest.forDealer.name}</expression>
+        </assignment>
+    </swimlane>
+    <!-- Swimlane Definition ends here -->
+
+    <start-state name="Start">
+        <transition name="Save Draft" to="DraftServiceRequest">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT)</script>
+        </transition>
+        <transition name="Submit Service Request" to="generateServiceRequestNumber">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SUBMITTED)</script>
+        </transition>
+    </start-state>
+
+    <task-node name="DraftServiceRequest">
+        <task name="Draft Service Request" swimlane="baserole" />
+        <transition name="Submit Service Request" to="generateServiceRequestNumber">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SUBMITTED)</script>
+        </transition>
+        <transition name="Save Draft" to="DraftServiceRequest"/>
+        <transition name="Delete Draft" to="End">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT_DELETED)
+            </script>
+        </transition>
+    </task-node>
+
+    <serviceNode name="generateServiceRequestNumber">
+        <beanName>serviceRequestService</beanName>
+        <methodName>generateNextServiceRequestNumber</methodName>
+        <parameters>
+            <variable>serviceRequest</variable>
+        </parameters>
+        <transition name="checkIfDealerIsAssigned" to="IsDealerAssigned"/>
+    </serviceNode>
+
+    <decision name="IsDealerAssigned">
+        <transition name="dealerAssigned" to="ForkAssignedServiceRequest">
+            <condition>#{serviceRequest.dealerType.type=="Preferred Dealer" || serviceRequest.dealerType.type=="Alternate Dealer"}</condition>
+            <script>serviceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+        <transition name="needDealerAssignment" to="ForkUnAssignedServiceRequest">
+            <condition>#{serviceRequest.dealerType.type=="Different Dealer" }</condition>
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.UN_ASSIGNED)</script>
+        </transition>
+    </decision>
+
+    <fork name="ForkAssignedServiceRequest">
+        <transition name="Assigned Service Request" to="AssignedServiceRequest"/>
+        <transition name="Assigned Service Request For Customer" to="ServiceRequestSubmitted"/>
+    </fork>
+
+    <task-node name="AssignedServiceRequest">
+        <task name="Assigned Service Request" swimlane="dealer" />
+        <transition name="Dispatch" to="joinAfterSRAssigned">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DISPATCHED)</script>
+        </transition>
+        <transition name="Send Back to NMHG" to="JoinReturnedByDealer">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SEND_BACK_TO_NMHG)</script>
+        </transition>
+    </task-node>
+
+    <task-node name="ServiceRequestSubmitted">
+        <task name="Service Request Submitted" swimlane="baserole" />
+        <transition name="joinAfterSRAssigned" to="joinAfterSRAssigned"/>
+    </task-node>
+
+    <single-token-join name="joinAfterSRAssigned">
+        <transition name="Dispatched" to="ForkServiceRequestDispatched"/>
+    </single-token-join>
+    
+    <end-tasks-join name="JoinReturnedByDealer" task-name-to-end="Service Request Submitted">
+      <transition name="ForkReturnedByDealer" to="ForkReturnedByDealer" />
+    </end-tasks-join>
+
+    <fork name="ForkReturnedByDealer">
+        <transition name="Send back to NMHG" to="SendBackToNMHG"/>
+        <transition name="Returned By Dealer" to="ReturnedByDealer"/>
+    </fork>
+
+    <task-node name="SendBackToNMHG">
+        <task name="Send Back To NMHG" swimlane="dealer" />
+        <transition name="joinAfterREAssign" to="joinAfterREAssign"/>
+    </task-node>
+
+    <task-node name="ReturnedByDealer">
+        <task name="Returned By Dealer" swimlane="fleetServiceSpecialist" />
+        <transition name="reAssign" to="joinAfterREAssign">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+    </task-node>
+
+    <single-token-join name="joinAfterREAssign">
+        <transition name="reAssign" to="AssignedServiceRequest"/>
+    </single-token-join>
+
+    <fork name="ForkUnAssignedServiceRequest">
+        <transition name="Assigned Service Request" to="UnassignedServiceRequest"/>
+        <transition name="UnAssigned Service Request For Customer" to="ServiceRequestSubmitted"/>
+    </fork>
+
+    <task-node name="UnassignedServiceRequest">
+        <task name="UnAssigned Service Request" swimlane="fleetServiceSpecialist" />
+        <transition name="Assign" to="AssignedServiceRequest">
+        <script>serviceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+        <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+    </task-node>
+
+    <fork name="ForkServiceRequestDispatched">
+        <transition name="Dispatch" to="ServiceRequestDispatched"/>
+        <transition name="Service Request Dispatched To Customer" to="ServiceRequestDispatchedCustomer"/>
+    </fork>
+
+    <task-node name="ServiceRequestDispatched">
+        <task name="Service Request Dispatched" swimlane="dealer" />
+        <transition name="On Hold" to="ServiceRequestDispatched">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ON_HOLD)</script>
+        </transition>
+        <transition name="WIP" to="ServiceRequestDispatched">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.WORK_IN_PROGRESS)
+            </script>
+        </transition>
+        <transition name="Send Back to NMHG" to="ForkReturnedByDealer">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SEND_BACK_TO_NMHG)
+            </script>
+        </transition>
+        <transition name="Complete" to="joinAfterCompleted">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.COMPLETED)</script>
+        </transition>
+    </task-node>
+
+    <task-node name="ServiceRequestDispatchedCustomer">
+        <task name="Service Request Dispatched" swimlane="customer" />
+        <transition name="Complete" to="joinAfterCompleted"/>
+    </task-node>
+
+    <single-token-join name="joinAfterCompleted">
+        <transition name="Complete" to="ForkServiceRequestCompleted"/>
+    </single-token-join>
+
+    <fork name="ForkServiceRequestCompleted">
+        <transition name="Service Request Completed For Customer" to="ServiceRequestsCompleted"/>
+        <transition name="Service Request Completed For Dealer" to="ServiceRequestCompletedDealer"/>
+        <transition name="Service Request Completed For FSS" to="ServiceRequestCompletedFSS"/>
+    </fork>
+
+    <task-node name="ServiceRequestCompletedDealer">
+        <task name="Service Requests Completed" swimlane="dealer" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node>
+
+    <task-node name="ServiceRequestsCompleted">
+        <task name="Service Requests Completed" swimlane="customer" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node>
+
+    <task-node name="ServiceRequestCompletedFSS">
+        <task name="Service Requests Completed" swimlane="fleetServiceSpecialist" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node>
+
+    <single-token-join name="joinAfterSRClose">
+        <transition name="Complete" to="End"/>
+    </single-token-join>
+
+    <end-state name="End" />
+</process-definition>

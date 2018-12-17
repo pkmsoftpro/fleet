@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+      "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+      "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>   
+  
+   <query name="countTasksByTaskName">
+    <![CDATA[
+     SELECT COUNT(ti) 
+     FROM TaskInstance ti 
+     WHERE ti.isOpen = true 
+     AND ti.task.name = :taskName 
+     and ti.task.processDefinition.name = :processDefinition
+     AND ti.actorId = :actorId
+    ]]>
+  </query>
+  
+  <query name="taskInstanceForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance, Quote quote
+     where taskInstance.isOpen = true 
+	 and taskInstance.quoteId = quote.id
+     and quote.id = :id
+     and taskInstance.name = :taskName
+    ]]>
+  </query>
+  
+   <query name="taskInstanceForServiceRequest">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance, ServiceRequest serviceRequest
+     where taskInstance.isOpen = true 
+	 and taskInstance.serviceRequestId = serviceRequest.id
+     and serviceRequest.id = :id
+     and taskInstance.name = :taskName
+    ]]>
+  </query>
+    
+  <query name="allOpenTaskInstancesForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance, Quote quote
+     where taskInstance.isOpen = true 
+     and taskInstance.quoteId = quote.id
+     and quote.id = :quoteId
+    ]]>
+  </query>
+
+  <query name="allOpenTaskInstancesForServiceRequest">
+    <![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance, ServiceRequest serviceRequest
+     where taskInstance.isOpen = true
+	 and taskInstance.serviceRequestId = serviceRequest.id
+     and serviceRequest.id = :id
+    ]]>
+  </query>
+
+  <query name="allTaskInstancesForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance, Quote quote
+     where taskInstance.quoteId = quote.id 
+     and quote.id = :quoteId
+    ]]>
+  </query>
+
+</hibernate-mapping>

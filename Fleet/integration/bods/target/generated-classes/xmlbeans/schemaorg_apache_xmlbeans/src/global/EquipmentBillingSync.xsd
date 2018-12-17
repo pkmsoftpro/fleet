@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+ attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.tavant.com/fleet/equipmentbillingsync" xmlns="http://www.tavant.com/fleet/equipmentbillingsync">
+<xs:include schemaLocation="../../Resources/Nouns/global/ApplicationAreaType.xsd" />
+
+<xs:element name="EquipBillSyncRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+                    <xs:documentation>Interface Info Section </xs:documentation>
+                </xs:annotation>
+                <xs:element name="ApplicationArea" type="ApplicationAreaType"/>
+					<!-- <xs:complexType>
+						<xs:sequence>
+							<xs:element name="Sender">
+								<xs:complexType>
+									<xs:sequence>
+									<xs:annotation>
+                   						 <xs:documentation>Destination system for current integration. eg: SLMS</xs:documentation>
+                					</xs:annotation>
+										<xs:element name="Task">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="50" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="LogicalId">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="50" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="ReferenceId">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="100" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Client">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="3" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="BODId">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="50" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="InterfaceNumber">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="50" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="CreationDateTime" type="xs:dateTime" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>  -->
+				<xs:element name="DataArea">
+					<xs:complexType>
+						<xs:sequence>
+						<!-- Equipment Billing Header Info Section -->
+							<xs:element name="EquipBillInfo">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="SalesOrganization">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="4" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="DistributionChannel">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="2" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Division">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="2" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CustomerNbr">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="12" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="BusinessUnits">
+											<xs:annotation>
+                   								<xs:documentation>Business Units : 003- AMERICAS, 065 for EMEA </xs:documentation>
+               								</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="BUName" minOccurs="1" maxOccurs="unbounded">
+														 <xs:simpleType>
+												            <xs:restriction base="xs:string">
+												                <xs:maxLength value="3"/>
+												                <xs:enumeration value="003"/>
+												                <xs:enumeration value="056"/>
+												            </xs:restriction>
+												      	  </xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="BillDocCode">
+											<xs:annotation>
+                   								<xs:documentation>Billing Document Number which could be a Credit  Memo or an Invoice </xs:documentation>
+               								</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="10" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="BillDocCurrency">
+											<xs:annotation>
+                   								<xs:documentation>Currency for Amounts </xs:documentation>
+               								</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="5" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="BillDocDate">
+											<xs:annotation>
+                   								<xs:documentation>mm-dd-yyyy </xs:documentation>
+               								</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:date"/>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="BillDocType">
+											<xs:annotation>
+                   								<xs:documentation>eg: ZFC, ZFD, ZFH </xs:documentation>
+               								</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="4" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="EquipBillInfoDtls">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="EquipBillInfoDtl"  minOccurs="1" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<!-- Equipment Billing Detail Info Section -->
+																<xs:element name="BillDocLineNbr">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="10" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="LocationNbr">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="12" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="DealerNbr" minOccurs="0">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="12" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>										
+																										
+																<xs:element name="ContractLineNbr">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="10" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="ContractCode" minOccurs="0">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="10" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="BillReqDoc">
+																	<xs:annotation>
+																		<xs:documentation>Billing Request Document Number - Credit Memo Request, Debit Memo Request </xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="10" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="RequestDocLineNbr">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="10" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>										
+																<xs:element name="SAPEquipNbr">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="18" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="SerialNbr">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="18" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>														
+																<xs:element name="Manufacturer">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="18" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="FleetMaintAmt">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:decimal">
+																			<xs:maxInclusive value="999999999999999" />
+																			<xs:fractionDigits value="2"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>	
+																<xs:element name="HourlyMaintAmt">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:decimal">
+																			<xs:maxInclusive value="9999999999999" />
+																			<xs:fractionDigits value="2"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>										
+																<xs:element name="LeaseAmt">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:decimal">
+																			<xs:maxInclusive value="9999999999999" />
+																			<xs:fractionDigits value="2"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="AdminFeeAmt">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:decimal">
+																			<xs:maxInclusive value="9999999999999" />
+																			<xs:fractionDigits value="2"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="AdminFeeTaxAmt">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:decimal">
+																			<xs:maxInclusive value="9999999999999" />
+																			<xs:fractionDigits value="2"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="Profit">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:decimal">
+																			<xs:maxInclusive value="9999999999999" />
+																			<xs:fractionDigits value="2"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

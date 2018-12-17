@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition name="FleetClaimSubmission">
+
+	<!-- Swimlane Definition starts here -->
+	<swimlane name="claimInboxes-fleetProcessor">
+		<assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+			<ruleSet>ProcessorAssignment</ruleSet>
+			<variables>
+				<variable>fleetClaim</variable>
+			</variables>
+		</assignment>
+	</swimlane>
+	
+	<swimlane name="claimInboxes-dealerOwnedFleetProcessor">
+		<assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+			<ruleSet>DealerOwnedProcessorAssignment</ruleSet>
+			<variables>
+				<variable>fleetClaim</variable>
+			</variables>
+		</assignment>
+	</swimlane>
+	<swimlane name="claimInboxes-fleetServiceSpecialist">
+		<assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+			<expression>actor=ognl{fleetServiceSpecialist}</expression>
+		</assignment>
+	</swimlane>
+	
+		<swimlane name="claimInboxes-dealerOwnedServiceWriter">
+		<assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+			<expression>actor=ognl{fleetServiceSpecialist}</expression>
+		</assignment>
+	</swimlane>	
+
+	<swimlane name="claimInboxes-baserole">
+		<assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+			<expression>actor=ognl{fleetClaim.filedBy.name}</expression>
+		</assignment>
+	</swimlane>
+
+	<swimlane name="claimInboxes-dealerClaimProcessor">
+		<assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+			<expression>actor=ognl{fleetClaim.forDealer.name}</expression>
+		</assignment>
+	</swimlane>
+	
+	<swimlane name="claimInboxes-customerPreInvoiceApprover">
+		<assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+			<expression>actor=ognl{fleetClaim.customerLocation.id}</expression>
+		</assignment>
+	</swimlane>
+
+	<start-state name="Start">
+		<transition name="Draft" to="isNMHGDraftClaim">
+			<script>
+			fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DRAFT);
+			fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.IN_PROGRESS):null;
+			 fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.IN_PROGRESS):null; 
+			</script>
+		</transition>
+		<transition name="Workbench" to="isNMHGWorkbenchClaim">
+			<script>
+			fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DRAFT);
+			fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.IN_PROGRESS):null;
+			fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.IN_PROGRESS):null; 
+			</script>
+		</transition>
+		<transition name="Submit Claim" to="generateClaimNumber">
+			<script>fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.SUBMITTED)</script>
+		</transition>
+		<transition name="Reopen" to="isHeldByNMHG">
+  			<script>fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REOPENED)</script>
+  	    </transition>
+  	    <transition name="Appeal" to="isClaimAppealedByNMHG">
+  	    	<script>fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPEALED)</script>
+  	    </transition>
+	</start-state>
+
+	<task-node name="DraftClaim">
+		<task name="Draft Claims" swimlane="claimInboxes-baserole" />
+		<transition name="Submit Claim" to="generateClaimNumber">
+			<script>
+			fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.SUBMITTED);
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;
+              fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;
+		</script>
+		</transition>
+		<transition name="Save Draft" to="DraftClaim" />
+		<transition name="Delete Draft" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DRAFT_DELETED);
+				fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;
+				 fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;
+       </script>
+		</transition>
+	</task-node>
+	
+	
+	<task-node name="DraftClaimDealerOwned">
+		<task name="Dealer Owned Draft Claims" swimlane="claimInboxes-baserole" />
+		<transition name="Submit Claim" to="generateClaimNumber">
+			<script>
+			fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.SUBMITTED);
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;            
+		</script>
+		</transition>
+		<transition name="Save Draft" to="DraftClaimDealerOwned" />
+		<transition name="Delete Draft" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DRAFT_DELETED);
+				fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;
+				  fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;     
+       </script>
+		</transition>
+	</task-node>
+	
+	
+	
+	<task-node name="WorkbenchClaim">
+		<task name="Claims Workbench" swimlane="claimInboxes-dealerClaimProcessor" />
+		<transition name="Submit Claim" to="generateClaimNumber">
+			<script>
+			fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.SUBMITTED);
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;  
+		</script>
+		</transition>
+		<transition name="Save Draft" to="WorkbenchClaim" />
+		<transition name="Delete Draft" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DRAFT_DELETED);
+				fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;
+				fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;   
+       </script>
+		</transition>
+	</task-node>
+	<task-node name="DealerOwnedWorkbenchClaim">
+		<task name="Dealer Owned Claims Workbench" swimlane="claimInboxes-baserole" />
+		<transition name="Submit Claim" to="generateClaimNumber">
+			<script>
+			fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.SUBMITTED);
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;
+            fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.COMPLETED):null;  
+		</script>
+		</transition>
+		<transition name="Save Draft" to="DealerOwnedWorkbenchClaim" />
+		<transition name="Delete Draft" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DRAFT_DELETED);
+				fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;
+				fleetClaim.forServiceRequest!=null?fleetClaim.forServiceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING):null;  
+       </script>
+		</transition>
+	</task-node>
+
+	<serviceNode name="generateClaimNumber">
+			<beanName>fleetClaimService</beanName>
+			<methodName>generateNextFleetClaimNumber</methodName>
+			<parameters>
+				<variable>fleetClaim</variable>
+			</parameters>
+			<transition name="waitForClaimProcessing" to="waitForClaimProcessing" />
+		</serviceNode>	
+
+	
+		<task-node name="waitForClaimProcessing">
+		<task name="Wait For Claim Processing">
+			<timer duedate="20 business hours">
+				<action class="tavant.twms.jbpm.action.TaskInstanceEndAction">
+					<transition>goToClaimAutoAdjudication</transition>
+				</action>
+			</timer>
+			<event type="timer-create">
+				<action class="tavant.fleet.jbpm.action.FleetClaimAutoProcessBasedOnRule" />
+			</event>
+		</task>
+		<transition name="goToClaimAutoAdjudication" to="ClaimAutoAdjudication"/>	
+	</task-node>
+	
+	<serviceNode name="ClaimAutoAdjudication">
+		<beanName>ruleAdministrationService</beanName>
+		<methodName>executeClaimAutoProcessingRules</methodName>
+		<parameters>
+			<variable>fleetClaim</variable>
+		</parameters>
+		<outputName>claimState</outputName>
+		<transition name="checkIfReviewNeeded" to="IsProcessorReviewNeeded" />
+	</serviceNode>
+
+
+	<decision name="IsProcessorReviewNeeded">
+		<transition name="Accept" to="isInvoiceRequired">
+			<condition>#{claimState=="accepted"}</condition>
+			<script>
+			    fleetClaim.setInternalComment("Auto Accepted");
+				fleetClaim.d!=null?fleetClaim.d.setInternalComments("Processing Engine"):null;
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+				fleetClaim.setProcessedAutomatically();
+				fleetClaim.setAutoAccepted();
+      </script>
+		</transition>
+		<transition name="ManualReview" to="IsNMHGClaimForTimer">
+			<condition>#{claimState=="manual review"}</condition>
+			<script>
+				fleetClaim.setInternalComment("Processing Engine");
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.PROCESSOR_REVIEW);
+      </script>
+		</transition>
+		<transition name="DenyClaim" to="End">
+			<condition>#{claimState=="rejected"}</condition>
+			<script>
+				fleetClaim.setInternalComment("Auto Denied");
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+				fleetClaim.setProcessedAutomatically();
+      </script>
+		</transition>
+		<transition name="PutClaimOnHold" to="isHeldByNMHG">
+			<condition>#{claimState=="put on hold"}</condition>
+			<script>
+				fleetClaim.setInternalComment("Processing Engine");
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+	</decision>
+
+	<task-node name="OnHold">
+		<task name="In Progress" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+     <script>fleetClaim.getRuleFailures().clear()</script>
+    </transition>
+	</task-node>
+	
+	
+	<task-node name="OnHoldDealerOwned">
+		<task name="In Progress" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestDealerOwnedAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+     <script>fleetClaim.getRuleFailures().clear()</script>
+    </transition>
+	</task-node>
+	
+	
+
+	<task-node name="New">
+		<task name="New" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      		</script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED_AND_TRANSFERRED);
+      </script>
+		</transition>
+		<transition name="Re-process" to="ClaimAutoAdjudication">
+         <!--   <script>fleetClaim.getRuleFailures().clear()</script> -->
+       </transition>
+	</task-node>
+	
+	<task-node name="dealerOwnedNew">
+		<task name="New" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      		</script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestDealerOwnedAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED_AND_TRANSFERRED);
+      </script>
+		</transition>
+		<transition name="Re-process" to="ClaimAutoAdjudication">
+         <!--   <script>fleetClaim.getRuleFailures().clear()</script> -->
+       </transition>
+	</task-node>
+
+	<task-node name="Transfered">
+		<task name="Transferred" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+		<transition name="Re-process" to="ClaimAutoAdjudication">
+         <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+        </transition>
+	</task-node>
+	
+	<task-node name="TransferedByDealerOwned">
+		<task name="Transferred" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestDealerOwnedAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+		<transition name="Re-process" to="ClaimAutoAdjudication">
+         <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+        </transition>
+	</task-node>
+
+	<fork name="ForkRequestDealerOwnedAdvice">
+		<transition name="Advice Request" to="AdviceRequestDealerOwned" />
+		<transition name="Forwarded Internally" to="ForwardedInternallyForDealerOwned" />
+	</fork>	
+	
+	<fork name="ForkRequestFSSAdvice">
+		<transition name="Advice Request" to="AdviceRequest" />
+		<transition name="Forwarded Internally" to="ForwardedInternally" />
+	</fork>
+
+	<task-node name="ForwardedInternally">
+		<task name="Forwarded Internally" swimlane="claimInboxes-fleetProcessor">
+			<timer duedate="20 business hours">
+				<action class="tavant.twms.jbpm.action.TaskInstanceEndAction">
+					<transition>TimeoutAfterForwardedInternally</transition>
+				</action>
+			</timer>
+			<event type="timer-create">
+				<action class="tavant.fleet.jbpm.action.ForwardedClaimsAutoReplyAction" />
+			</event>
+		</task>
+		<transition name="JoinAfterForwardedInternally" to="JoinAfterAdviceRequest" />
+		<transition name="TimeoutAfterForwardedInternally" to="JoinAfterAdviceRequest">
+			<script>
+				fleetClaim.setInternalComment("Auto Reply");
+      </script>
+		</transition>
+	</task-node>
+	
+	<task-node name="ForwardedInternallyForDealerOwned">
+		<task name="Forwarded Internally" swimlane="claimInboxes-dealerOwnedFleetProcessor">
+			<timer duedate="20 business hours">
+				<action class="tavant.twms.jbpm.action.TaskInstanceEndAction">
+					<transition>TimeoutAfterForwardedInternally</transition>
+				</action>
+			</timer>
+			<event type="timer-create">
+				<action class="tavant.fleet.jbpm.action.ForwardedClaimsAutoReplyAction" />
+			</event>
+		</task>
+		<transition name="JoinAfterForwardedInternally" to="JoinAfterAdviceRequest" />
+		<transition name="TimeoutAfterForwardedInternally" to="JoinAfterAdviceRequest">
+			<script>
+				fleetClaim.setInternalComment("Auto Reply");
+      </script>
+		</transition>
+	</task-node>
+	
+
+	<task-node name="AdviceRequest">
+		<task name="Advice Request" swimlane="claimInboxes-fleetServiceSpecialist" />
+		<transition name="Advice" to="JoinAfterAdviceRequest" />
+	</task-node>
+	
+	<task-node name="AdviceRequestDealerOwned">
+		<task name="Advice Request" swimlane="claimInboxes-dealerOwnedServiceWriter" />
+		<transition name="Advice" to="JoinAfterAdviceRequest" />
+	</task-node>	
+	
+	 <single-token-join name="JoinAfterAdviceRequest">
+    <transition name="goToReplies" to="isNMHGReplies">
+      <script>
+		fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REPLIES);
+      </script>
+    </transition>
+  </single-token-join>
+  
+	<task-node name="Replies">
+		<task name="Replies" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+       <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+	
+	<task-node name="RepliesDealerOwned">
+		<task name="Replies" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+       <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+
+
+	
+	<decision name="isInvoiceRequired">
+		<handler class="tavant.fleet.jbpm.decision.claim.IsPreInvoiceRequired"/>
+		<transition name="moveToPayment" to="CheckPaymentRequiredAndProceed"/> 
+		<transition name="moveToPreInvoicePendingApproval" to="PreInvoicePendingApproval">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.PRE_INVOICE_PENDING_APPROVAL);
+			</script>
+		</transition>
+	</decision>
+	
+	<task-node name="PreInvoicePendingApproval">
+		<task name="Pre-Invoice Pending Approval" swimlane="claimInboxes-customerPreInvoiceApprover">
+			<timer duedate="20 business hours">
+				<action class="tavant.twms.jbpm.action.TaskInstanceEndAction">
+					<transition>Pre-Invoice Approved</transition>
+				</action>
+			</timer>
+			<event type="timer-create">
+				<action class="tavant.fleet.jbpm.action.PreInvoiceAutoApproveAction" />
+			</event>
+		</task>
+		<transition name="Pre-Invoice Approved" to="CheckPaymentRequiredAndProceed"> 
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.PRE_INVOICE_APPROVED);
+      		</script>
+      	</transition>	
+		<transition name="Pre-Invoice Disputed" to="ForkPreInvoiceDisputed">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.PRE_INVOICE_DISPUTED);
+      		</script>
+      	</transition>		
+	</task-node>	
+	
+	<fork name="ForkPreInvoiceDisputed">
+		<transition name="move to Customer PreInvoiceDisputed" to="CustomerPreInvoiceDisputed"/>
+		<transition name="move to fss PreInvoiceDisputed" to="isFssPreInvoiceDisputedByNMHG"/>
+	</fork> 
+	
+	<task-node name="CustomerPreInvoiceDisputed">
+		<task name="Pre-Invoice Disputed" swimlane="claimInboxes-customerPreInvoiceApprover"/>
+		<transition name="ReSubmit" to="joinPreInvoiceDisputed"/>
+	</task-node>
+	
+
+	
+	<task-node name="FssPreInvoiceDisputed">
+		<task name="Pre-Invoice Disputed" swimlane="claimInboxes-fleetServiceSpecialist"/>
+		<transition name="ReSubmit" to="joinPreInvoiceDisputed">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.PRE_INVOICE_PENDING_APPROVAL);
+			</script>
+		</transition>
+	</task-node>
+	<task-node name="FssPreInvoiceDisputedByDealerOwned">
+		<task name="Pre-Invoice Disputed" swimlane="claimInboxes-dealerOwnedServiceWriter"/>
+		<transition name="ReSubmit" to="joinPreInvoiceDisputed">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.PRE_INVOICE_PENDING_APPROVAL);
+			</script>
+		</transition>
+	</task-node>
+	
+		
+	
+	<single-token-join name="joinPreInvoiceDisputed">
+		<transition name="move back to Pre-Invoice Approval" to="PreInvoicePendingApproval"/>
+	</single-token-join>
+	
+	<decision name="CheckPaymentRequiredAndProceed">
+		<handler class="tavant.fleet.jbpm.decision.claim.IsPaymentRequired" />
+		<transition name="Yes" to="waitForPaymentSubmission" />
+		<transition name="No" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED_AND_CLOSED);
+			</script>
+		</transition>
+	</decision>
+	
+	<task-node name="waitForPaymentSubmission">
+		<task name="WaitForPaymentSubmission" />
+		<transition name="waitForPaymentResponse" to="waitingForPaymentResponse" />
+		<transition name="moveToEnd" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED_AND_CLOSED);
+	      	</script>
+		</transition>
+		<transition name="ReOpen" to="End"> 
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REOPENED);
+	      	</script>
+		</transition>
+	</task-node>
+	
+	<task-node name="waitingForPaymentResponse">
+		<task name="WaitingForPaymentResponse">
+	      <event type="task-create" /> 
+    	</task>
+    	<transition name="moveToEnd" to="End" />
+	</task-node>
+	
+	<task-node name="ClaimAppealed">
+		<task name="Appeals" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+     		</script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+      <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+	
+		<task-node name="ClaimAppealedByDealerOwned">
+		<task name="Appeals" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+     		</script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+     		</script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+      <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+
+	<fork name="RequestDealerInformation">
+		<transition name="returned to dealer" to="ReturnedToDealer" />
+		<transition name="move to processor returned to dealer" to="isReturnedToDealerForProcessorByNMHG" />
+	</fork>
+
+	<task-node name="ReturnedToDealerForProcessor">
+		<task name="Claims Sent for Revision" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="DealerReturned" to="joinForDealerReturned" />
+		<transition name="AutoDeny" to="joinToMoveToEnd"/>
+	</task-node>
+	<task-node name="ReturnedToDealerForDealerOwnedProcessor">
+		<task name="Claims Sent for Revision" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="DealerReturned" to="joinForDealerReturned" />
+		<transition name="AutoDeny" to="joinToMoveToEnd"/>
+	</task-node>
+
+	<task-node name="ReturnedToDealer">
+		<task name="Claims Received for Revision" swimlane="claimInboxes-dealerClaimProcessor" >
+			<timer duedate="20 business hours">
+				<action class="tavant.twms.jbpm.action.TaskInstanceEndAction">
+					<transition>AutoDeny</transition>
+				</action>
+			</timer>
+			<event type="timer-create">
+				<action class="tavant.fleet.jbpm.action.FleetClaimAutoDenyAction" />
+			</event>
+		</task>
+		<transition name="AutoDeny" to="joinToMoveToEnd">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      		</script>
+		</transition>
+		<transition name="DealerReturned" to="joinForDealerReturned">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.RESUBMITTED);
+      		</script>
+		</transition>
+	</task-node>
+	
+    <single-token-join name="joinToMoveToEnd">
+		<transition name="Deny" to="End" />
+	</single-token-join>
+
+	<single-token-join name="joinForDealerReturned">
+		<transition name="claim returned" to="isDealerResubmittedToNMHG" />
+	</single-token-join>
+<!-- TBD -->
+	<task-node name="DealerResubmitted">
+		<task name="Claims Revised by Dealer" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+      <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+	
+	<task-node name="DealerResubmittedToDealerOwned">
+		<task name="Claims Revised by Dealer" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+      <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+
+	<task-node name="pendingAuthorization">
+		<task name="Pending Authorization" swimlane="claimInboxes-fleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED_AND_TRANSFERRED);
+      </script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+      <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+	
+	<task-node name="pendingAuthorizationByDealerOwned">
+		<task name="Pending Authorization" swimlane="claimInboxes-dealerOwnedFleetProcessor" />
+		<transition name="Accept" to="isInvoiceRequired">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ACCEPTED);
+      </script>
+		</transition>
+		<transition name="Deny" to="End">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.DENIED_AND_CLOSED);
+      </script>
+		</transition>
+		<transition name="Request Dealer Information" to="RequestDealerInformation">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.REQUEST_REVISION);
+      </script>
+		</transition>
+		<transition name="Request FSS Advice" to="ForkRequestFSSAdvice">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ADVICE_REQUEST);
+      </script>
+		</transition>
+		<transition name="ON HOLD" to="isHeldByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.ON_HOLD);
+      </script>
+		</transition>
+		<transition name="Transfer" to="isTransferedByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.TRANSFERRED);
+      		</script>
+		</transition>
+		<transition name="Approve And Transfer" to="ispendingAuthorizationByNMHG">
+			<script>
+				fleetClaim.setState(tavant.fleet.domain.fleetClaim.FleetClaimState.APPROVED_AND_TRANSFERRED);
+      		</script>
+		</transition>
+	<transition name="Re-process" to="ClaimAutoAdjudication">
+      <!-- <script>fleetClaim.getRuleFailures().clear()</script> -->
+    </transition>
+	</task-node>
+		<decision name="isNMHGReplies">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="Replies" />
+			<transition name="No" to="RepliesDealerOwned" />
+		</decision>
+		
+		<decision name="isHeldByNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="OnHold" />
+			<transition name="No" to="OnHoldDealerOwned" />
+		</decision>
+		<decision name="isNMHGManualReview">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="New" />
+			<transition name="No" to="dealerOwnedNew" />
+		</decision>
+			<decision name="isTransferedByNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="Transfered" />
+			<transition name="No" to="TransferedByDealerOwned" />
+		</decision>
+		<decision name="isClaimAppealedByNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="ClaimAppealed" />
+			<transition name="No" to="ClaimAppealedByDealerOwned" />
+		</decision>
+		<decision name="isDealerResubmittedToNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="DealerResubmitted" />
+			<transition name="No" to="DealerResubmittedToDealerOwned" />
+		</decision>	
+		<decision name="isFssPreInvoiceDisputedByNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGCustomerDisputedTheClaim" />
+			<transition name="Yes" to="FssPreInvoiceDisputed" />
+			<transition name="No" to="FssPreInvoiceDisputedByDealerOwned" />
+		</decision>
+		<decision name="isReturnedToDealerForProcessorByNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="ReturnedToDealerForProcessor" />
+			<transition name="No" to="ReturnedToDealerForDealerOwnedProcessor" />
+		</decision>
+		<decision name="ispendingAuthorizationByNMHG">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaim" />
+			<transition name="Yes" to="pendingAuthorization" />
+			<transition name="No" to="pendingAuthorizationByDealerOwned" />
+		</decision>
+		<decision name="isNMHGDraftClaim">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGDraftClaim" />
+			<transition name="Yes" to="DraftClaim" />
+			<transition name="No" to="DraftClaimDealerOwned" />
+		</decision>
+		<decision name="isNMHGWorkbenchClaim">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGDraftClaim" />
+			<transition name="Yes" to="WorkbenchClaim" />
+			<transition name="No" to="DealerOwnedWorkbenchClaim" />
+		</decision>
+		<decision name="IsNMHGClaimForTimer">
+			<handler class="tavant.fleet.jbpm.decision.claim.IsNMHGClaimForTimer" />
+			<transition name="Yes" to="New" />
+			<transition name="No" to="dealerOwnedNew" />
+		</decision>
+	<end-state name="End">
+		<event type="node-enter">
+			<action class="tavant.fleet.jbpm.action.QuoteAndServiceRequestAutoCloseAction" />	
+			<script>
+				fleetClaim.setAssignToUser(null);
+            </script>
+		</event>
+	</end-state>
+</process-definition>

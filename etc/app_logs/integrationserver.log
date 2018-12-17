@@ -1,0 +1,80 @@
+INFO  context.ContextLoader - org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:273) Root WebApplicationContext: initialization started 
+INFO  support.XmlWebApplicationContext - org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:495) Refreshing Root WebApplicationContext: startup date [Thu Sep 11 14:24:13 IST 2014]; root of context hierarchy 
+INFO  xml.XmlBeanDefinitionReader - org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:315) Loading XML bean definitions from class path resource [application-context.xml] 
+INFO  xml.XmlBeanDefinitionReader - org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:315) Loading XML bean definitions from class path resource [quartz-jobs-context.xml] 
+INFO  support.DefaultListableBeanFactory - org.springframework.beans.factory.support.DefaultListableBeanFactory.registerBeanDefinition(DefaultListableBeanFactory.java:623) Overriding bean definition for bean 'propertiesBean': replacing [Generic bean: class [tavant.fleet.integration.server.common.PropertiesBean]; scope=; abstract=false; lazyInit=false; autowireMode=1; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [quartz-jobs-context.xml]] with [Generic bean: class [tavant.fleet.integration.server.common.PropertiesBean]; scope=; abstract=false; lazyInit=false; autowireMode=1; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [application-context.xml]] 
+INFO  config.PropertyPlaceholderConfigurer - org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:177) Loading properties file from URL [file:E:/WorkSpaces/WS2/fleet/integration/server/../../etc/dev/integration-server.properties] 
+INFO  support.DefaultListableBeanFactory - org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:557) Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@dea8b3: defining beans [propertyConfigurer,dataSource,log4jInitialization,asyncResponseJob,asyncResponseJobDetail,telemetryRequestJob,telemetryRequestJobDetail,telemetryResponseProcessingJob,telemetryResponseProcessingJobDetail,failureCodeRequestJob,failureCodeRequestJobDetail,failureCodeResponseProcessingJob,failureCodeResponseProcessingJobDetail,serviceChannelJob,serviceChannelJobDetail,creditSubmissionJob,creditSubmissionJobDetail,creditSubmissionReportDetail,claimSubmissionJob,claimSubmissionJobDetail,claimSubmissionResponseReportDetail,asyncResponseReportDetail,fleetClaimPaymentSubmissionJobDetail,fleetClaimPaymentSubmissionJob,propertiesBean,configurationContext,quartzJobListner,quartzScheduler,messageFactory,webServiceTemplate,velocityEngine,mailSender,sendEmailService,org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor#0,namingStrategy,sessionFactory,beanLocator,jdbcTemplate,hibernateTemplate,transactionManager,org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator#0,org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor#0,txnInterceptor,syncTrackerDao,integrationServiceProxy,inboundSyncInterceptor,integrationService,healthCheckService]; root of factory hierarchy 
+INFO  annotations.Version - org.hibernate.cfg.annotations.Version.<clinit>(Version.java:43) Hibernate Annotations 3.5.6-Final 
+INFO  cfg.Environment - org.hibernate.cfg.Environment.<clinit>(Environment.java:570) Hibernate 3.5.6-Final 
+INFO  cfg.Environment - org.hibernate.cfg.Environment.<clinit>(Environment.java:603) hibernate.properties not found 
+INFO  cfg.Environment - org.hibernate.cfg.Environment.buildBytecodeProvider(Environment.java:781) Bytecode provider name : cglib 
+WARN  cglib.BytecodeProviderImpl - org.hibernate.bytecode.cglib.BytecodeProviderImpl.<init>(BytecodeProviderImpl.java:51) Per HHH-5451 support for cglib as a bytecode provider has been deprecated. 
+INFO  cfg.Environment - org.hibernate.cfg.Environment.<clinit>(Environment.java:662) using JDK 1.4 java.sql.Timestamp handling 
+INFO  common.Version - org.hibernate.annotations.common.Version.<clinit>(Version.java:37) Hibernate Commons Annotations 3.2.0.Final 
+INFO  cfg.AnnotationBinder - org.hibernate.cfg.AnnotationBinder.bindClass(AnnotationBinder.java:529) Binding entity from annotated class: tavant.fleet.integration.server.common.dataaccess.SyncTracker 
+INFO  annotations.EntityBinder - org.hibernate.cfg.annotations.EntityBinder.bindTable(EntityBinder.java:501) Bind entity tavant.fleet.integration.server.common.dataaccess.SyncTracker on table sync_tracker 
+INFO  cfg.AnnotationBinder - org.hibernate.cfg.AnnotationBinder.bindClass(AnnotationBinder.java:529) Binding entity from annotated class: tavant.fleet.integration.server.common.dataaccess.SyncStatus 
+INFO  annotations.EntityBinder - org.hibernate.cfg.annotations.EntityBinder.bindTable(EntityBinder.java:501) Bind entity tavant.fleet.integration.server.common.dataaccess.SyncStatus on table sync_status 
+INFO  cfg.AnnotationBinder - org.hibernate.cfg.AnnotationBinder.bindClass(AnnotationBinder.java:529) Binding entity from annotated class: tavant.fleet.integration.server.common.dataaccess.SyncType 
+INFO  annotations.EntityBinder - org.hibernate.cfg.annotations.EntityBinder.bindTable(EntityBinder.java:501) Bind entity tavant.fleet.integration.server.common.dataaccess.SyncType on table sync_type 
+INFO  cfg.AnnotationConfiguration - org.hibernate.cfg.AnnotationConfiguration.applyHibernateValidatorLegacyConstraintsOnDDL(AnnotationConfiguration.java:450) Hibernate Validator not found: ignoring 
+INFO  annotation.AnnotationSessionFactoryBean - org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:777) Building new Hibernate SessionFactory 
+INFO  search.HibernateSearchEventListenerRegister - org.hibernate.cfg.search.HibernateSearchEventListenerRegister.enableHibernateSearch(HibernateSearchEventListenerRegister.java:75) Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled. 
+WARN  cfg.Environment - org.hibernate.cfg.Environment.verifyProperties(Environment.java:559) Property [hibernate.cglib.use_reflection_optimizer] has been renamed to [hibernate.bytecode.use_reflection_optimizer]; update your properties appropriately 
+INFO  connection.ConnectionProviderFactory - org.hibernate.connection.ConnectionProviderFactory.initializeConnectionProviderFromConfig(ConnectionProviderFactory.java:173) Initializing connection provider: org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:117) RDBMS: Oracle, version: Oracle Database 11g Release 11.2.0.3.0 - 64bit Production
+With the Automatic Storage Management option 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:118) JDBC driver: Oracle JDBC driver, version: 11.2.0.1.0 
+INFO  dialect.Dialect - org.hibernate.dialect.Dialect.<init>(Dialect.java:206) Using dialect: tavant.fleet.integration.server.common.dataaccess.EnhancedOracleDialect 
+WARN  dialect.Oracle9Dialect - org.hibernate.dialect.Oracle9Dialect.<init>(Oracle9Dialect.java:60) The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead 
+INFO  transaction.TransactionFactoryFactory - org.hibernate.transaction.TransactionFactoryFactory.buildTransactionFactory(TransactionFactoryFactory.java:62) Transaction strategy: org.springframework.orm.hibernate3.SpringTransactionFactory 
+INFO  transaction.TransactionManagerLookupFactory - org.hibernate.transaction.TransactionManagerLookupFactory.getTransactionManagerLookup(TransactionManagerLookupFactory.java:80) No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended) 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:169) Automatic flush during beforeCompletion(): disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:173) Automatic session close at end of transaction: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:180) JDBC batch size: 15 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:183) JDBC batch updates for versioned data: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:188) Scrollable result sets: enabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:196) JDBC3 getGeneratedKeys(): disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:204) Connection release mode: auto 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:231) Default batch fetch size: 25 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:235) Generate SQL with comments: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:239) Order SQL updates by primary key: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:243) Order SQL inserts for batching: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.createQueryTranslatorFactory(SettingsFactory.java:410) Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory 
+INFO  ast.ASTQueryTranslatorFactory - org.hibernate.hql.ast.ASTQueryTranslatorFactory.<init>(ASTQueryTranslatorFactory.java:47) Using ASTQueryTranslatorFactory 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:251) Query language substitutions: {} 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:256) JPA-QL strict compliance: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:261) Second-level cache: enabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:265) Query cache: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.createRegionFactory(SettingsFactory.java:395) Cache region factory : org.hibernate.cache.impl.bridge.RegionFactoryCacheProviderBridge 
+INFO  bridge.RegionFactoryCacheProviderBridge - org.hibernate.cache.impl.bridge.RegionFactoryCacheProviderBridge.<init>(RegionFactoryCacheProviderBridge.java:61) Cache provider: org.hibernate.cache.HashtableCacheProvider 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:275) Optimize cache for minimal puts: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:284) Structured second-level cache entries: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:313) Statistics: enabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:317) Deleted entity synthetic identifier rollback: disabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:332) Default entity-mode: pojo 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:336) Named query checking : enabled 
+INFO  cfg.SettingsFactory - org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:340) Check Nullability in Core (should be disabled when Bean Validation is on): enabled 
+INFO  impl.SessionFactoryImpl - org.hibernate.impl.SessionFactoryImpl.<init>(SessionFactoryImpl.java:199) building session factory 
+INFO  impl.SessionFactoryObjectFactory - org.hibernate.impl.SessionFactoryObjectFactory.addInstance(SessionFactoryObjectFactory.java:105) Not binding factory to JNDI, no JNDI name configured 
+INFO  hbm2ddl.SchemaUpdate - org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:155) Running hbm2ddl schema update 
+INFO  hbm2ddl.SchemaUpdate - org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:167) fetching database metadata 
+INFO  hbm2ddl.SchemaUpdate - org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:179) updating schema 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:65) table found: NMHG_FLEET_APP.SYNC_STATUS 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:66) columns: [d_created_time, d_active, d_updated_on, status, d_updated_time, d_created_on, d_internal_comments, d_last_updated_by] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:68) foreign keys: [] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:69) indexes: [sys_c00131648, sync_stat_lst_updt_by_fk] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:65) table found: NMHG_FLEET_APP.SYNC_TRACKER 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:66) columns: [sync_type, status, business_unit_info, bodxml, no_of_attempts, version, id, record, is_deleted, error_type, hidden_by, d_updated_on, create_date, unique_id_name, error_message, business_id, unique_id_value, start_time, update_date, hidden_on, d_created_on, d_internal_comments, d_last_updated_by, processing_status] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:68) foreign keys: [synctracker_status_fk] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:69) indexes: [sync_tracker_lst_updt_by_fk, sync_tracker_bu_fk, synctracker_status_fk, sys_c00131723] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:65) table found: NMHG_FLEET_APP.SYNC_TYPE 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:66) columns: [type] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:68) foreign keys: [] 
+INFO  hbm2ddl.TableMetadata - org.hibernate.tool.hbm2ddl.TableMetadata.<init>(TableMetadata.java:69) indexes: [sys_c0097968] 
+INFO  hbm2ddl.DatabaseMetadata - org.hibernate.tool.hbm2ddl.DatabaseMetadata.getTableMetadata(DatabaseMetadata.java:119) table not found: hibernate_sequence 
+ERROR hbm2ddl.SchemaUpdate - org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:212) Unsuccessful: create sequence hibernate_sequence 
+ERROR hbm2ddl.SchemaUpdate - org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:213) ORA-00955: name is already used by an existing object
+ 
+INFO  hbm2ddl.SchemaUpdate - org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:217) schema update complete 

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>server</artifactId>
+		<groupId>tavant.fleet.FLEET_DEV</groupId>
+		<version>0.5-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>domain</artifactId>
+	<name>server-domain</name>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>tavant.twms.TSA_DEV</groupId>
+			<artifactId>annotations</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>tavant.fleet.FLEET_DEV</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>tavant.twms.TWMS_DEV</groupId>
+			<artifactId>domain-core</artifactId>
+        </dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate3</artifactId>
+		</dependency>
+             
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.4.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity-dep</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jxls</groupId>
+			<artifactId>jxls-core</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>2.5.4</version>
+			<scope>test</scope>
+		</dependency>
+		
+		 <dependency>
+            <groupId>tavant.twms.TWMS_DEV</groupId>
+            <artifactId>domain-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>tavant.twms.TWMS_DEV</groupId>
+            <artifactId>engine-core</artifactId>
+        </dependency>
+
+	</dependencies>
+</project>

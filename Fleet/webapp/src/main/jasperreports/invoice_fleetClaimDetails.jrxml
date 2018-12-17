@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="labour" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="804" leftMargin="19" rightMargin="19" topMargin="7" bottomMargin="7" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<field name="forCustomerLocation.name" class="java.lang.String"/>
+	<field name="timeAndMaterialLineItems" class="java.util.Collection"/>
+	<field name="totalLaborAmount" class="java.lang.Object"/>
+	<field name="totalPartsAmount" class="java.lang.Object"/>
+	<field name="totalTransportationAmount" class="java.lang.Object"/>
+	<field name="totalMiscAmount" class="java.lang.Object"/>
+	<field name="totalTravelAmount" class="java.lang.Object"/>
+	<field name="totalAmount" class="java.lang.Object"/>
+	<field name="totalTaxAmount" class="java.lang.Object"/>
+	<field name="subTotalAmount" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="132" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="2c7a74b9-9f5f-4542-bc86-de30d9e51b20" positionType="Float" x="300" y="105" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalTransportationAmount}!=null?$F{totalTransportationAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="efef0119-7729-4620-aaab-e4f11d30ad58" positionType="Float" x="443" y="105" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalTravelAmount}!=null?$F{totalTravelAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="b64eeb3c-f209-4183-99a0-67d66708af4e" positionType="Float" x="160" y="106" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalLaborAmount}!=null?$F{totalLaborAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="829cf05c-074f-4fd2-aec4-adbb9049ae55" positionType="Float" x="581" y="106" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalTaxAmount}!=null?$F{totalTaxAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="fc0190a3-de18-453b-a30f-c3ac09a75207" positionType="Float" x="230" y="105" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalPartsAmount}!=null?$F{totalPartsAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="a6a103ce-8016-4c28-b1e5-c87c46f2a146" positionType="Float" x="511" y="106" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subTotalAmount}!=null?$F{subTotalAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="7d93a2aa-69de-483e-b025-fae45ec4aec2" positionType="Float" x="651" y="106" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalTravelAmount}!=null?$F{totalTravelAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="711e4981-d2b6-4771-92fa-1808c07ac847" positionType="Float" x="371" y="105" width="70" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalMiscAmount}!=null?$F{totalMiscAmount}:"--"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="2f0ee1fb-3e0b-41c6-b393-4b6f77541476" positionType="Float" x="10" y="46" width="695" height="27"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{timeAndMaterialLineItems})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_Sub_TAMClaimDetails.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="958ea757-b423-45d6-bb5e-3f44db70fd61" x="10" y="27" width="720" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="8640bc0e-e079-46c9-be89-9dddfcb67207" key="staticText-89" x="10" y="28" width="81" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Invoice Details:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7fb52140-de14-4e63-aee4-e1e494c7e33a" key="staticText-89" positionType="Float" x="10" y="10" width="81" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Invoice Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ad253f13-115c-452d-80dd-014ad3b1946b" positionType="Float" x="546" y="86" width="40" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[SubTotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0f0e2f84-3728-4b9f-bf31-fc03d0050fee" positionType="Float" x="338" y="85" width="36" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Drayage]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="03f26101-770b-426c-a2a5-7e984a324640" positionType="Float" x="417" y="85" width="28" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Misc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="222f8e3a-76f3-4c7e-8976-392aec34ec5f" positionType="Float" x="637" y="86" width="19" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d12df453-dbf3-44b9-b6cc-1dccd15c0cf1" positionType="Float" x="488" y="85" width="29" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Travel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d63218e-9cc1-4086-8233-fc846aef7514" positionType="Float" x="277" y="85" width="27" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Parts]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="70eeceb0-92a6-4cd7-86b3-4dccf0c942a7" positionType="Float" x="209" y="86" width="25" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Labor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d2996324-dbc4-4bd5-b717-de7dac550c1a" positionType="Float" x="701" y="86" width="24" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="1c75e6d4-5d28-41e9-b53a-f4e3159eee66" positionType="Float" x="91" y="8" width="185" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="417bd624-e2e6-4308-b99c-a551340c50a3" positionType="Float" x="91" y="28" width="185" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{forCustomerLocation.name}!=null?$F{forCustomerLocation.name}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="a53d8718-2af1-4c87-94fd-d9fefee53371" positionType="Float" x="10" y="88" width="154" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{forCustomerLocation.name}!=null?$F{forCustomerLocation.name}:"--"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,77 @@
+<html>
+
+<body>
+
+	Hi <b>${userName}</b>,<br/><br/>
+	
+	<u>${serviceRequest.forItem.activeFleetInventoryAudit.shipTo.customer.name} Service Request - <b>Automatic Notification</b> - Do not Reply to this email</u><br/><br/>
+	
+	A Service Request has been created with the following details:<br/>	
+	<b>Service Request Number:</b> ${serviceRequest.serviceRequestNumber}<br/>
+	<b>Description:</b> ${serviceRequest.activeServiceRequestAudit.problemDescription}<br/>
+	#if(${serviceRequest.activeServiceRequestAudit.isEmergencyRequest()} == true)
+		#set ($emergencyRequest = "Yes")
+	#else
+		#set ($emergencyRequest = "No")
+	#end
+	<b>Emergency Request:</b> $emergencyRequest<br/>
+	#if(${serviceRequest.activeServiceRequestAudit.isEquipmentDown()} == true)
+		#set ($equipmentDown = "Yes")
+	#else
+		#set ($equipmentDown = "No")
+	#end
+	<b>Equipment Down:</b> $equipmentDown<br/>
+	#if(${serviceRequest.activeServiceRequestAudit.isQuoteRequired()} == true)
+		#set ($quoteRequired = "Yes")
+	#else
+		#set ($quoteRequired = "No")
+	#end
+	<b>Quote Job:</b> $quoteRequired<br/>
+	<b>Status:</b> ${state}<br/>
+	<b>Additional Details:</b> $!{serviceRequest.activeServiceRequestAudit.additionalDetails}<br/><br/>
+	<b>Special Instructions:</b> $!{serviceRequest.customerLocation.customer.specialInstructions}<br/><br/>
+	
+	Customer Location: ${serviceRequest.customerLocation.locationsMapkey}<br/>
+	#if(${serviceRequest.customerPhoneNumber})
+		Phone: ${serviceRequest.customerPhoneNumber}<br/>
+	#elseif(${serviceRequest.customerLocation.address.phone})
+		Phone: ${serviceRequest.customerLocation.address.phone}<br/>
+	#else
+		Phone: -- <br/>
+	#end
+	Quote Threshold: $!{dealerThreshold}<br/>
+	Serial Number: $!{serviceRequest.forItem.serialNumber}<br/>
+	Asset Number: $!{serviceRequest.forItem.assetNumber}<br/><br/>
+	
+	Please <font size="3" color="red">confirm your ETA</font> by clicking on the below link:<br/><br/>
+	
+	#if( ! ${emailTokenId})
+		#set ($etaUrlfor2 = "${url}fleet/processeta?emailTokenId=null&etahrs=2")
+		#set ($etaUrlfor4 = "${url}fleet/processeta?emailTokenId=null&etahrs=4")
+		#set ($etaUrlfor8 = "${url}fleet/processeta?emailTokenId=null&etahrs=8")
+		#set ($etaUrlfor12 = "${url}fleet/processeta?emailTokenId=null&etahrs=12")
+	#else
+		#set ($etaUrlfor2 = "${url}fleet/processeta?emailTokenId=${emailTokenId}&etahrs=2")
+		#set ($etaUrlfor4 = "${url}fleet/processeta?emailTokenId=${emailTokenId}&etahrs=4")
+		#set ($etaUrlfor8 = "${url}fleet/processeta?emailTokenId=${emailTokenId}&etahrs=8")
+		#set ($etaUrlfor12 = "${url}fleet/processeta?emailTokenId=${emailTokenId}&etahrs=12")
+	#end
+
+	<li><a href="$etaUrlfor2">2 hrs as ETA</a></li><br/><br/>
+	<li><a href="${etaUrlfor4}">4 hrs as ETA</a></li><br/><br/>
+	<li><a href="${etaUrlfor8}">8 hrs as ETA</a></li><br/><br/>
+	<li><a href="${etaUrlfor12}">12 hrs as ETA</a></li><br/><br/>
+	 
+	You can sign-in to <a href="${url}">NMHG Fleet System</a> to respond on assigned service request.<br/><br/>
+	Should you have any questions or concerns please contact NMHG Fleet at 1800-xxx-yyyy.
+    <br/><br/>
+    Warmest regards,<br/><br/>  
+    NMHG Fleet Management	
+    <br/><br/>
+    The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+    It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+    please delete immediately and notify the sender. Thank you in advance for your cooperation.	
+
+</body>
+
+</html>

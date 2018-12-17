@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://aspnet.servicechannel.com/xmlws/service.asmx" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://aspnet.servicechannel.com/xmlws/service.asmx" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://aspnet.servicechannel.com/xmlws/service.asmx">
+      <s:element name="postXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StoreID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="postXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="postBXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StoreID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="postBXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postBXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSRXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PIN" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TrackingNum" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSRXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSRXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StoreID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlResponseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlResponseResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlWOMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StoreID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlWOMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlWOMSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="BatchID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveInvoiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PMviaXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StoreID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="XMLMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PMviaXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PMviaXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HealthM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StoreID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HealthMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HealthMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="postXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:postXML" />
+  </wsdl:message>
+  <wsdl:message name="postXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:postXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="postBXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:postBXML" />
+  </wsdl:message>
+  <wsdl:message name="postBXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:postBXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSRXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSRXML" />
+  </wsdl:message>
+  <wsdl:message name="GetSRXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSRXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="XmlResponseSoapIn">
+    <wsdl:part name="parameters" element="tns:XmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="XmlResponseSoapOut">
+    <wsdl:part name="parameters" element="tns:XmlResponseResponse" />
+  </wsdl:message>
+  <wsdl:message name="XmlWOMSSoapIn">
+    <wsdl:part name="parameters" element="tns:XmlWOMS" />
+  </wsdl:message>
+  <wsdl:message name="XmlWOMSSoapOut">
+    <wsdl:part name="parameters" element="tns:XmlWOMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveInvoice" />
+  </wsdl:message>
+  <wsdl:message name="ApproveInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="PMviaXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:PMviaXML" />
+  </wsdl:message>
+  <wsdl:message name="PMviaXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:PMviaXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="HealthMSoapIn">
+    <wsdl:part name="parameters" element="tns:HealthM" />
+  </wsdl:message>
+  <wsdl:message name="HealthMSoapOut">
+    <wsdl:part name="parameters" element="tns:HealthMResponse" />
+  </wsdl:message>
+  <wsdl:message name="postXMLHttpGetIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="postXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="postBXMLHttpGetIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="postBXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSRXMLHttpGetIn">
+    <wsdl:part name="PIN" type="s:string" />
+    <wsdl:part name="TrackingNum" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSRXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlResponseHttpGetIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlResponseHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlWOMSHttpGetIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlWOMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ApproveInvoiceHttpGetIn">
+    <wsdl:part name="SubID" type="s:string" />
+    <wsdl:part name="BatchID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ApproveInvoiceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PMviaXMLHttpGetIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PMviaXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HealthMHttpGetIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HealthMHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="postXMLHttpPostIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="postXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="postBXMLHttpPostIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="postBXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSRXMLHttpPostIn">
+    <wsdl:part name="PIN" type="s:string" />
+    <wsdl:part name="TrackingNum" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSRXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlResponseHttpPostIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlResponseHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlWOMSHttpPostIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="XmlWOMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ApproveInvoiceHttpPostIn">
+    <wsdl:part name="SubID" type="s:string" />
+    <wsdl:part name="BatchID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ApproveInvoiceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PMviaXMLHttpPostIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+    <wsdl:part name="XMLMsg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PMviaXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HealthMHttpPostIn">
+    <wsdl:part name="StoreID" type="s:string" />
+    <wsdl:part name="CustomerID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HealthMHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="postXML">
+      <wsdl:input message="tns:postXMLSoapIn" />
+      <wsdl:output message="tns:postXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <wsdl:input message="tns:postBXMLSoapIn" />
+      <wsdl:output message="tns:postBXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <wsdl:input message="tns:GetSRXMLSoapIn" />
+      <wsdl:output message="tns:GetSRXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <wsdl:input message="tns:XmlResponseSoapIn" />
+      <wsdl:output message="tns:XmlResponseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <wsdl:input message="tns:XmlWOMSSoapIn" />
+      <wsdl:output message="tns:XmlWOMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <wsdl:input message="tns:ApproveInvoiceSoapIn" />
+      <wsdl:output message="tns:ApproveInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <wsdl:input message="tns:PMviaXMLSoapIn" />
+      <wsdl:output message="tns:PMviaXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <wsdl:input message="tns:HealthMSoapIn" />
+      <wsdl:output message="tns:HealthMSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpGet">
+    <wsdl:operation name="postXML">
+      <wsdl:input message="tns:postXMLHttpGetIn" />
+      <wsdl:output message="tns:postXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <wsdl:input message="tns:postBXMLHttpGetIn" />
+      <wsdl:output message="tns:postBXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <wsdl:input message="tns:GetSRXMLHttpGetIn" />
+      <wsdl:output message="tns:GetSRXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <wsdl:input message="tns:XmlResponseHttpGetIn" />
+      <wsdl:output message="tns:XmlResponseHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <wsdl:input message="tns:XmlWOMSHttpGetIn" />
+      <wsdl:output message="tns:XmlWOMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <wsdl:input message="tns:ApproveInvoiceHttpGetIn" />
+      <wsdl:output message="tns:ApproveInvoiceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <wsdl:input message="tns:PMviaXMLHttpGetIn" />
+      <wsdl:output message="tns:PMviaXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <wsdl:input message="tns:HealthMHttpGetIn" />
+      <wsdl:output message="tns:HealthMHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpPost">
+    <wsdl:operation name="postXML">
+      <wsdl:input message="tns:postXMLHttpPostIn" />
+      <wsdl:output message="tns:postXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <wsdl:input message="tns:postBXMLHttpPostIn" />
+      <wsdl:output message="tns:postBXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <wsdl:input message="tns:GetSRXMLHttpPostIn" />
+      <wsdl:output message="tns:GetSRXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <wsdl:input message="tns:XmlResponseHttpPostIn" />
+      <wsdl:output message="tns:XmlResponseHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <wsdl:input message="tns:XmlWOMSHttpPostIn" />
+      <wsdl:output message="tns:XmlWOMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <wsdl:input message="tns:ApproveInvoiceHttpPostIn" />
+      <wsdl:output message="tns:ApproveInvoiceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <wsdl:input message="tns:PMviaXMLHttpPostIn" />
+      <wsdl:output message="tns:PMviaXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <wsdl:input message="tns:HealthMHttpPostIn" />
+      <wsdl:output message="tns:HealthMHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="postXML">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/postXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/postBXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/GetSRXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/XmlResponse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/XmlWOMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/ApproveInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/PMviaXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <soap:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/HealthM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="postXML">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/postXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/postBXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/GetSRXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/XmlResponse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/XmlWOMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/ApproveInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/PMviaXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <soap12:operation soapAction="http://aspnet.servicechannel.com/xmlws/service.asmx/HealthM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpGet" type="tns:ServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="postXML">
+      <http:operation location="/postXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <http:operation location="/postBXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <http:operation location="/GetSRXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <http:operation location="/XmlResponse" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <http:operation location="/XmlWOMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <http:operation location="/ApproveInvoice" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <http:operation location="/PMviaXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <http:operation location="/HealthM" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpPost" type="tns:ServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="postXML">
+      <http:operation location="/postXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="postBXML">
+      <http:operation location="/postBXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSRXML">
+      <http:operation location="/GetSRXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlResponse">
+      <http:operation location="/XmlResponse" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlWOMS">
+      <http:operation location="/XmlWOMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveInvoice">
+      <http:operation location="/ApproveInvoice" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PMviaXML">
+      <http:operation location="/PMviaXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HealthM">
+      <http:operation location="/HealthM" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://sb2aspnet.servicechannel.com/xmlWS/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://sb2aspnet.servicechannel.com/xmlWS/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpGet" binding="tns:ServiceHttpGet">
+      <http:address location="http://sb2aspnet.servicechannel.com/xmlWS/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpPost" binding="tns:ServiceHttpPost">
+      <http:address location="http://sb2aspnet.servicechannel.com/xmlWS/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,57 @@
+<html>
+
+<body>
+
+	Hi <b>${userName}</b>,<br/><br/>
+	
+	<u>${serviceRequest.forItem.activeFleetInventoryAudit.shipTo.customer.name} Service Request - <b>Automatic Notification</b> - Do not Reply to this email</u><br/><br/>
+	
+	A Service Request has been created with the following details:<br/>	
+	<b>Service Request Number:</b> ${serviceRequest.serviceRequestNumber}<br/>
+	<b>Description:</b> ${serviceRequest.activeServiceRequestAudit.problemDescription}<br/>
+	#if(${serviceRequest.activeServiceRequestAudit.isEmergencyRequest()} == true)
+		#set ($emergencyRequest = "Yes")
+	#else
+		#set ($emergencyRequest = "No")
+	#end
+	<b>Emergency Request:</b> $emergencyRequest<br/>
+	#if(${serviceRequest.activeServiceRequestAudit.isEquipmentDown()} == true)
+		#set ($equipmentDown = "Yes")
+	#else
+		#set ($equipmentDown = "No")
+	#end
+	<b>Equipment Down:</b> $equipmentDown<br/>
+	#if(${serviceRequest.activeServiceRequestAudit.isQuoteRequired()} == true)
+		#set ($quoteRequired = "Yes")
+	#else
+		#set ($quoteRequired = "No")
+	#end
+	<b>Quote Job:</b> $quoteRequired<br/>
+	<b>Status:</b> ${state}<br/>
+	<b>Comments:</b> $!{serviceRequest.activeServiceRequestAudit.additionalDetails}<br/><br/>
+	
+	Customer Location: ${serviceRequest.customerLocation.locationsMapkey}<br/>
+	#if(${serviceRequest.customerPhoneNumber})
+		Phone: ${serviceRequest.customerPhoneNumber}<br/>
+	#elseif(${serviceRequest.customerLocation.address.phone})
+		Phone: ${serviceRequest.customerLocation.address.phone}<br/>
+	#else
+		Phone: -- <br/>
+	#end
+	Quote Threshold: $!{serviceRequest.customerLocation.quoteThreshold}<br/>
+	Serial Number: $!{serviceRequest.forItem.serialNumber}<br/>
+	Asset Number: $!{serviceRequest.forItem.assetNumber}<br/><br/>
+	
+	You can sign-in to <a href="${url}">NMHG Fleet System</a> to respond to the service request.<br/><br/>
+	Should you have any questions or concerns please contact NMHG Fleet at 1800-xxx-yyyy.
+	
+	Best regards,<br/>
+	${buName}  Fleet Management
+    <br/><br/>
+    The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+    It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+    please delete immediately and notify the sender. Thank you in advance for your cooperation.	
+
+</body>
+
+</html>

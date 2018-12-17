@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="manageLabel" extends="struts-twms-default">
+
+    <action name="manageLabels"
+      class="tavant.twms.web.admin.labels.ManageLabelsAction" method="showLabels">
+      <interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+      <result name="success">pages/secure/admin/labels/labelTypes.jsp</result>
+    </action>
+    <action name="listLabelNames"
+      class="tavant.twms.web.admin.labels.ManageLabelsAction">
+      <interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+      <result name="success">pages/secure/admin/labels/labelsInboxView.jsp</result>
+    </action>
+    <action name="labelsBody"
+      class="tavant.twms.web.admin.labels.ManageLabelsAction" method="tableBody">
+      <interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+      <result name="success">pages/secure/home/json.jsp</result>
+    </action>
+    <action name="labelsPreview"
+      class="tavant.twms.web.admin.labels.ManageLabelsAction" method="getLabelDetails">
+      <interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+      <result name="success">pages/secure/admin/labels/labelsFleetInventoryPreview.jsp</result>
+    </action>
+    
+     <action name="labelsDetail"
+      class="tavant.twms.web.admin.labels.ManageLabelsAction" method="getLabelDetails">
+      <interceptor-ref name="adminTwmsParamsWithoutPrepare" />
+      <result name="success">pages/secure/admin/labels/labelsFleetInventoryPreview.jsp</result>
+      <result name="CONTRACT">pages/secure/admin/labels/labelsContractPreview.jsp</result>
+      <result name="FLEETCUSTOMER">pages/secure/admin/labels/labelsFleetCustomerPreview.jsp</result>
+    </action>
+    
+   </package>
+</struts>

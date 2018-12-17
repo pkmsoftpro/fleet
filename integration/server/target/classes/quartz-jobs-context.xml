@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans SYSTEM  "spring-beans.dtd">
+<beans default-autowire="byName">
+
+    <!-- Async Response details -->
+    
+   <bean id="asyncResponseJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="asyncResponseJobDetail"/>
+        <property name="cronExpression" value="${asyncResponseCronExpression}"/>
+        <property name="group" value="Async Response"/>
+    </bean> 
+    
+   <bean id="asyncResponseJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.AsyncResponseJob"/>
+        <property name="group" value="Async"/>
+        <property name="name" value="Async Response"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${asyncResponseMaxRetries}"/>
+            </map>
+        </property>
+    </bean>
+    
+    <!--Telemetry Job Detalis-->
+    
+    <bean id="telemetryRequestJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="telemetryRequestJobDetail"/>
+        <property name="cronExpression" value="${telemetryRequestCronExpression}"/>
+        <property name="group" value="Telemetry Request"/>
+    </bean>
+    
+    <bean id="telemetryRequestJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.TelemetryRequestJob"/>
+        <property name="group" value="Telemetry"/>
+        <property name="name" value="Telemetry Request"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${telemetryRequestMaxRetries}"/>
+            </map>
+        </property>
+    </bean> 
+    
+    <!--Telemetry response processing Job Detalis-->
+    
+    <bean id="telemetryResponseProcessingJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="telemetryResponseProcessingJobDetail"/>
+        <property name="cronExpression" value="${telemetryResponseProcessingCronExpression}"/>
+        <property name="group" value="Telemetry Response Processing"/>
+    </bean>
+    
+    <bean id="telemetryResponseProcessingJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.TelemetryResponseProcessingJob"/>
+        <property name="group" value="TelemetryResponse"/>
+        <property name="name" value="Telemetry Response Processing"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${telemetryResponseProcessingMaxRetries}"/>
+            </map>
+        </property>
+    </bean> 
+    
+    <!--  FailureCode request job details -->
+    
+    <bean id="failureCodeRequestJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="failureCodeRequestJobDetail"/>
+        <property name="cronExpression" value="${failureCodeRequestCronExpression}"/>
+        <property name="group" value="FailureCode Request"/>
+    </bean>
+    
+    <bean id="failureCodeRequestJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.FailureCodeRequestJob"/>
+        <property name="group" value="FailureCode"/>
+        <property name="name" value="FailureCode Request"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${failurecodeRequestMaxRetries}"/>
+            </map>
+        </property>
+    </bean> 
+    
+    <!--FailureCode response processing Job Detalis-->
+    
+    <bean id="failureCodeResponseProcessingJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="failureCodeResponseProcessingJobDetail"/>
+        <property name="cronExpression" value="${failureCodeResponseProcessingCronExpression}"/>
+        <property name="group" value="FailureCode Response Processing"/>
+    </bean>
+    
+    <bean id="failureCodeResponseProcessingJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.FailureCodeResponseProcessingJob"/>
+        <property name="group" value="FailureCodeResponse"/>
+        <property name="name" value="FailureCode Response Processing"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${failureCodeResponseProcessingMaxRetries}"/>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- Service Channel details -->
+    
+    <bean id="serviceChannelJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="serviceChannelJobDetail"/>
+        <property name="cronExpression" value="${serviceChannelCronExpression}"/>
+        <property name="group" value="Service Channel"/>
+    </bean> 
+    
+   <bean id="serviceChannelJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.ServiceChannelJob"/>
+        <property name="group" value="ServiceChannel"/>
+        <property name="name" value="Service Channel"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${serviceChannelMaxRetries}"/>
+            </map>
+        </property>
+    </bean> 
+    
+    <!-- Credit Submission details -->
+    
+    <bean id="creditSubmissionJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="creditSubmissionJobDetail"/>
+        <property name="cronExpression" value="${creditSubmissionCronExpression}"/>
+        <property name="group" value="Credit Submission"/>
+    </bean> 
+    
+   <bean id="creditSubmissionJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.CreditSubmissionJob"/>
+        <property name="group" value="CreditSubmission"/>
+        <property name="name" value="Credit Submission"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${creditSubmissionMaxRetries}"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="creditSubmissionReportDetail" class="tavant.fleet.integration.server.quartz.job.EmailReportDetail">
+        <property name="toUserEmail" value="${reportTo}"/>
+        <property name="fromUserEmail" value="claimcreditsubmissiontask@tavant.com"/>
+        <property name="template" value="credit_submission_report_en.vm"/>
+        <property name="subject" value="Credit Submission Task Status"/>
+        <property name="userName" value="${webservices.username}"/>
+        <property name="password" value="${webservices.password}"/>
+        <property name="creditSubmissionUrl" value="${creditSubmissionWebServiceURL}"/>
+    </bean>
+    
+    <!-- Claim Submission details -->
+    
+    <bean id="claimSubmissionJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="claimSubmissionJobDetail"/>
+        <property name="cronExpression" value="${claimSubmissionCronExpression}"/>
+        <property name="group" value="Claim Submission"/>
+    </bean> 
+    
+   <bean id="claimSubmissionJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="tavant.fleet.integration.server.quartz.job.ClaimSubmissionJob"/>
+        <property name="group" value="ClaimSubmission"/>
+        <property name="name" value="Claim Submission"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${claimSubmissionMaxRetries}"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="claimSubmissionResponseReportDetail" class="tavant.fleet.integration.server.quartz.job.EmailReportDetail">
+        <property name="toUserEmail" value="${reportTo}"/>
+        <property name="fromUserEmail" value="claimSubmissionTask@tavant.com"/>
+        <property name="template" value="claim_submission_report.vm"/>
+        <property name="subject" value="claim submission Task Status"/>
+        <property name="userName" value="${webservices.username}"/>
+        <property name="password" value="${webservices.password}"/>
+        <property name="dealerBatchClaimWebServiceURL" value="${dealerBatchClaimWebServiceURL}"/>
+    </bean>
+    
+    <bean id="asyncResponseReportDetail" class="tavant.fleet.integration.server.quartz.job.EmailReportDetail">
+        <property name="toUserEmail" value="${reportTo}"/>
+        <property name="fromUserEmail" value="asyncResponseTask@tavant.com"/>
+        <property name="template" value="async_response_report.vm"/>
+        <property name="subject" value="Async Response Task Status"/>
+        <property name="userName" value="${webservices.username}"/>
+        <property name="password" value="${webservices.password}"/>
+        <property name="asyncResponseURL" value="${asyncResponseProcessWebServiceURL}"/>
+    </bean>
+	
+	 <bean id="fleetClaimPaymentSubmissionJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+    	<property name="jobClass" value="tavant.fleet.integration.server.quartz.job.FleetClaimPaymentSubmissionJob"/>
+    	<property name="group" value="FleetClaimSubmission"/>
+        <property name="name" value="Fleet Claim Submission"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="maxNoOfRetries" value="${fleetClaimPaymentSubmissionMaxRetries}"/>
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="fleetClaimPaymentSubmissionJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail" ref="fleetClaimPaymentSubmissionJobDetail"/>
+    	<property name="cronExpression"  value="${fleetClaimPaymentSubmissionCron}"/>
+    	<property name="group" value="FleetClaimSubmission"/>
+    </bean>
+    
+     
+     
+     <!-- Async Response details up-->
+    
+     <bean id="propertiesBean" class="tavant.fleet.integration.server.common.PropertiesBean">
+        <property name="userName" value="${webservices.username}"/>
+        <property name="password" value="${webservices.password}"/>
+    </bean>
+    
+    <!-- 
+		 * fix for axis2 to single configuration and avoid multiple creation of temporary jars
+	-->
+	<bean id="configurationContext" class="org.apache.axis2.context.ConfigurationContextFactory" factory-method="createConfigurationContextFromFileSystem">
+	        <constructor-arg index="0">
+            <null/>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <null/>
+        </constructor-arg>
+	</bean> 
+    
+
+     <bean id="quartzJobListener" class="tavant.fleet.integration.server.quartz.job.QuartzJobListner" />
+
+    <!--  Quartz Scheduler start -->
+    
+    <bean id="quartzScheduler"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+             <ref bean="asyncResponseJob" />
+              <ref bean="serviceChannelJob" />
+              <ref bean="telemetryRequestJob" />
+              <ref bean="telemetryResponseProcessingJob" />
+              <ref bean="failureCodeRequestJob" />
+              <ref bean="failureCodeResponseProcessingJob" />
+			  <ref bean="fleetClaimPaymentSubmissionJob" />
+              <ref bean="creditSubmissionJob" />
+              <ref bean="claimSubmissionJob" />
+              
+            </list>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+            </props>
+        </property>
+        <property name="dataSource" ref="dataSource"  />
+        <property name="autoStartup" value="${quartzJobAutoStartupValue}"/>
+        <property name="schedulerName" value="Integration Quartz Schedular" />
+        <property name="applicationContextSchedulerContextKey" value="springApplicationContext" />
+        <property name="schedulerContextAsMap">
+            <map>
+                <entry key="sendEmailService" value-ref="sendEmailService" />
+                <entry key="syncTrackerDao" value-ref="syncTrackerDao" />
+                <entry key="webServiceTemplate" value-ref="webServiceTemplate" />
+                <entry key="integrationServiceProxy" value-ref="integrationServiceProxy" />
+                <entry key="reportingEnabled" value="${isReportingEnabled}" />
+                <entry key="asyncResponseReportDetail" value-ref="asyncResponseReportDetail" />
+                <entry key="creditSubmissionReportDetail" value-ref="creditSubmissionReportDetail" />
+                <entry key="configurationContext" value-ref="configurationContext" />
+            </map>
+        </property>
+        <property name="globalJobListeners">
+            <list>
+                <ref bean="quartzJobListener" />
+            </list>
+        </property>
+    </bean>
+ 		<!--  Quartz Scheduler end -->
+</beans>

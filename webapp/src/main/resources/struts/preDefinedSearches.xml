@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="preDefinedSearches" extends="struts-twms-default">
+
+		<!-- PreDefined Claims Search -->
+		<action name="showPreDefinedFleetClaimSearch"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="showSearchPage">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/fleetClaim/preDefinedFleetClaimSearch.jsp
+			</result>
+		</action>
+
+		<action name="deletePreDefinedClaimsSearchQuery"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="deletePredefinedQuery">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>
+
+		<action name="validatePreDefineFleetClaimSearchFields"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedFleetClaimSearch</result>
+			<result name="success" type="chain">showPreDefinedClaimSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedClaimSearchResults"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction">
+			<result name="success">pages/secure/fleetClaim/searchFleetClaimList.jsp
+			</result>
+			<result name="input">pages/secure/fleetClaim/searchFleetClaimList.jsp
+			</result>
+		</action>
+
+		<action name="preDefinedSearchFleetClaimBody"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+		<action name="showPreDefinedFleetClaimsSearchQuery"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="showPreDefinedFleetClaimsSearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/fleetClaim/preDefinedFleetClaimSearch.jsp
+			</result>
+		</action>
+
+		<action name="exportPreDefinedFleetClaimSearchesToExcel"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="downloadListingData" />
+
+		<action name="suggest_org_dealer_groups"
+			class="tavant.twms.web.actions.PredefinedFleetClaimSearchAction" method="suggestOrgDealerGroups">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+		</action>
+
+		<!-- End of PreDefined Claims Search -->
+
+		<!-- PreDefined Recovery Claims -->
+		<action name="showPreDefinedRecoveryClaimsSearch"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction"
+			method="showSearchPage">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/claims/preDefinedRecoveryClaimSearch.jsp
+			</result>
+		</action>
+
+		<action name="deletePreDefinedRecoveryClaimsSearchQuery"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction"
+			method="deletePredefinedQuery">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>
+
+		<action name="validatePreDefinedRecoveryClaimsSearchFields"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedRecoveryClaimsSearch
+			</result>
+			<result name="success" type="chain">showPreDefinedRecoveryClaimSearchResults
+			</result>
+		</action>
+
+
+		<action name="showPreDefinedRecoveryClaimSearchResults"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction">
+			<result name="success">pages/secure/claims/preDefinedRecoveryClaimSearchInboxView.jsp
+			</result>
+		</action>
+
+		<action name="preDefinedRecoveryClaimsBody"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction"
+			method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+		<action name="showPreDefinedRecoveryClaimsSearchQuery"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction"
+			method="showSearchConstraints">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/claims/preDefinedRecoveryClaimSearch.jsp
+			</result>
+		</action>
+
+		<action name="exportPreDefinedRecoveryClaimSearchesToExcel"
+			class="tavant.twms.web.supplier.PreDefinedRecoveryClaimSearchAction"
+			method="downloadListingData" />
+		<!--End of PreDefined Recovery Claims -->
+
+		<!--PreDefined Part Return Search -->
+		<action name="preDefined_search_PartReturn"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="searchExpression">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/partreturns/preDefinedPartReturnSearch.jsp
+			</result>
+		</action>
+
+		<action name="deletePreDefinedPartReturnSearchQuery"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="deletePredefinedQuery">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>
+
+		<action name="validatePreDefinedPartReturnSearchFields"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">preDefined_search_PartReturn
+			</result>
+			<result name="success" type="chain">preDefined_search_expression_PR
+			</result>
+		</action>
+
+		<action name="preDefined_search_expression_PR"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction">
+			<result name="success">pages/secure/partreturns/new_partsReturnInboxView.jsp
+			</result>
+		</action>
+		<action name="preDefinepartReturnSearchBody"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="tableBody">
+			<result name="success">pages/secure/home/json.jsp</result>
+			<result name="input">error.jsp</result>
+		</action>
+		<action name="showPredefinedPartReturnQuery"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="showPreDefinedPartReturnSearchQuery">
+			<result name="success">pages/secure/partreturns/preDefinedPartReturnSearch.jsp
+			</result>
+			<result name="input">pages/secure/partreturns/preDefinedPartReturnSearch.jsp
+			</result>
+		</action>
+		<action name="view_partReturn__preDefined_search_preview"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="detail">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/partreturns/preDefinedSearch_partReturnDetailView.jsp
+			</result>
+		</action>
+		<action name="downloadPartReturnSearchToExcel"
+			class="tavant.twms.web.search.PreDefinedPartReturnSearchAction"
+			method="downloadListingData" />
+		<!--End of Pre Defined Part Return Search -->
+		<!--End of PreDefined Part Return Search -->
+
+		<!--PreDefined Inventory Search -->
+		<action name="preDefined_search_inventory"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="searchExpression">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/inventory/preDefinedStockInventorySearch.jsp
+			</result>
+		</action>
+
+		<action name="validatePreDefinedInventorySearchFields"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">preDefined_search_inventory</result>
+			<result name="success" type="chain">preDefined_search_expression_inventory
+			</result>
+		</action>
+
+		<action name="preDefined_search_expression_inventory"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction">
+			<!-- <interceptor-ref name="paramsPrepareWithoutValidation" /> -->
+			<result name="success">pages/secure/inventory/new_inventoryInboxView.jsp
+			</result>
+		</action>
+		<action name="inventoryQuickSearchBody"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="tableBody">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/home/json.jsp</result>
+			<result name="input">error.jsp</result>
+		</action>
+
+		<action name="validatePreDefinedRetailInventorySearchFields"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">preDefined_search_inventory_retail
+			</result>
+			<result name="success" type="chain">preDefined_search_expression_inventory
+			</result>
+		</action>
+
+		<action name="preDefined_search_inventory_retail"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="searchExpression">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/inventory/preDefinedRetailInventorySearch.jsp
+			</result>
+		</action>
+		<action name="showPredefinedInventoryQuery"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="showPreDefinedInventoryQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="stock">pages/secure/inventory/preDefinedStockInventorySearch.jsp
+			</result>
+			<result name="retail">pages/secure/inventory/preDefinedRetailInventorySearch.jsp
+			</result>
+		</action>
+		<action name="downloadInvToExcel"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="downloadListingData">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+		</action>
+		<!--End of PreDefined Inventory Search -->
+		<action name="deletePredefinedInventorySearchQuery"
+			class="tavant.twms.web.search.PredefinedInventorySearchAction"
+			method="deletePredefinedQuery">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>
+
+		<!-- PreDefined Campaigns Claims -->
+		<action name="showPreDefinedCampaignsSearch"
+			class="tavant.twms.web.campaigns.PreDefinedCampaignsSearchAction"
+			method="showSearchPage">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/campaigns/preDefinedCampaignsSearch.jsp
+			</result>
+		</action>
+
+		<action name="deletePreDefinedCampaignsSearchQuery"
+			class="tavant.twms.web.campaigns.PreDefinedCampaignsSearchAction"
+			method="deletePredefinedQuery">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>
+
+		<action name="validatePreDefinedCampaignSearchFields"
+			class="tavant.twms.web.campaigns.PreDefinedCampaignsSearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedCampaignsSearch
+			</result>
+			<result name="success" type="chain">showPreDefinedCampaignsSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedCampaignsSearchResults"
+			class="tavant.twms.web.campaigns.PreDefinedCampaignsSearchAction">
+			<result name="success">pages/secure/campaigns/preDefinedCampaignInboxView.jsp
+			</result>
+		</action>
+
+		<action name="preDefinedCampaignsBody"
+			class="tavant.twms.web.campaigns.PreDefinedCampaignsSearchAction"
+			method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+		<action name="showPreDefinedCampaignsSearchQuery"
+			class="tavant.twms.web.campaigns.PreDefinedCampaignsSearchAction"
+			method="showSearchConstraints">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/campaigns/preDefinedCampaignsSearch.jsp
+			</result>
+		</action>
+
+		<!--End of PreDefined Campaigns Search -->
+
+		<!--PreDefined Part Recovery Search -->
+		<action name="preDefined_search_PartRecovery"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction"
+			method="searchExpression">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/partrecovery/preDefinedPartRecoverySearch.jsp
+			</result>
+		</action>
+
+		<action name="deletePreDefinedPartRecoverySearchQuery"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction"
+			method="deletePredefinedQuery">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>
+
+		<action name="validatePreDefinedPartRecoverySearchFields"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">preDefined_search_PartRecovery
+			</result>
+			<result name="success" type="chain">preDefined_search_expression_PREC
+			</result>
+		</action>
+
+		<action name="preDefined_search_expression_PREC"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction">
+			<result name="success">pages/secure/partrecovery/new_partsRecoveryInboxView.jsp
+			</result>
+		</action>
+		<action name="preDefinedpartRecoverySearchBody"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction"
+			method="tableBody">
+			<result name="success">pages/secure/home/json.jsp</result>
+			<result name="input">error.jsp</result>
+		</action>
+		<action name="showPredefinedPartRecoveryQuery"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction"
+			method="showPreDefinedPartRecoverySearchQuery">
+			<result name="success">pages/secure/partrecovery/preDefinedPartRecoverySearch.jsp
+			</result>
+			<result name="input">pages/secure/partrecovery/preDefinedPartRecoverySearch.jsp
+			</result>
+		</action>
+		<action name="downloadPartRecoverySearchToExcel"
+			class="tavant.twms.web.search.PreDefinedPartRecoverySearchAction"
+			method="downloadListingData">
+			<interceptor-ref name="adminParamsPrepare" />
+		</action>
+
+		<!-- PreDefined Customer Search -->
+		<action name="showPreDefinedCustomerSearch"
+			class="tavant.twms.web.search.PreDefinedCustomerSearchAction" method="showSearchPage">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/customer/predefinedCustomerSearch.jsp
+			</result>
+		</action>
+
+		<action name="validatePreDefinedCustomerSearchFields"
+			class="tavant.twms.web.search.PreDefinedCustomerSearchAction" method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedCustomerSearch
+			</result>
+			<result name="success" type="chain">showPreDefinedCustomerSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedCustomerSearchResults"
+			class="tavant.twms.web.search.PreDefinedCustomerSearchAction">
+			<result name="success">pages/secure/customer/customerSearchInboxView.jsp
+			</result>
+			<result name="input">pages/secure/customer/customerSearchInboxView.jsp
+			</result>
+		</action>
+
+		<action name="preDefinedCustomerSearchSummaryBody"
+			class="tavant.twms.web.search.PreDefinedCustomerSearchAction" method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+		<action name="fetch_states_by_country"
+			class="tavant.twms.web.search.PreDefinedCustomerSearchAction" method="fetchStatesByCountry">
+			<interceptor-ref name="paramsWithoutValidation" />
+			<result name="success">pages/secure/location/statesSelectList.jsp
+			</result>
+		</action>
+
+		<action name="exportCustomersToExcel"
+			class="tavant.twms.web.search.PreDefinedCustomerSearchAction" method="downloadListingData">
+			<interceptor-ref name="paramsPrepare" />
+		</action>
+
+	   <action name="showPreDefinedCustomerSearchQuery"
+		class="tavant.twms.web.search.PreDefinedCustomerSearchAction"
+		method="showPreDefinedCustomerSearchQuery">
+		<interceptor-ref name="paramsPrepareWithoutValidation" />
+		<result name="success">pages/secure/customer/predefinedCustomerSearch.jsp
+		</result>
+	   </action>
+		
+		<!--PreDefined Contract Search -->		
+		
+		<action name="showPreDefinedContractSearch"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction" method="showSearchPage">
+			<interceptor-ref name="defaultPlusErrors" />
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/contract/preDefinedContractSearch.jsp
+			</result>
+		</action>
+
+		<action name="validatePreDefinedContractSearchFields"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction" method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedContractSearch
+			</result>
+			<result name="success" type="chain">showPreDefinedContractSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedContractSearchResults"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction">
+			<result name="success">pages/secure/contract/contractSearchInboxView.jsp
+			</result>
+			<result name="input">pages/secure/contract/contractSearchInboxView.jsp
+			</result>
+		</action>
+
+		<action name="preDefinedContractSearchSummaryBody"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction" method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+		
+		<action name="showPreDefinedContractSearchQuery"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction" method="showPreDefinedContractSearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/contract/preDefinedContractSearch.jsp
+			</result>
+		</action>
+		
+ 		<action name="inboxViewAction" class="tavant.twms.web.actions.InboxViewAction">
+			<result name="success">pages/secure/view/createView.jsp</result>
+			<result name="input">pages/secure/view/createView.jsp</result>
+		</action> 
+		
+		<action name="deletePredefinedSearchQuery"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction"
+			method="deletePredefinedQuery" >
+			<interceptor-ref name="paramsPrepare"/>
+			<result name="success">pages/secure/view/success.jsp</result>
+		</action>	
+
+		<action name="exportContractsToExcel"
+			class="tavant.twms.web.actions.PreDefinedContractSearchAction" method="downloadListingData">
+			<interceptor-ref name="paramsPrepare" />
+		</action>
+
+		<!--PreDefined Customer Location Search -->
+
+		<action name="showPreDefinedCustomerLocationSearch"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction"
+			method="showSearchPage">
+			<interceptor-ref name="defaultPlusErrors"/>
+		  <interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="success">pages/secure/location/preDefinedCustomerLocationSearch.jsp
+			</result>
+		</action>
+
+		<action name="validatePreDefinedCustomerLocationSearchFields"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedCustomerLocationSearch
+			</result>
+			<result name="success" type="chain">showPreDefinedCustomerLocationSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedCustomerLocationSearchResults"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction">
+			<!-- <interceptor-ref name="paramsPrepare" /> -->
+			<result name="success">pages/secure/location/searchLocationsList.jsp
+			</result>
+			<result name="input">pages/secure/location/searchLocationsList.jsp
+			</result>
+		</action>
+
+		<action name="customerLocation_table_body"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction"
+			method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+
+		<action name="exportCustomerLocationsToExcel"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction"
+			method="downloadListingData">
+			<interceptor-ref name="paramsPrepare" />
+		</action>
+		
+		<action name="showPreDefinedCustomerLocationSearchQuery"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction" method="showPreDefinedCustomerLocationSearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/location/preDefinedCustomerLocationSearch.jsp
+			</result>
+		</action>
+
+		<!--End of PreDefined Customer Location Search -->
+
+		<!--PreDefined Quote Search -->
+
+		<action name="showPreDefinedQuoteSearch"
+			class="tavant.twms.web.actions.PredefinedQuoteSearchAction" method="showSearchPage">
+		<interceptor-ref name="defaultPlusErrors"/>
+		  <interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="success">pages/secure/quote/preDefinedQuoteSearch.jsp
+			</result>
+		</action>
+
+		<action name="validatePreDefineQuoteSearchFields"
+			class="tavant.twms.web.actions.PredefinedQuoteSearchAction" method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedQuoteSearch</result>
+			<result name="success" type="chain">showPreDefinedQuoteSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedQuoteSearchResults"
+			class="tavant.twms.web.actions.PredefinedQuoteSearchAction">
+			<!-- <interceptor-ref name="paramsPrepare" /> -->
+			<result name="success">pages/secure/quote/searchQuotesList.jsp</result>
+			<result name="input">pages/secure/quote/searchQuotesList.jsp</result>
+		</action>
+
+		<action name="quote_table_body"
+			class="tavant.twms.web.actions.PredefinedQuoteSearchAction" method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+		
+		<action name="showPreDefinedQuotesSearchQuery"
+			class="tavant.twms.web.actions.PredefinedQuoteSearchAction" method="showPreDefinedQuotesSearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/quote/preDefinedQuoteSearch.jsp
+			</result>
+		</action>
+
+
+		<action name="exportPreDefinedQuoteSearchesToExcel"
+			class="tavant.twms.web.actions.PredefinedQuoteSearchAction" method="downloadListingData">
+			<interceptor-ref name="paramsPrepare" />
+		</action>
+
+		<!--End of PreDefined Quote Search -->
+		
+		<!--PreDefined SR Search -->
+		<action name="showPreDefinedServiceRequestSearch" class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction" method="showSearchPage">
+			
+			<interceptor-ref name="defaultPlusErrors"/>
+		  <interceptor-ref name="paramsPrepareWithoutValidation"/>
+			<result name="success">pages/secure/serviceRequest/preDefinedServiceRequestSearch.jsp
+			</result>
+		</action>
+		<action name="validatePreDefineServiceRequestSearchFields"
+			class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction"
+			method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedServiceRequestSearch</result>
+			<result name="success" type="chain">showPreDefinedServiceRequestSearchResults
+			</result>
+		</action>
+		<action name="showPreDefinedServiceRequestSearchResults"
+			class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction">			
+			<result name="success">pages/secure/serviceRequest/serviceRequestSearchList.jsp
+			</result>
+			<result name="input">pages/secure/serviceRequest/serviceRequestSearchList.jsp
+			</result>
+		</action>
+		<action name="exportPreDefinedSRSearchesToExcel"
+			class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction"
+			method="downloadListingData">
+			<interceptor-ref name="paramsPrepare" />
+		</action>
+		<action name="serviceRequest_table_body"
+			class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction"
+			method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+		<action name="showPreDefinedServiceRequestSearchQuery"
+			class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction" method="showPreDefinedServiceRequestSearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/serviceRequest/preDefinedServiceRequestSearch.jsp
+			</result>
+		</action>
+		<action name="inboxViewAction" class="tavant.twms.web.actions.InboxViewAction">
+			<result name="success">pages/secure/view/createView.jsp</result>
+			<result name="input">pages/secure/view/createView.jsp</result>
+		</action>
+		<action name="deletePredefinedSearchQuery"
+			class="tavant.twms.web.actions.PredefinedServiceRequestSearchAction"
+			method="deletePredefinedQuery" >
+			<interceptor-ref name="paramsPrepare"/>
+			<result name="success">pages/secure/view/success.jsp</result>
+	</action>	
+
+		<!--End of PreDefined SR Search -->
+		<!--PreDefined Inventory Search -->
+
+	<action name="preDefinedFleetInventorySearch"
+		class="tavant.twms.web.actions.PreDefinedInventorySearchAction"
+		method="searchExpression">
+		<interceptor-ref name="defaultPlusErrors" />
+		<interceptor-ref name="paramsPrepareWithoutValidation" /> 
+		<result name="success">pages/secure/inventory/predefinedInventorySearch.jsp
+		</result>
+	</action>
+	
+
+	<action name="validatePredefinedInventorySearchFields"
+		class="tavant.twms.web.actions.PreDefinedInventorySearchAction"
+		method="validateSearchFields">
+		<interceptor-ref name="paramsPrepareWithoutValidation" />
+		<result name="input" type="chain">preDefinedFleetInventorySearch</result>
+		<result name="success" type="chain">showPreDefinedInventorySearchResults
+		</result>
+	</action>
+
+	<action name="showPreDefinedInventorySearchResults"
+		class="tavant.twms.web.actions.PreDefinedInventorySearchAction">
+		<!-- <interceptor-ref name="paramsPrepareWithoutValidation" /> -->
+		<result name="success">pages/secure/inventory/new_inventoryInboxView.jsp
+		</result>
+	</action>
+	<action name="preDefinedInventorySearchSummaryBody"
+		class="tavant.twms.web.actions.PreDefinedInventorySearchAction"
+		method="tableBody">
+		<interceptor-ref name="paramsPrepareWithoutValidation" />
+		<result name="success">pages/secure/home/json.jsp</result>
+		<result name="input">error.jsp</result>
+	</action>
+	<action name="exportInventoriesToExcel"
+		class="tavant.twms.web.actions.PreDefinedInventorySearchAction"
+		method="downloadListingData">
+		<interceptor-ref name="paramsPrepare" />
+	</action>
+<action name="showPreDefinedInventorySearchQuery"
+			class="tavant.twms.web.actions.PreDefinedInventorySearchAction" method="showPreDefinedInventorySearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/inventory/predefinedInventorySearch.jsp
+			</result>
+		</action>
+		<!--End of PreDefined Inventory Search -->
+		
+		<!--PreDefined Periodic Service Search -->
+
+		<action name="showPreDefinedPeriodicServiceSearch"
+			class="tavant.twms.web.actions.PredefinedPeriodicServiceSearchAction" method="showSearchPage">
+			<!-- <interceptor-ref name="paramsPrepare" /> -->
+			<interceptor-ref name="defaultPlusErrors" />
+		<interceptor-ref name="paramsPrepareWithoutValidation" /> 
+			<result name="success">pages/secure/periodicService/preDefinedPeriodicServiceSearch.jsp
+			</result>
+		</action>
+
+		<action name="validatePreDefinePeriodicServiceSearchFields"
+			class="tavant.twms.web.actions.PredefinedPeriodicServiceSearchAction" method="validateSearchFields">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="input" type="chain">showPreDefinedPeriodicServiceSearch</result>
+			<result name="success" type="chain">showPreDefinedPeriodicServiceSearchResults
+			</result>
+		</action>
+
+		<action name="showPreDefinedPeriodicServiceSearchResults"
+			class="tavant.twms.web.actions.PredefinedPeriodicServiceSearchAction">
+			<result name="success">pages/secure/periodicService/preDefinedPeriodicServiceSearchList.jsp</result>
+			<result name="input">pages/secure/periodicService/preDefinedPeriodicServiceSearchList.jsp</result>
+		</action>
+
+		<action name="periodic_service_table_body"
+			class="tavant.twms.web.actions.PredefinedPeriodicServiceSearchAction" method="tableBody">
+			<interceptor-ref name="paramsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+
+		<action name="exportPreDefinedPeriodicServiceSearchesToExcel"
+			class="tavant.twms.web.actions.PredefinedPeriodicServiceSearchAction" method="downloadListingData">
+			<interceptor-ref name="paramsPrepare" />
+		</action>
+		
+		<action name="showPreDefinedPeriodicSerivceSearchQuery"
+			class="tavant.twms.web.actions.PredefinedPeriodicServiceSearchAction" method="showPreDefinedPeriodicSerivceSearchQuery">
+			<interceptor-ref name="paramsPrepareWithoutValidation" />
+			<result name="success">pages/secure/periodicService/preDefinedPeriodicServiceSearch.jsp
+			</result>
+		</action>
+
+		<!--End of PreDefined Periodic Service Search -->
+
+		<action name="getStatesForCountry"
+			class="tavant.twms.web.actions.PredefinedCustomerLocationSearchAction"
+			method="getStatesForCountry">
+			<interceptor-ref name="twmsParamsWithoutPrepare" />
+			<result name="success">pages/secure/location/statesSelectList.jsp
+			</result>
+		</action>
+		
+		<!--PreDefined Inventory Search -->
+
+	<!--PreDefined Invoice Search -->
+	
+	<action name="showPreDefinedInvoiceSearch"
+		class="tavant.twms.web.actions.PreDefinedInvoiceSearchAction" method="showSearchPage">
+		<interceptor-ref name="defaultPlusErrors" />
+		<interceptor-ref name="paramsPrepareWithoutValidation" />
+		<result name="success">pages/secure/invoice/predefinedInvoiceSearch.jsp
+		</result>
+	</action>
+
+	<action name="validatePreDefinedInvoiceSearchFields"
+		class="tavant.twms.web.actions.PreDefinedInvoiceSearchAction" method="validateSearchFields">
+		<interceptor-ref name="paramsPrepareWithoutValidation" />
+		<result name="input" type="chain">showPreDefinedInvoiceSearch
+			</result>
+		<result name="success" type="chain">showPreDefinedInvoiceSearchResults
+		</result>
+	</action>
+
+	<action name="showPreDefinedInvoiceSearchResults"
+		class="tavant.twms.web.actions.PreDefinedInvoiceSearchAction">
+		<result name="success">pages/secure/invoice/invoiceSearchInboxView.jsp
+		</result>
+		<result name="input">pages/secure/invoice/invoiceSearchInboxView.jsp
+		</result>
+	</action>
+
+	<action name="preDefinedInvoiceSearchSummaryBody"
+		class="tavant.twms.web.actions.PreDefinedInvoiceSearchAction" method="tableBody">
+		<interceptor-ref name="paramsPrepare" />
+		<result name="success">pages/secure/home/json.jsp</result>
+	</action>
+
+	<action name="exportInvoiceToExcel"
+		class="tavant.twms.web.actions.PreDefinedInvoiceSearchAction" method="downloadListingData">
+		<interceptor-ref name="paramsPrepare" />
+	</action>
+
+     <action name="showPreDefinedInvoiceSearchQuery"
+	class="tavant.twms.web.actions.PreDefinedInvoiceSearchAction" method="showPreDefinedInvoiceSearchQuery">
+	<interceptor-ref name="paramsPrepareWithoutValidation" />
+	<result name="success">pages/secure/invoice/predefinedInvoiceSearch.jsp
+	</result>
+    </action>
+	<!--End PreDefined Invoice Search -->
+
+	</package>
+</struts>	

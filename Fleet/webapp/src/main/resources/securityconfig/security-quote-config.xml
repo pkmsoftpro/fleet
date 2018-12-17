@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="quote" defaultpolicy="none">
+
+        <resource type="ui" value="quoteTab" operation="OR">
+            <permissions>quote:quoteTab:update,quote:quoteTab:view
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="createQuote" operation="OR">
+            <permissions>quote:createQuote:update,quote:createQuote:create
+            </permissions>
+        </resource>
+        
+         <resource type="ui" value="quoteInboxes" operation="OR">
+            <permissions>quote:quoteInboxes:update,quote:quoteInboxes:view
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="searchQuotes" operation="OR">
+            <permissions>quote:searchQuotes:update,quote:searchQuotes:search
+            </permissions>
+        </resource>
+        
+        <resource type="ui" value="dealerOwnedQuoteInboxes" operation="OR">
+            <permissions>quote:dealerOwnedQuoteInboxes:update,quote:dealerOwnedQuoteInboxes:view
+            </permissions>
+        </resource>
+        
+	</functionalarea>
+
+</functionalareas>

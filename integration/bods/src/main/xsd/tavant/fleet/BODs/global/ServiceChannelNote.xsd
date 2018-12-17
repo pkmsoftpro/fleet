@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DATA2SC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CALL">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PROBLEM" type="xs:string" />
+              <xs:element name="ATTR">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="NAME" type="xs:string" use="required" />
+                      <xs:attribute name="LINE" type="xs:unsignedByte" use="optional" />
+                      <xs:attribute name="DATETIME" type="xs:string" use="required" />
+                      <xs:attribute name="CREATED_BY" type="xs:string" use="optional" />
+                      <xs:attribute name="NEW_SCHED_DATETIME" type="xs:string" use="optional" />
+                      <xs:attribute name="SENT_TO" type="xs:string" use="optional" />
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+			  <xs:attribute name="DATETIME" type="xs:dateTime" use="required" />
+			  <xs:attribute name="OPERATOR" type="xs:string" use="required" />
+			  <xs:attribute name="CALLER" type="xs:string" use="required" />
+			  <xs:attribute name="CATEGORY" type="xs:string" use="required" />
+			  <xs:attribute name="SUB" type="xs:unsignedInt" use="required" />
+			  <xs:attribute name="LOC" type="xs:unsignedShort" use="required" />
+			  <xs:attribute name="TRADE" type="xs:string" use="required" />
+
+			  <xs:attribute name="REQUEST_TYPE" type="xs:string" use="required" />
+			  <xs:attribute name="SUB_TYPE" type="xs:string" use="required" />
+			  <xs:attribute name="AREA" type="xs:string" use="required" />
+			  
+			  <xs:attribute name="TR_NUM" type="xs:unsignedInt" use="required" />
+			  <xs:attribute name="WO_NUM" type="xs:unsignedInt" use="required" />
+			  <xs:attribute name="PO_NUM" type="xs:unsignedInt" use="required" />
+			  <xs:attribute name="STATUS" type="xs:string" use="required" />
+			  <xs:attribute name="PRIORITY" type="xs:string" use="required" />
+			  <xs:attribute name="NTE" type="xs:double" use="required" />
+			  <xs:attribute name="SCHED_DATETIME" type="xs:string" use="required" />
+			  <xs:attribute name="COMPL_DATETIME" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="PIN" type="xs:unsignedShort" use="required" />
+      <xs:attribute name="ID" type="xs:unsignedByte" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

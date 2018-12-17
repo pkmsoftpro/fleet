@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="competitorInformation" extends="struts-twms-default">
+		
+		<default-interceptor-ref name="adminTwmsParamsWithoutPrepare"/>
+		
+		<action name="listCompetitorInformation" class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction" >
+        	<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">pages/secure/admin/competitorInformation/competitorInformationInboxView.jsp</result>
+        </action>
+        <action name="get_competitor_information_body"
+			class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction" method="tableBody">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">pages/secure/home/json.jsp</result>
+		</action>
+		<action name="create_competitor_information"
+			class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction"
+			method="createCompetitorInformationData">
+			<interceptor-ref name="adminParamsPrepare" />
+			<result name="success">pages/secure/admin/competitorInformation/createCompetitorInformation.jsp</result>
+		</action>
+		<action name="competitorInformationDetail" class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction" method="competitorInformationDetail">
+        	<interceptor-ref name="adminParamsPrepare" />
+		    <result name="success">pages/secure/admin/competitorInformation/competitorInformationDetail.jsp</result>        
+		</action>
+        <action name="list_ItemGroups" class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction" method="listItemGroups">
+	         <interceptor-ref name="adminParamsPrepare" />
+	         <result name="success">pages/secure/home/json.jsp</result>
+        </action>
+        <action name="save_Competitor_Information" class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction" method="saveCompetitorInformation">
+		   <interceptor-ref name="adminTwmsParamsPrepareParams" />
+		    <result name="input">pages/secure/admin/competitorInformation/createCompetitorInformation.jsp</result>
+		    <result name="success">pages/secure/admin/success.jsp</result>
+		</action>
+		<action name="modify_Competitor_Information" class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction" method="modifyCompetitorInformation">
+		   <interceptor-ref name="adminTwmsParamsPrepareParams" />
+		    <result name="input">pages/secure/admin/competitorInformation/competitorInformationDetail.jsp</result>
+		    <result name="success">pages/secure/admin/competitorInformation/competitorInformationDetail.jsp</result>
+		</action>
+		<action name="export_competitor_information_to_excel"
+			class="tavant.twms.web.admin.competitorInformation.ManageCompetitorInformationAction"
+			method="downloadListingData">
+			<interceptor-ref name="adminParamsPrepare" />
+		</action>
+        
+     </package>
+</struts>

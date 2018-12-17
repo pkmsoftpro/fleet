@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="machinesCoveredUnderContract" pageWidth="600" pageHeight="18" whenNoDataType="AllSectionsNoDetail" columnWidth="600" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="tavant.twms.domain.additionalAttributes.AdditionalAttributes"/>
+	<import value="tavant.twms.dateutil.TWMSDateFormatUtil"/>
+	<parameter name="dateFormat" class="java.lang.String"/>
+	<field name="fleetInventoryItem.serialNumber" class="java.lang.String"/>
+	<field name="fleetInventoryItem.model.name" class="java.lang.String"/>
+	<field name="fleetInventoryItem.brandType" class="java.lang.String"/>
+	<field name="fleetInventoryItem.recentBilling.adminFeeAmt" class="java.lang.Object"/>
+	<field name="fleetInventoryItem.recentBilling.fleetMaintAmt" class="java.lang.Object"/>
+	<field name="contractAvailability.tillDate" class="com.domainlanguage.time.CalendarDate"/>
+	<field name="contractAvailability.fromDate" class="com.domainlanguage.time.CalendarDate"/>
+	<field name="fleetInventoryItem.equipmentType" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="1337dd03-a90a-4eef-be0a-18772929df10" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="230" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetInventoryItem.brandType}!=null?$F{fleetInventoryItem.brandType}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="7e0b2b63-eb27-4e53-872c-970146f07d38" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="160" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetInventoryItem.model.name}!=null?$F{fleetInventoryItem.model.name}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="b9e6d57d-c5ab-465c-9138-1180e2a7386c" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="80" y="0" width="80" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetInventoryItem.equipmentType}!=null?$F{fleetInventoryItem.equipmentType}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="779808b2-bed5-409f-afd0-2321cae8b600" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="0" width="80" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetInventoryItem.serialNumber}!=null?$F{fleetInventoryItem.serialNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a0936c9c-5076-4288-accd-ec6665578ae4" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="300" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetInventoryItem.recentBilling.adminFeeAmt}!=null?$F{fleetInventoryItem.recentBilling.adminFeeAmt}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="323c22ae-412e-40cb-80b8-54b538fd4429" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="370" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetInventoryItem.recentBilling.fleetMaintAmt}!=null?$F{fleetInventoryItem.recentBilling.fleetMaintAmt}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="cb045132-8e37-4160-9d5f-34b65c98c157" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="440" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[TWMSDateFormatUtil.formatCalendarDate( $F{contractAvailability.fromDate}, $P{dateFormat})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="088e629c-5517-4aff-9231-84e1d8f5f87a" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="510" y="0" width="70" height="18"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[TWMSDateFormatUtil.formatCalendarDate( $F{contractAvailability.tillDate}, $P{dateFormat})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

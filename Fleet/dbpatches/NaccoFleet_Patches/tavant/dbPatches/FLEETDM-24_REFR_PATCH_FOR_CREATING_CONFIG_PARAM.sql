@@ -1,0 +1,5 @@
+--Purpose    : Patch for creating CONFIG_PARAM tables
+--Author     : Meghana Ganapaiah
+--Created On : 23-SEP-2013
+ALTER TABLE CONFIG_PARAM add CONSTRAINT CONFIG_PARAM_LST_UPDT_BY_FK FOREIGN KEY (D_LAST_UPDATED_BY) REFERENCES ORG_USER (ID) ENABLE
+/

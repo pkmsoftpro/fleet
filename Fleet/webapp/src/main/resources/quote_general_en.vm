@@ -1,0 +1,10 @@
+Hello <b></b>${userName},<br/><br/>
+Please be advised the the status of ${quoteNumber} has been updated to ${quoteState} and requires action to progress to resolution. 
+For additional information please view the attached quote summary report or log into the Service Lifecycle Management System  to view this quote directly. <br/>
+<a href="${url}">NMHG Fleet System</a>
+Best regards,<br/>
+${buName}Fleet Management
+<br/><br/>
+The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+please delete immediately and notify the sender. Thank you in advance for your cooperation.	

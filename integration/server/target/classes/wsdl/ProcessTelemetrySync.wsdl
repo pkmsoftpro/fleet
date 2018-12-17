@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NTPWebService" targetNamespace="http://www.nmhg.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+	xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.nmhg.com"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+	xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+	xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	<wsp:Policy wsu:Id="BasicHttpBinding_INTPWebService_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:TransportBinding
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:TransportToken>
+							<wsp:Policy>
+								<sp:HttpsToken RequireClientCertificate="false" />
+							</wsp:Policy>
+						</sp:TransportToken>
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic256 />
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict />
+							</wsp:Policy>
+						</sp:Layout>
+					</wsp:Policy>
+				</sp:TransportBinding>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.nmhg.com/Imports">
+			<xsd:import
+				schemaLocation="https://webservice.yalevision.com/NTPWebService.svc?xsd=xsd0"
+				namespace="http://www.nmhg.com" />
+			<xsd:import
+				schemaLocation="https://webservice.yalevision.com/NTPWebService.svc?xsd=xsd1"
+				namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+			<xsd:import
+				schemaLocation="https://webservice.yalevision.com/NTPWebService.svc?xsd=xsd2"
+				namespace="http://schemas.datacontract.org/2004/07/NTPWebService.Classes" />
+			<xsd:import
+				schemaLocation="https://webservice.yalevision.com/NTPWebService.svc?xsd=xsd3"
+				namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="INTPWebService_GetEquipmentList_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetEquipmentList" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetEquipmentList_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetEquipmentListResponse" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetOperatorList_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetOperatorList" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetOperatorList_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetOperatorListResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetSessionsByEquipProductIDAndDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSessionsByEquipProductIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetSessionsByEquipProductIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetSessionsByEquipProductIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetSessionsBySerialNumberAndDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSessionsBySerialNumberAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetSessionsBySerialNumberAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetSessionsBySerialNumberAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetSessionsByServiceIDAndDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSessionsByServiceIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetSessionsByServiceIDAndDates_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetSessionsByServiceIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetBulkSessionsByDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkSessionsByDates" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetBulkSessionsByDates_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkSessionsByDatesResponse" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetLatestSessions_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetLatestSessions" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_GetLatestSessions_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetLatestSessionsResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANOpenEventsByEquipProductIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANOpenEventsByEquipProductIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANOpenEventsByEquipProductIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANOpenEventsByEquipProductIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANOpenEventsBySerialNumberAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANOpenEventsBySerialNumberAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANOpenEventsBySerialNumberAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANOpenEventsBySerialNumberAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANOpenEventsByServiceIDAndDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetDTCCANOpenEventsByServiceIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANOpenEventsByServiceIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANOpenEventsByServiceIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCCANOpenEventsByDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkDTCCANOpenEventsByDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCCANOpenEventsByDates_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkDTCCANOpenEventsByDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANj1939EventsByEquipProductIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANj1939EventsByEquipProductIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANj1939EventsByEquipProductIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANj1939EventsByEquipProductIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANj1939EventsBySerialNumberAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANj1939EventsBySerialNumberAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANj1939EventsBySerialNumberAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANj1939EventsBySerialNumberAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANj1939EventsByServiceIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANj1939EventsByServiceIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANj1939EventsByServiceIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANj1939EventsByServiceIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCCANj1939EventsByDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkDTCCANj1939EventsByDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCCANj1939EventsByDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetBulkDTCCANj1939EventsByDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANZapiEventsByEquipProductIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANZapiEventsByEquipProductIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANZapiEventsByEquipProductIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANZapiEventsByEquipProductIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANZapiEventsBySerialNumberAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANZapiEventsBySerialNumberAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANZapiEventsBySerialNumberAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANZapiEventsBySerialNumberAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANZapiEventsByServiceIDAndDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetDTCCANZapiEventsByServiceIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCCANZapiEventsByServiceIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCCANZapiEventsByServiceIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCCANZapiEventsByDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkDTCCANZapiEventsByDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCCANZapiEventsByDates_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkDTCCANZapiEventsByDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaHydraulicEventsByEquipProductIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaHydraulicEventsByEquipProductIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaHydraulicEventsByEquipProductIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaHydraulicEventsByEquipProductIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaHydraulicEventsBySerialNumberAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaHydraulicEventsBySerialNumberAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaHydraulicEventsBySerialNumberAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaHydraulicEventsBySerialNumberAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaHydraulicEventsByServiceIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaHydraulicEventsByServiceIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaHydraulicEventsByServiceIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaHydraulicEventsByServiceIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCDanaHydraulicEventsByDates_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetBulkDTCDanaHydraulicEventsByDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCDanaHydraulicEventsByDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetBulkDTCDanaHydraulicEventsByDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaTransmissionEventsByEquipProductIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaTransmissionEventsByEquipProductIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaTransmissionEventsByEquipProductIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaTransmissionEventsByEquipProductIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaTransmissionEventsBySerialNumberAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaTransmissionEventsBySerialNumberAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaTransmissionEventsBySerialNumberAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaTransmissionEventsBySerialNumberAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaTransmissionEventsByServiceIDAndDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaTransmissionEventsByServiceIDAndDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetDTCDanaTransmissionEventsByServiceIDAndDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetDTCDanaTransmissionEventsByServiceIDAndDatesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCDanaTransmissionEventsByDates_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetBulkDTCDanaTransmissionEventsByDates" />
+	</wsdl:message>
+	<wsdl:message
+		name="INTPWebService_GetBulkDTCDanaTransmissionEventsByDates_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetBulkDTCDanaTransmissionEventsByDatesResponse" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_UploadCostsOfOperation_InputMessage">
+		<wsdl:part name="parameters" element="tns:UploadCostsOfOperation" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_UploadCostsOfOperation_OutputMessage">
+		<wsdl:part name="parameters" element="tns:UploadCostsOfOperationResponse" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_UploadPMServiceRecords_InputMessage">
+		<wsdl:part name="parameters" element="tns:UploadPMServiceRecords" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_UploadPMServiceRecords_OutputMessage">
+		<wsdl:part name="parameters" element="tns:UploadPMServiceRecordsResponse" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_UploadOpTrainingRecords_InputMessage">
+		<wsdl:part name="parameters" element="tns:UploadOpTrainingRecords" />
+	</wsdl:message>
+	<wsdl:message name="INTPWebService_UploadOpTrainingRecords_OutputMessage">
+		<wsdl:part name="parameters" element="tns:UploadOpTrainingRecordsResponse" />
+	</wsdl:message>
+	<wsdl:portType name="INTPWebService">
+		<wsdl:operation name="GetEquipmentList">
+			<wsdl:input wsaw:Action="http://www.nmhg.com/INTPWebService/GetEquipmentList"
+				message="tns:INTPWebService_GetEquipmentList_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetEquipmentListResponse"
+				message="tns:INTPWebService_GetEquipmentList_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetOperatorList">
+			<wsdl:input wsaw:Action="http://www.nmhg.com/INTPWebService/GetOperatorList"
+				message="tns:INTPWebService_GetOperatorList_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetOperatorListResponse"
+				message="tns:INTPWebService_GetOperatorList_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSessionsByEquipProductIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetSessionsByEquipProductIDAndDates"
+				message="tns:INTPWebService_GetSessionsByEquipProductIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetSessionsByEquipProductIDAndDatesResponse"
+				message="tns:INTPWebService_GetSessionsByEquipProductIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSessionsBySerialNumberAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetSessionsBySerialNumberAndDates"
+				message="tns:INTPWebService_GetSessionsBySerialNumberAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetSessionsBySerialNumberAndDatesResponse"
+				message="tns:INTPWebService_GetSessionsBySerialNumberAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSessionsByServiceIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetSessionsByServiceIDAndDates"
+				message="tns:INTPWebService_GetSessionsByServiceIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetSessionsByServiceIDAndDatesResponse"
+				message="tns:INTPWebService_GetSessionsByServiceIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkSessionsByDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkSessionsByDates"
+				message="tns:INTPWebService_GetBulkSessionsByDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkSessionsByDatesResponse"
+				message="tns:INTPWebService_GetBulkSessionsByDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetLatestSessions">
+			<wsdl:input wsaw:Action="http://www.nmhg.com/INTPWebService/GetLatestSessions"
+				message="tns:INTPWebService_GetLatestSessions_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetLatestSessionsResponse"
+				message="tns:INTPWebService_GetLatestSessions_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANOpenEventsByEquipProductIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsByEquipProductIDAndDates"
+				message="tns:INTPWebService_GetDTCCANOpenEventsByEquipProductIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsByEquipProductIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANOpenEventsByEquipProductIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANOpenEventsBySerialNumberAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsBySerialNumberAndDates"
+				message="tns:INTPWebService_GetDTCCANOpenEventsBySerialNumberAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsBySerialNumberAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANOpenEventsBySerialNumberAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANOpenEventsByServiceIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsByServiceIDAndDates"
+				message="tns:INTPWebService_GetDTCCANOpenEventsByServiceIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsByServiceIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANOpenEventsByServiceIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCCANOpenEventsByDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCCANOpenEventsByDates"
+				message="tns:INTPWebService_GetBulkDTCCANOpenEventsByDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCCANOpenEventsByDatesResponse"
+				message="tns:INTPWebService_GetBulkDTCCANOpenEventsByDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANj1939EventsByEquipProductIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsByEquipProductIDAndDates"
+				message="tns:INTPWebService_GetDTCCANj1939EventsByEquipProductIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsByEquipProductIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANj1939EventsByEquipProductIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANj1939EventsBySerialNumberAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsBySerialNumberAndDates"
+				message="tns:INTPWebService_GetDTCCANj1939EventsBySerialNumberAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsBySerialNumberAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANj1939EventsBySerialNumberAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANj1939EventsByServiceIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsByServiceIDAndDates"
+				message="tns:INTPWebService_GetDTCCANj1939EventsByServiceIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsByServiceIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANj1939EventsByServiceIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCCANj1939EventsByDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCCANj1939EventsByDates"
+				message="tns:INTPWebService_GetBulkDTCCANj1939EventsByDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCCANj1939EventsByDatesResponse"
+				message="tns:INTPWebService_GetBulkDTCCANj1939EventsByDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANZapiEventsByEquipProductIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsByEquipProductIDAndDates"
+				message="tns:INTPWebService_GetDTCCANZapiEventsByEquipProductIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsByEquipProductIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANZapiEventsByEquipProductIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANZapiEventsBySerialNumberAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsBySerialNumberAndDates"
+				message="tns:INTPWebService_GetDTCCANZapiEventsBySerialNumberAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsBySerialNumberAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANZapiEventsBySerialNumberAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANZapiEventsByServiceIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsByServiceIDAndDates"
+				message="tns:INTPWebService_GetDTCCANZapiEventsByServiceIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsByServiceIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCCANZapiEventsByServiceIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCCANZapiEventsByDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCCANZapiEventsByDates"
+				message="tns:INTPWebService_GetBulkDTCCANZapiEventsByDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCCANZapiEventsByDatesResponse"
+				message="tns:INTPWebService_GetBulkDTCCANZapiEventsByDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaHydraulicEventsByEquipProductIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsByEquipProductIDAndDates"
+				message="tns:INTPWebService_GetDTCDanaHydraulicEventsByEquipProductIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsByEquipProductIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCDanaHydraulicEventsByEquipProductIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaHydraulicEventsBySerialNumberAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsBySerialNumberAndDates"
+				message="tns:INTPWebService_GetDTCDanaHydraulicEventsBySerialNumberAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsBySerialNumberAndDatesResponse"
+				message="tns:INTPWebService_GetDTCDanaHydraulicEventsBySerialNumberAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaHydraulicEventsByServiceIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsByServiceIDAndDates"
+				message="tns:INTPWebService_GetDTCDanaHydraulicEventsByServiceIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsByServiceIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCDanaHydraulicEventsByServiceIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCDanaHydraulicEventsByDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCDanaHydraulicEventsByDates"
+				message="tns:INTPWebService_GetBulkDTCDanaHydraulicEventsByDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCDanaHydraulicEventsByDatesResponse"
+				message="tns:INTPWebService_GetBulkDTCDanaHydraulicEventsByDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaTransmissionEventsByEquipProductIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsByEquipProductIDAndDates"
+				message="tns:INTPWebService_GetDTCDanaTransmissionEventsByEquipProductIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsByEquipProductIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCDanaTransmissionEventsByEquipProductIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaTransmissionEventsBySerialNumberAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsBySerialNumberAndDates"
+				message="tns:INTPWebService_GetDTCDanaTransmissionEventsBySerialNumberAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsBySerialNumberAndDatesResponse"
+				message="tns:INTPWebService_GetDTCDanaTransmissionEventsBySerialNumberAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaTransmissionEventsByServiceIDAndDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsByServiceIDAndDates"
+				message="tns:INTPWebService_GetDTCDanaTransmissionEventsByServiceIDAndDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsByServiceIDAndDatesResponse"
+				message="tns:INTPWebService_GetDTCDanaTransmissionEventsByServiceIDAndDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCDanaTransmissionEventsByDates">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCDanaTransmissionEventsByDates"
+				message="tns:INTPWebService_GetBulkDTCDanaTransmissionEventsByDates_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/GetBulkDTCDanaTransmissionEventsByDatesResponse"
+				message="tns:INTPWebService_GetBulkDTCDanaTransmissionEventsByDates_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="UploadCostsOfOperation">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/UploadCostsOfOperation"
+				message="tns:INTPWebService_UploadCostsOfOperation_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/UploadCostsOfOperationResponse"
+				message="tns:INTPWebService_UploadCostsOfOperation_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="UploadPMServiceRecords">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/UploadPMServiceRecords"
+				message="tns:INTPWebService_UploadPMServiceRecords_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/UploadPMServiceRecordsResponse"
+				message="tns:INTPWebService_UploadPMServiceRecords_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="UploadOpTrainingRecords">
+			<wsdl:input
+				wsaw:Action="http://www.nmhg.com/INTPWebService/UploadOpTrainingRecords"
+				message="tns:INTPWebService_UploadOpTrainingRecords_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://www.nmhg.com/INTPWebService/UploadOpTrainingRecordsResponse"
+				message="tns:INTPWebService_UploadOpTrainingRecords_OutputMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BasicHttpBinding_INTPWebService" type="tns:INTPWebService">
+		<wsp:PolicyReference URI="#BasicHttpBinding_INTPWebService_policy" />
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetEquipmentList">
+			<soap:operation soapAction="http://www.nmhg.com/INTPWebService/GetEquipmentList"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOperatorList">
+			<soap:operation soapAction="http://www.nmhg.com/INTPWebService/GetOperatorList"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSessionsByEquipProductIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetSessionsByEquipProductIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSessionsBySerialNumberAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetSessionsBySerialNumberAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSessionsByServiceIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetSessionsByServiceIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkSessionsByDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetBulkSessionsByDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLatestSessions">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetLatestSessions"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANOpenEventsByEquipProductIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsByEquipProductIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANOpenEventsBySerialNumberAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsBySerialNumberAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANOpenEventsByServiceIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANOpenEventsByServiceIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCCANOpenEventsByDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetBulkDTCCANOpenEventsByDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANj1939EventsByEquipProductIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsByEquipProductIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANj1939EventsBySerialNumberAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsBySerialNumberAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANj1939EventsByServiceIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANj1939EventsByServiceIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCCANj1939EventsByDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetBulkDTCCANj1939EventsByDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANZapiEventsByEquipProductIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsByEquipProductIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANZapiEventsBySerialNumberAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsBySerialNumberAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCCANZapiEventsByServiceIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCCANZapiEventsByServiceIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCCANZapiEventsByDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetBulkDTCCANZapiEventsByDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaHydraulicEventsByEquipProductIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsByEquipProductIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaHydraulicEventsBySerialNumberAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsBySerialNumberAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaHydraulicEventsByServiceIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCDanaHydraulicEventsByServiceIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCDanaHydraulicEventsByDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetBulkDTCDanaHydraulicEventsByDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaTransmissionEventsByEquipProductIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsByEquipProductIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaTransmissionEventsBySerialNumberAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsBySerialNumberAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDTCDanaTransmissionEventsByServiceIDAndDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetDTCDanaTransmissionEventsByServiceIDAndDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBulkDTCDanaTransmissionEventsByDates">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/GetBulkDTCDanaTransmissionEventsByDates"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UploadCostsOfOperation">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/UploadCostsOfOperation"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UploadPMServiceRecords">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/UploadPMServiceRecords"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UploadOpTrainingRecords">
+			<soap:operation
+				soapAction="http://www.nmhg.com/INTPWebService/UploadOpTrainingRecords"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="NTPWebService">
+		<wsdl:port name="BasicHttpBinding_INTPWebService" binding="tns:BasicHttpBinding_INTPWebService">
+			<soap:address location="https://webservice.yalevision.com/NTPWebService.svc" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

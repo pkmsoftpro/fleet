@@ -1,0 +1,98 @@
+<html>
+<head>
+<style type="text/css">
+.containerDiv
+	{
+	border:1px solid #CDC9C9;
+	width:1000px;
+	height:30px;
+	margin-left:20px;
+	display:table
+	}
+.equipmentRowDivHeader
+	{
+	border:1px solid #CDC9C9;
+	background-color:#e2e6f3;
+	color:black;
+	font-weight:bold;
+	height:30px;
+	display:table-row
+	}
+.rowDiv
+	{
+	border:1px solid #668db6;
+	background-color:#EEEEEE;
+	height: 31px;
+	display:table-row
+	}
+.cellDivHeader
+	{
+	border-right:1px solid white;
+	display:table-cell;
+	width:12%;
+	padding:1px;
+	text-align:center;
+	vertical-align:middle;
+	font-size:13px
+	}
+.cellDiv
+	{
+	border-right:0px solid white;
+	display:table-cell;
+	width:10%;
+	padding-right:4px;
+	text-align:center;
+	border-bottom:none;
+	font-size:12px
+	}
+.lastCell
+	{
+	width:119px;
+	border-right:none;
+	font-size:13px;
+	margin-top:4px
+	text-align:center;
+	}
+
+</style>
+</head>
+
+<body>
+
+	Hello <b>${userName}</b>,<br/><br/>
+	
+	The service agreement contracts for the units listed below are set to expire on the dates shown.
+	Action will be required in the form of a new service agreement or extension to continue Fleet service for these units.
+	<br/><br/>
+	 #foreach( $expiringContract in $expiringContracts )
+	<table  class="containerDiv">
+	     <tr class="equipmentRowDivHeader">
+	        <td  class="cellDivHeader">CONTRACT CODE</td>
+	        <td  class="cellDivHeader">CUSTOMER BILL TO</td>
+	        <td  class="cellDivHeader">SERIAL NUMBER</td>
+	        <td  class="cellDivHeader">CONTRACT START DATE</td>
+	        <td  class="cellDivHeader">CONTRACT END DATE</td>
+	      </tr>
+	     <tr class="rowDiv">
+	        <td class="cellDiv"> $expiringContract.contractAudit.contract.code</td>
+	        <td class="cellDiv"> $expiringContract.contractAudit.contract.activeContractAudit.forCustomer.customerNumber</td>
+            <td class="cellDiv"> $expiringContract.fleetInventoryItem.serialNumber</td>
+            <td class="cellDiv"> $expiringContract.formattedContractInventoryStartDate</td>
+            <td class="cellDiv"> $expiringContract.formattedContractInventoryEndDate</td>
+	     </tr> 
+    </table>
+    <br/><br/>
+    #end
+    Should you have any questions or concerns please contact NMHG Fleet at 1800-xxx-yyyy.
+	<br/><br/>
+	
+    Best regards,
+    <br/><br/>
+    NMHG Fleet Management
+    <br/><br/>
+    The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+    It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+    please delete immediately and notify the sender. Thank you in advance for your cooperation.		
+</body>
+
+</html>

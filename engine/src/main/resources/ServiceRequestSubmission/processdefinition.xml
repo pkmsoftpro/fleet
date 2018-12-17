@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition name="ServiceRequestSubmission">
+
+    <!-- Swimlane Definition starts here -->
+    <swimlane name="serviceRequestInboxes-internal">
+        <assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+            <ruleSet>ServiceSpecialistAssignment</ruleSet>
+            <variables>
+                <variable>serviceRequest</variable>
+            </variables>
+        </assignment>
+    </swimlane>
+    
+    <swimlane name="serviceRequestInboxes-dealerOwned">
+        <assignment class="tavant.fleet.jbpm.assignment.RuleBasedAssignmentHandler">
+            <ruleSet>ServiceSpecialistAssignment</ruleSet>
+            <variables>
+                <variable>serviceRequest</variable>
+            </variables>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="serviceRequestInboxes-customerServiceRequester">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{serviceRequest.customerLocation.id}</expression>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="serviceRequestInboxes-baserole">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{currentlyActiveOrganization}</expression>
+        </assignment>
+    </swimlane>
+
+    <swimlane name="serviceRequestInboxes-dealerServiceRequestCreator">
+        <assignment class="tavant.twms.jbpm.assignment.ExpressionAssignmentHandler">
+            <expression>actor=ognl{serviceRequest.forDealer.name}</expression>
+        </assignment>
+    </swimlane>
+    <!-- Swimlane Definition ends here -->
+
+    <start-state name="Start">
+        <transition name="Save Draft" to="isNMHGDraftServiceRequest">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT)</script>
+        </transition>
+        <transition name="Save Workbench Service Request" to="SaveWorkbenchServiceRequest">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT)</script>
+        </transition>
+        <transition name="Submit Service Request" to="generateServiceRequestNumber">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SUBMITTED)</script>
+        </transition>
+        <transition name="Service Request Completed" to="ForkServiceRequestCompleted">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.COMPLETED)</script>
+        </transition>
+        
+    </start-state>
+
+    <task-node name="DraftServiceRequest">
+        <task name="Draft Service Request" swimlane="serviceRequestInboxes-baserole" />
+        <transition name="Submit Service Request" to="generateServiceRequestNumber">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SUBMITTED)</script>
+        </transition>
+        <transition name="Save Draft" to="DraftServiceRequest"/>
+        <transition name="Delete Draft" to="End">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT_DELETED)
+            </script>
+        </transition>
+    </task-node>
+    
+    <task-node name="DealerOwnedDraftServiceRequest">
+        <task name="Dealer Owned Draft Service Request" swimlane="serviceRequestInboxes-baserole" />
+        <transition name="Submit Service Request" to="generateServiceRequestNumber">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SUBMITTED)</script>
+        </transition>
+        <transition name="Save Draft" to="DealerOwnedDraftServiceRequest"/>
+        <transition name="Delete Draft" to="End">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT_DELETED)
+            </script>
+        </transition>
+    </task-node>
+    
+    <task-node name="SaveWorkbenchServiceRequest">
+        <task name="Workbench Service Request" swimlane="serviceRequestInboxes-internal" />
+        <transition name="Submit Service Request" to="generateServiceRequestNumber">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SUBMITTED)</script>
+        </transition>
+        <transition name="Save Workbench Service Request" to="SaveWorkbenchServiceRequest"/>
+        <transition name="Delete Draft" to="End">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DRAFT_DELETED)
+            </script>
+        </transition>
+    </task-node>
+
+    <serviceNode name="generateServiceRequestNumber">
+        <beanName>serviceRequestService</beanName>
+        <methodName>generateNextServiceRequestNumber</methodName>
+        <parameters>
+            <variable>serviceRequest</variable>
+        </parameters>
+        <transition name="checkIfDealerIsAssigned" to="IsDealerAssigned"/>
+    </serviceNode>
+
+    <decision name="IsDealerAssigned">
+        <transition name="dealerAssigned" to="ForkAssignedServiceRequest">
+            <condition>#{serviceRequest.dealerType.type=="Preferred Dealer" || serviceRequest.dealerType.type=="Alternate Dealer" || (serviceRequest.filedBy.userType=="INTERNAL" and (serviceRequest.source.source=="UI" or serviceRequest.source.source=="UPLOAD"))}</condition>
+            <script>serviceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+             <script>serviceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+        <transition name="needDealerAssignment" to="ForkUnAssignedServiceRequest">
+            <condition>#{serviceRequest.dealerType.type=="Different Dealer" }</condition>
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.UN_ASSIGNED)</script>
+        </transition>
+    </decision>
+
+    <fork name="ForkAssignedServiceRequest">
+        <transition name="Assigned Service Request" to="AssignedServiceRequest"/>
+        <transition name="Assigned Service Request For Customer" to="isNMHGSubmittedServiceRequest"/>
+    </fork>
+
+    <task-node name="AssignedServiceRequest">
+        <task name="Assigned Service Request" swimlane="serviceRequestInboxes-dealerServiceRequestCreator" />
+        <transition name="Dispatch" to="joinAfterSRAssigned">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.DISPATCHED)</script>
+        </transition>
+        <transition name="Sent Back to NMHG" to="isReturnedByDealerOwnedUser">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SENT_BACK_TO_NMHG)</script>
+        </transition>
+    </task-node>
+
+    <task-node name="ServiceRequestSubmitted">
+        <task name="Service Request Submitted" swimlane="serviceRequestInboxes-baserole" />
+        <transition name="joinAfterSRAssigned" to="joinAfterSRAssigned"/>
+    </task-node>
+    
+     <task-node name="DealerOwnedServiceRequestSubmitted">
+        <task name="Dealer Owned Service Request Submitted" swimlane="serviceRequestInboxes-baserole" />
+        <transition name="joinAfterSRAssigned" to="joinAfterSRAssigned"/>
+    </task-node>
+
+    <single-token-join name="joinAfterSRAssigned">
+        <transition name="Dispatched" to="ForkServiceRequestDispatched"/>
+    </single-token-join>
+    
+    <end-tasks-join name="JoinReturnedByDealer" task-name-to-end="Service Request Submitted">
+      <transition name="ForkReturnedByDealer" to="ForkReturnedByDealer" />
+    </end-tasks-join>
+    
+    <end-tasks-join name="JoinReturnedByDealerOwnedServicingDealer" task-name-to-end="Dealer Owned Service Request Submitted">
+      <transition name="ForkReturnedByDealer" to="ForkReturnedByDealer" />
+    </end-tasks-join>
+    
+    <single-token-join name="JoinReturnedByDealerFromDispatch">
+    	<transition name="ForkReturnedByDealer" to="ForkReturnedByDealer" />
+    </single-token-join>
+
+    <fork name="ForkReturnedByDealer">
+        <transition name="Sent back to NMHG" to="SendBackToNMHG"/>
+        <transition name="Returned By Dealer" to="isReturnedByNMHGDealer"/>
+    </fork>
+
+    <task-node name="SendBackToNMHG">
+        <task name="Sent Back To NMHG" swimlane="serviceRequestInboxes-dealerServiceRequestCreator" />
+        <transition name="joinAfterREAssign" to="joinAfterREAssign"/>
+    </task-node>
+
+    <task-node name="ReturnedByDealer">
+        <task name="Returned By Dealer" swimlane="serviceRequestInboxes-internal" />
+        <transition name="reAssign" to="joinAfterREAssign">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+    </task-node>
+    
+    <task-node name="ReturnedByDealerOwnedServicingDealer">
+        <task name="Returned By Dealer Owned Servicing Dealer" swimlane="serviceRequestInboxes-dealerOwned" />
+        <transition name="reAssign" to="joinAfterREAssign">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+    </task-node>
+
+    <single-token-join name="joinAfterREAssign">
+        <transition name="reAssign" to="ForkAssignedServiceRequest"/>
+    </single-token-join>
+
+    <fork name="ForkUnAssignedServiceRequest">
+        <transition name="Assigned Service Request" to="isNMHGUnassignedServiceRequest"/>
+        <transition name="UnAssigned Service Request For Customer" to="isNMHGSubmittedServiceRequest"/>
+    </fork>
+
+    <task-node name="UnassignedServiceRequest">
+        <task name="UnAssigned Service Request" swimlane="serviceRequestInboxes-internal" />
+        <transition name="Assign" to="AssignedServiceRequest">
+        <script>serviceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+         <script>serviceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+        <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+    </task-node>
+    
+    <task-node name="DealerOwnedUnassignedServiceRequest">
+        <task name="Dealer Owned UnAssigned Service Request" swimlane="serviceRequestInboxes-dealerOwned" />
+        <transition name="Assign" to="AssignedServiceRequest">
+        <script>serviceRequest.setNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+         <script>serviceRequest.setClaimNotificationStatus(tavant.fleet.domain.serviceRequest.ServiceRequestNotificationStatus.PENDING)</script>
+        <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ASSIGNED)</script>
+        </transition>
+    </task-node>
+    
+    <fork name="ForkServiceRequestDispatched">
+        <transition name="Dispatch" to="ServiceRequestDispatched"/>
+        <transition name="Service Request Dispatched To Customer" to="ServiceRequestDispatchedCustomer"/>
+    </fork>
+
+    <task-node name="ServiceRequestDispatched">
+        <task name="Service Request Dispatched" swimlane="serviceRequestInboxes-dealerServiceRequestCreator" />
+        <transition name="On Hold" to="ServiceRequestDispatched">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.ON_HOLD)</script>
+        </transition>
+        <transition name="WIP" to="ServiceRequestDispatched">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.WORK_IN_PROGRESS)
+            </script>
+        </transition>
+        <transition name="Sent Back to NMHG" to="JoinReturnedByDealerFromDispatch">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.SENT_BACK_TO_NMHG)
+            </script>
+        </transition>
+        <transition name="Complete" to="joinAfterCompleted">
+            <script>serviceRequest.setState(tavant.fleet.domain.serviceRequest.ServiceRequestState.COMPLETED)</script>
+        </transition>
+    </task-node>
+
+    <task-node name="ServiceRequestDispatchedCustomer">
+        <task name="Service Request Dispatched" swimlane="serviceRequestInboxes-customerServiceRequester" />
+        <transition name="Dummy" to="JoinReturnedByDealerFromDispatch"/>
+        <transition name="Complete" to="joinAfterCompleted"/>
+    </task-node>
+
+    <single-token-join name="joinAfterCompleted">
+        <transition name="Complete" to="ForkServiceRequestCompleted"/>
+    </single-token-join>
+
+    <fork name="ForkServiceRequestCompleted">
+        <transition name="Service Request Completed For Customer" to="ServiceRequestsCompleted"/>
+        <transition name="Service Request Completed For FSS" to="isNMHGCompletedServiceRequest"/>
+        <transition name="Service Request Completed For Dealer" to="ServiceRequestCompletedDealer"/>
+    </fork>
+
+    <task-node name="ServiceRequestCompletedDealer">
+        <task name="Service Requests Completed" swimlane="serviceRequestInboxes-dealerServiceRequestCreator" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node> 
+
+    <task-node name="ServiceRequestsCompleted">
+        <task name="Service Requests Completed" swimlane="serviceRequestInboxes-customerServiceRequester" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node>
+
+    <task-node name="ServiceRequestCompletedFSS">
+        <task name="Service Requests Completed" swimlane="serviceRequestInboxes-internal" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node>
+    
+    <task-node name="ServiceRequestCompletedDealerOwned">
+        <task name="Dealer Owned Service Requests Completed" swimlane="serviceRequestInboxes-dealerOwned" />
+        <transition name="close" to="joinAfterSRClose"/>
+    </task-node>
+
+    <single-token-join name="joinAfterSRClose">
+        <transition name="Complete" to="End"/>
+    </single-token-join>
+    
+    <decision name="isNMHGDraftServiceRequest">
+			<handler class="tavant.fleet.jbpm.decision.servicerequest.IsNMHGServiceRequestForDraftAndSubmit" />
+			<transition name="Yes" to="DraftServiceRequest" />
+			<transition name="No" to="DealerOwnedDraftServiceRequest" />
+	</decision>
+	
+	<decision name="isNMHGUnassignedServiceRequest">
+			<handler class="tavant.fleet.jbpm.decision.servicerequest.IsNMHGServiceRequestForOtherTasks" />
+			<transition name="Yes" to="UnassignedServiceRequest" />
+			<transition name="No" to="DealerOwnedUnassignedServiceRequest" />
+	</decision>
+	
+	<decision name="isNMHGSubmittedServiceRequest">
+			<handler class="tavant.fleet.jbpm.decision.servicerequest.IsNMHGServiceRequestForDraftAndSubmit" />
+			<transition name="Yes" to="ServiceRequestSubmitted" />
+			<transition name="No" to="DealerOwnedServiceRequestSubmitted" />
+	</decision>
+	
+	<decision name="isNMHGCompletedServiceRequest">
+			<handler class="tavant.fleet.jbpm.decision.servicerequest.IsNMHGServiceRequestForOtherTasks" />
+			<transition name="Yes" to="ServiceRequestCompletedFSS" />
+			<transition name="No" to="ServiceRequestCompletedDealerOwned" />
+	</decision>
+ 
+    <decision name="isReturnedByNMHGDealer">
+			<handler class="tavant.fleet.jbpm.decision.servicerequest.IsNMHGServiceRequestForOtherTasks" />
+			<transition name="Yes" to="ReturnedByDealer" />
+			<transition name="No" to="ReturnedByDealerOwnedServicingDealer" />
+	</decision>
+	
+	  <decision name="isReturnedByDealerOwnedUser">
+			<handler class="tavant.fleet.jbpm.decision.servicerequest.IsNMHGServiceRequestForDraftAndSubmit" />
+			<transition name="Yes" to="JoinReturnedByDealer" />
+			<transition name="No" to="JoinReturnedByDealerOwnedServicingDealer" />
+	</decision>
+    <end-state name="End" />
+</process-definition>

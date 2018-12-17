@@ -1,0 +1,46 @@
+.containerDiv {
+  border: 1px solid #CDC9C9;
+  width: 1000px; 
+  height: 30px;
+  cellspacing:0;
+  margin-left: 20px;
+  display:table
+}
+.equipmentRowDivHeader {
+  border: 1px solid #CDC9C9;
+  background-color: #e2e6f3;
+  color: black;
+  font-weight: bold; height: 30px;
+  display:table-row 
+}
+
+.rowDiv {
+  border: 1px solid #668db6;
+  background-color: #EEEEEE;
+  display:table-row
+}
+.cellDivHeader {
+  border-right: 1px solid white;
+  display: table-cell;
+  width:12%;
+  padding: 1px;
+  text-align: center; 
+  vertical-align: middle;
+  font-size:11px;
+}
+.cellDiv {
+  border-right: 2px solid white;
+  display: table-cell;
+  width:10%;
+  padding-right: 4px;
+  text-align: center;
+  border-bottom: none;
+   font-size:11px;
+}
+
+.lastCell {
+  width: 119px;
+  border-right: none;
+    font-size:11px;
+    margin-top: 4px;
+}

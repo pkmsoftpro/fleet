@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="uploads" defaultpolicy="none">
+
+		<resource type="ui" value="uploadsTab" operation="OR">
+			<permissions>uploads:uploadsTab:update,uploads:uploadsTab:view
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="uploadManagement" operation="OR">
+			<permissions>uploads:uploadManagement:update,uploads:uploadManagement:create
+			</permissions>
+		</resource>
+
+	</functionalarea>
+
+</functionalareas>

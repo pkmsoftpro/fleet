@@ -1,0 +1,108 @@
+.dashboardcontainer{
+			padding-left:25px;
+			width: 480px; 
+			height: 400px; 
+			margin: 0 auto;
+			padding-top:18px;
+			float:left!important 
+}
+.reference td{
+		    border: 1px solid #d4d4d4;
+			padding: 3px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			vertical-align: top;
+			text-align: center;
+}
+.reference th{
+		    width:500px;
+		    border: 1px solid #555555;
+		    background-color: #555555;
+		    color: #ffffff;
+		    text-align: center;
+		    font-weight: bold;
+}
+.dashboardSummaryHeader{
+		    font-weight: bold;
+		    font-size:18px;
+		    text-align: center;
+}
+.tdLable{
+		    font-weight: bold;
+		    width:150px;
+		    text-align: left !important;
+}
+.labelStyle{
+	        color: #545454;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 9pt;
+			width: 120px;
+			padding-top: 3px;
+}
+.themesdiv{
+		    padding-top: 15px;
+		    padding-left: 25px;
+}
+.themesdiv td{
+		    font-weight: bold;
+}
+.underlinetext{
+		   text-decoration:underline;
+		    font-weight: bold;
+}
+.internalDashboardtable td{
+		    border: 1px solid #d4d4d4;
+			padding: 5px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			vertical-align: top;
+			text-align: center;
+}
+.internalDashboardtable th{
+		    width:300px;
+		    border: 1px solid #555555;
+		    background-color: #555555;
+		    color: #ffffff;
+		    text-align: center;
+		    font-weight: bold;
+		    padding: 5px;
+}
+.internaldbcontainer{
+			padding-left:25px;
+			width: 320px; 
+			margin: 0 auto;
+			padding-top:18px;
+			float:left!important;
+}
+.customerdashboardTableHeader{
+  	        width:320px;
+		    border: 1px solid #000000;
+		    background-color: #A0A0A0;
+		    color: #000000;
+		    text-align: center;
+		    font-size:16px;
+}
+.dashboardbarlinechart{
+  	        padding-left:25px;
+			width: 800px; 
+			height: 350px; 
+			margin: 0 auto;
+			padding-top:18px;
+			float:left!important 
+}
+.customerdashboardtable{
+  	        padding-left:25px;
+			width: 320px; 
+			height: 375px; 
+			margin: 0 auto;
+			padding-top:18px;
+			float:left!important 
+}
+.customerQuoteChart{
+  	        padding-left:25px;
+			width: 320px; 
+			height: 350px; 
+			margin: 0 auto;
+			padding-top:18px;
+			float:left!important 
+}

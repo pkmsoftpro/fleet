@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %-5p %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="TWMS_LOG" class="org.apache.log4j.FileAppender">
+        <param name="File" value="target/twms.log"/>
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %-5p %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="STRUTS2_LOG" class="org.apache.log4j.FileAppender">
+        <param name="File" value="target/struts.log"/>
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %-5p %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="JBPM_LOG" class="org.apache.log4j.FileAppender">
+        <param name="File" value="target/jbpm.log"/>
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %-5p %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="SQL_LOG" class="org.apache.log4j.FileAppender">
+        <param name="File" value="target/sql.log"/>
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %-5p %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PRICE_CHECK_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="target/price-check.log"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] - %m%n"/>
+        </layout>
+    </appender>
+
+	<appender name="TELEMETRY_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="target/telemetry.log"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="REST_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="target/restService.log"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] - %m%n"/>
+        </layout>
+    </appender>
+
+	<appender name="CLAIMSUBMISSION_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="target/claimsubmission.log"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="RULE_FAILURE_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="target/rule-failures.log"/>
+        <param name="datePattern" value="'.'yyyy-MM-dd"/>
+        <param name="append" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="NULL" class="org.apache.log4j.varia.NullAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %-5p %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="priceCheck" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="PRICE_CHECK_LOG"/>
+    </logger>
+
+	<logger name="telemetry" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="TELEMETRY_LOG"/>
+    </logger>
+
+    <logger name="restLog" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="REST_LOG"/>
+    </logger>
+
+	<logger name="claimSubmission" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="CLAIMSUBMISSION_LOG"/>
+    </logger>
+
+    <logger name="com.opensymphony" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="STRUTS2_LOG"/>
+    </logger>
+
+    <logger name="org.apache.struts2" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="STRUTS2_LOG"/>
+    </logger>
+
+    <logger name="org.jbpm" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="JBPM_LOG"/>
+    </logger>
+
+    <logger name="org.hibernate.SQL" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="SQL_LOG"/>
+    </logger>
+
+    <logger name="org.hibernate.type" additivity="false">
+        <level value="TRACE"/>
+        <appender-ref ref="SQL_LOG"/>
+    </logger>
+
+    <logger name="com.opensymphony.xwork2.conversion.impl.InstantiatingNullHandler" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="NULL"/>
+    </logger>
+
+    <logger name="tavant.fleet.domain.rules.RuleExecutionTemplate" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="RULE_FAILURE_LOG"/>
+    </logger>
+
+    <root>
+        <level value="ERROR"/>
+        <appender-ref ref="TWMS_LOG"/>
+    </root>
+
+</log4j:configuration>

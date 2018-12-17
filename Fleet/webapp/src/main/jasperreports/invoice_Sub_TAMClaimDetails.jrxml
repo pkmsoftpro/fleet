@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice_Sub_TAMClaimDetails" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="804" leftMargin="19" rightMargin="19" topMargin="7" bottomMargin="7" uuid="e2b694fc-59fb-4130-b9a8-f3c74c97e127">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="labor" class="java.lang.Object"/>
+	<field name="parts" class="java.lang.Object"/>
+	<field name="drayage" class="java.lang.Object"/>
+	<field name="misc" class="java.lang.Object"/>
+	<field name="travel" class="java.lang.Object"/>
+	<field name="subTotal" class="java.lang.Object"/>
+	<field name="tax" class="java.lang.Object"/>
+	<field name="total" class="java.lang.Object"/>
+	<field name="fleetClaim.forServiceRequest.serviceRequestNumber" class="java.lang.String"/>
+	<field name="fleetClaim.repairStartDate" class="java.lang.Object"/>
+	<field name="fleetClaim.repairEndDate" class="java.lang.Object"/>
+	<field name="fleetClaim.activeFleetClaimAudit.callType.callTypeName" class="java.lang.String"/>
+	<field name="fleetClaim.fleetClaimNumber" class="java.lang.String"/>
+	<field name="fleetClaim.activeFleetClaimAudit.customerPoNumber" class="java.lang.String"/>
+	<field name="fleetClaim.activeFleetClaimAudit.workOrderNumber" class="java.lang.String"/>
+	<field name="fleetClaim.activeFleetClaimAudit.meterReading" class="java.lang.Long"/>
+	<field name="fleetClaim.activeFleetClaimAudit.serviceInformation.componentCode.code" class="java.lang.String"/>
+	<field name="fleetClaim.activeFleetClaimAudit.workPerformed" class="java.lang.Object"/>
+	<field name="fleetClaim.activeFleetClaimAudit.serviceInformation.serviceDetail.oemPartsInstalled" class="java.util.Collection"/>
+	<field name="fleetClaim.forItem.assetNumber" class="java.lang.String"/>
+	<field name="fleetClaim.forItem.serialNumber" class="java.lang.String"/>
+	<field name="fleetClaim.forItem.model.name" class="java.lang.String"/>
+	<field name="fleetClaim.forItem.brandType" class="java.lang.String"/>
+	<field name="fleetClaim.activeFleetClaimAudit.serviceInformation.componentCode.callTypeName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="215" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c3187254-31ac-42da-bd10-9765ef6525ad" positionType="Float" x="8" y="52" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[SCID#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e86cb483-03f2-4a37-bc24-7baabe6c8c45" positionType="Float" x="672" y="52" width="75" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Call Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6a553542-eed4-4e1c-828b-9751b05842d2" positionType="Float" x="482" y="128" width="80" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Amount:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aede687b-e43b-4fe3-8728-df27f56d946a" positionType="Float" x="562" y="128" width="88" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Type:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="483f051e-3512-4b34-b807-d7248bea56df" positionType="Float" x="135" y="52" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[PO#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8796e2d-eaa5-49f2-b189-aaf1b6a99ef8" positionType="Float" x="138" y="0" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Model]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6077b51d-97ab-463b-91e6-6bcda3bf61a7" positionType="Float" x="8" y="0" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Unit#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0b15d6d8-eb43-4af2-9beb-945d709d12ab" positionType="Float" x="365" y="128" width="117" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Description:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2bd52778-6c80-4403-a076-22b6144ca075" positionType="Float" x="203" y="0" width="45" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Make]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6a0c1846-8b7f-4e85-a235-ec6384da13aa" positionType="Float" x="200" y="52" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Dealer WO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5438fcb-955a-4194-9501-b1a55a50837f" positionType="Float" x="375" y="0" width="48" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Drayage]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58fae147-e999-415e-8b0d-d3ff296b879f" positionType="Float" x="495" y="0" width="45" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Travel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="80a5b838-7524-4157-b088-f3def725cce0" positionType="Float" x="259" y="0" width="42" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Labor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a4a29611-d633-4fe4-9204-944048b127fc" positionType="Float" x="597" y="52" width="75" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f7665cfa-a5cc-4f7c-9630-aba29fc0c7f8" positionType="Float" x="670" y="0" width="51" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2b7e48fa-1077-4e45-a149-273682b0929e" positionType="Float" x="71" y="52" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Claim#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d185da4-ce1c-48ec-9937-bf22bef2cbdf" positionType="Float" x="435" y="0" width="48" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Misc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9962194b-ae69-4d87-8aea-907cfe2c5793" positionType="Float" x="275" y="52" width="75" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Start Repair Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59c4a5a6-8055-4b9d-91b3-2aa66f96a029" positionType="Float" x="527" y="52" width="70" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Comp Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0625888e-0fbd-432e-b266-7f5696039146" positionType="Float" x="248" y="128" width="117" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Part Number:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f79cf0f1-0b01-4e4a-ba34-ea2cbaa3bad8" positionType="Float" x="451" y="52" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Meater Reading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94d4de34-8128-4184-9273-68dfc6d6a33d" positionType="Float" x="359" y="52" width="70" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[End Repair Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a6beb281-14c2-44e5-ab56-e479d2b360be" positionType="Float" x="73" y="0" width="65" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Serial Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18678890-49b7-4744-ac05-cb46f060d903" positionType="Float" x="181" y="128" width="65" height="20"/>
+				<textElement>
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Qty:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="314760b8-417f-4ea0-8a0b-170522373ba9" positionType="Float" x="556" y="0" width="47" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3b382455-6d03-4074-a01c-fc721a0d1638" positionType="Float" x="617" y="0" width="44" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b133036e-1b28-4229-b498-b2575b01140b" positionType="Float" x="313" y="0" width="50" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Parts]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="5dc91226-e418-458b-927d-d8a5207b9173" positionType="Float" x="306" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parts}!=null?$F{parts}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="cce98c65-04a4-48ab-a57a-1b48248b898b" positionType="Float" x="663" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}!=null?$F{total}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="43af66ed-4300-438e-a7cd-274c379f4b5c" positionType="Float" x="366" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{drayage}!=null?$F{drayage}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="d49ab4b1-c32b-4f23-8b36-1006215950fc" positionType="Float" x="603" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tax}!=null?$F{tax}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="35bab8d5-c837-42c9-a892-5b17f1eff57b" positionType="Float" x="133" y="20" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.forItem.model.name}!=null?$F{fleetClaim.forItem.model.name}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="86792e25-e97c-487c-b6bf-a3b7f9261932" positionType="Float" x="483" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{travel}!=null?$F{travel}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="36db2d5b-333d-4b4b-a9a5-180692abbba0" positionType="Float" x="198" y="20" width="50" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.forItem.brandType}!=null?$F{fleetClaim.forItem.brandType}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="b1dcbad1-0626-484a-977e-29f374ced401" positionType="Float" x="543" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subTotal}!=null?$F{subTotal}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="e3579ebd-e6cb-462c-b563-02af29ef17e9" positionType="Float" x="3" y="20" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.forItem.assetNumber}!=null?$F{fleetClaim.forItem.assetNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="7cb693be-2748-4995-8e08-b1ae9c2ad07a" positionType="Float" x="68" y="20" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.forItem.serialNumber}!=null?$F{fleetClaim.forItem.serialNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="a1cdb470-ea81-44d1-9765-4b757a302353" positionType="Float" x="425" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{misc}!=null?$F{misc}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="e249972f-8330-424a-b4c0-b6a9f8225938" positionType="Float" x="241" y="20" width="60" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{labor}!=null?$F{labor}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="2b0bee40-ce3f-4c9b-abc4-d41479009dfd" positionType="Float" x="593" y="72" width="75" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.serviceInformation.componentCode.callTypeName}!=null?$F{fleetClaim.activeFleetClaimAudit.serviceInformation.componentCode.callTypeName}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="7e258fa5-1a91-4d65-a689-063d53d2f9b6" positionType="Float" x="197" y="72" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.workOrderNumber}!=null?$F{fleetClaim.activeFleetClaimAudit.workOrderNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="c02ccab1-e3a2-40bd-a0a6-5d90a073e098" positionType="Float" x="523" y="72" width="70" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.serviceInformation.componentCode.code}!=null?$F{fleetClaim.activeFleetClaimAudit.serviceInformation.componentCode.code}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="8f1ab371-b1f3-4c0d-bd7d-4d5d9ad049d8" positionType="Float" x="3" y="72" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.forServiceRequest.serviceRequestNumber}!=null?$F{fleetClaim.forServiceRequest.serviceRequestNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="701e5b21-9127-41cb-9cb3-86cefebd3d68" positionType="Float" x="352" y="72" width="70" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.repairEndDate}!=null?$F{fleetClaim.repairEndDate}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="68816eb2-1da5-4e6c-be9b-b45f15fa17a0" positionType="Float" x="446" y="72" width="68" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.meterReading}!=null?$F{fleetClaim.activeFleetClaimAudit.meterReading}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="0f45a935-cafd-4412-b88a-4cb88d9cfdd7" positionType="Float" x="270" y="72" width="70" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.repairStartDate}!=null?$F{fleetClaim.repairStartDate}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="ea719dfd-01a8-4822-a2d1-8db8de018669" positionType="Float" x="67" y="72" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.fleetClaimNumber}!=null?$F{fleetClaim.fleetClaimNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="2c39e8dc-60a4-4048-8a89-40d59075d994" positionType="Float" x="132" y="72" width="65" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.customerPoNumber}!=null?$F{fleetClaim.activeFleetClaimAudit.customerPoNumber}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="2062f3ec-3dc9-4cc4-bd27-90977cf38829" positionType="Float" x="668" y="72" width="100" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.callType.callTypeName}!=null?$F{fleetClaim.activeFleetClaimAudit.callType.callTypeName}:"--"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="c6b33805-ce28-4714-8df3-8130ce1652c9" positionType="Float" x="142" y="95" width="426" height="33"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fleetClaim.activeFleetClaimAudit.workPerformed}!=null?$F{fleetClaim.activeFleetClaimAudit.workPerformed}:"--"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="37017e41-99df-4344-880f-73e36ca01c7d" positionType="Float" x="181" y="148" width="469" height="23"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{fleetClaim.activeFleetClaimAudit.serviceInformation.serviceDetail.oemPartsInstalled})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invoice_FleetClaimPartsInfo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="a901971d-e4ed-440a-b63b-8a35af60c80f" positionType="Float" x="9" y="100" width="99" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Claim Text:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="1daed102-2d9f-4600-93c7-ea5f242b7c47" positionType="FixRelativeToBottom" x="10" y="201" width="720" height="1"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

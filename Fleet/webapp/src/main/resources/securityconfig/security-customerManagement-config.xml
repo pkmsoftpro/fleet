@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functionalareas xmlns="http://www.tavant.com/twms/security/resource"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.tavant.com/twms/security/resource
+			http://www.tavant.com/twms/security/resource">
+	<functionalarea name="customerManagement" defaultpolicy="none">
+
+		<resource type="ui" value="customerManagementTab" operation="OR">
+			<permissions>customerManagement:customerManagementTab:update,customerManagement:customerManagementTab:view
+			</permissions>
+		</resource>
+
+		<resource type="ui" value="customerListing" operation="OR">
+			<permissions>customerManagement:customerListing:update,customerManagement:customerListing:view
+			</permissions>
+		</resource>
+		<resource type="ui" value="locationSearch"
+			operation="OR">
+			<permissions>customerManagement:locationSearch:update,customerManagement:locationSearch:search
+			</permissions>
+		</resource>
+	
+		<resource type="ui" value="customerSearch" operation="OR">
+			<permissions>customerManagement:customerSearch:update,customerManagement:customerSearch:search
+			</permissions>
+		</resource>
+	
+		<resource type="ui" value="addLocation">
+			<permissions>customerManagement:addLocation:update
+            </permissions>
+		</resource>
+		<resource type="ui" value="createDealerOwnedCustomer">
+			<permissions>customerManagement:createDealerOwnedCustomer:update
+            </permissions>
+		</resource>
+		<resource type="ui" value="updateCustomerAndLocationInformation">
+			<permissions>customerManagement:updateCustomerAndLocationInformation:update
+            </permissions>
+		</resource>
+			
+	</functionalarea>
+
+</functionalareas>

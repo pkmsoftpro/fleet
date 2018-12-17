@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+      "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+      "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>   
+  
+   <query name="countTasksByTaskName">
+    <![CDATA[
+     SELECT COUNT(ti) 
+     FROM TaskInstance ti 
+     WHERE ti.isOpen = true 
+     AND ti.task.name = :taskName 
+     and ti.task.processDefinition.name = :processDefinition
+     AND ti.actorId = :actorId
+    ]]>
+  </query>
+  
+  <query name="taskInstanceForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true 
+	 and taskInstance.quoteId.id = :id
+     and taskInstance.name = :taskName
+    ]]>
+  </query>
+  
+  <query name="taskInstanceUsingUserListAndQuoteId">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.quoteId.id = :quoteId 
+	 and taskInstance.actorId = :user
+	 and taskInstance.isOpen = true
+    ]]>
+  </query>
+  
+  <query name="taskInstanceUsingLocationIdAndQuoteId">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.quoteId.id = :quoteId 
+	 and taskInstance.actorId = :locationId
+	 and taskInstance.isOpen = true
+    ]]>
+  </query>
+  
+  <query name="taskInstanceForClaim">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true 
+	 and taskInstance.fleetClaimId.id = :id
+     and taskInstance.name = :taskName
+    ]]>
+  </query>
+  
+   <query name="taskInstanceForServiceRequest">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true 
+	 and taskInstance.serviceRequestId.id = :id
+     and taskInstance.name = :taskName
+    ]]>
+  </query>
+    
+  <query name="allOpenTaskInstancesForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true 
+     and taskInstance.quoteId.id = :quoteId
+    ]]>
+  </query>
+ <query name="allOpenTaskInstancesForQuoteForExpiry">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true 
+     and taskInstance.quoteId.id = :quoteId
+     and taskInstance.name not in(:taskNames)
+    ]]>
+  </query>
+  <query name="allOpenTaskInstancesForServiceRequest">
+    <![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true
+	 and taskInstance.serviceRequestId.id = :id
+    ]]>
+  </query>
+
+  <query name="allTaskInstancesForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.quoteId.id = :quoteId
+    ]]>
+  </query>
+  
+  <query name="allQuoteParticipants">
+  	<![CDATA[
+    	select distinct user
+     	from QuoteAudit audit join audit.updatedBy user join user.eventState eventState
+     	where audit.forQuote.id = :quoteId
+        and user.name not in ('system','integration')
+        and eventState.name = :eventName
+    ]]>
+  </query>
+  
+  <query name="allActorsForQuote">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.eventState eventState
+  	 where exists (
+  	 select taskInstance.actorId
+     from TaskInstance taskInstance
+     where user.name=taskInstance.actorId
+     and taskInstance.quoteId.id = :quoteId
+     and eventState.name = :eventName
+     )
+    ]]>
+  </query>
+  
+    <query name="allDealerActorsForQuote">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.belongsToOrganizations organization join user.eventState eventState
+  	 where exists(
+  	 select taskInstance.actorId
+     from TaskInstance taskInstance
+     where taskInstance.actorId=str(organization.id)
+     and taskInstance.quoteId.id = :quoteId
+     and eventState.name = :eventName )
+    ]]>
+  </query>
+  
+  <query name="allCustomerActorsForQuote">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.belongsToOrganizations organization join user.eventState eventState
+  	 where organization.id = :fleetCustomerId 
+  	 and eventState.name = :eventName
+    ]]>
+  </query>
+  
+  <query name="allServiceRequestParticipants">
+  	<![CDATA[
+    	SELECT distinct user
+     	FROM ServiceRequestAudit audit join audit.updatedBy user join audit.updatedBy.eventState eventState
+     	WHERE audit.forServiceRequest.id = :serviceRequestId
+     		AND user.name not in ('system','integration')
+     		and eventState.name = :eventName
+    ]]>
+  </query>
+  
+  <query name="allActorsForServiceRequest">
+  	<![CDATA[
+  	 SELECT user 
+  	 FROM User user 
+  	 WHERE exists (
+  	 SELECT taskInstance.actorId
+     FROM TaskInstance taskInstance
+     WHERE user.name=taskInstance.actorId 
+     AND taskInstance.serviceRequestId.id = :serviceRequestId
+     )
+    ]]>
+  </query>
+  
+  <query name="allDealerActorsForServiceRequest">
+  	<![CDATA[
+  	 SELECT user 
+  	 FROM User user join user.belongsToOrganizations organization  
+  	 WHERE exists (
+  	 SELECT party.id FROM Party party WHERE exists(
+  	 SELECT taskInstance.actorId
+     FROM TaskInstance taskInstance
+     WHERE (party.name=taskInstance.actorId or taskInstance.actorId=str(party.id) )
+	 AND taskInstance.serviceRequestId.id = :serviceRequestId )
+	 AND party.id=organization.id )
+    ]]>
+  </query>
+  
+  <query name="allCustomerActorsForServiceRequest">
+  	<![CDATA[
+  	 SELECT distinct user
+  	 FROM User user join user.belongsToOrganizations organization  
+  	 join user.eventState eventState
+  	 WHERE organization.id = :fleetCustomerId 
+  	 and eventState.name = :eventName
+    ]]>
+  </query>
+   
+  <query name="allFleetClaimParticipants">
+  	<![CDATA[
+    	select distinct user
+     	from FleetClaimAudit audit join audit.updatedBy user
+     	join user.eventState eventState 
+     	where audit.forFleetClaim.id = :fleetClaimId
+     	and user.name not in ('system','integration')
+     	and eventState.name = :eventName
+    ]]>
+  </query>
+  
+  <query name="allActorsForFleetClaim">
+  	<![CDATA[
+  	 SELECT user 
+  	 FROM User user 
+  	 WHERE exists (
+  	 SELECT taskInstance.actorId
+     FROM TaskInstance taskInstance
+     WHERE user.name=taskInstance.actorId 
+     AND taskInstance.fleetClaimId.id = :fleetClaimId
+     )
+    ]]>
+  </query>
+  
+  <query name="allDealerActorsForFleetClaim">
+  	<![CDATA[
+  	 SELECT user 
+  	 FROM User user join user.belongsToOrganizations organization  
+  	 WHERE exists (
+  	 SELECT party.id FROM Party party WHERE exists(
+  	 SELECT taskInstance.actorId
+     FROM TaskInstance taskInstance
+     WHERE party.name=taskInstance.actorId
+	 AND taskInstance.fleetClaimId.id = :fleetClaimId )
+	 AND party.id=organization.id )
+    ]]>
+  </query>
+  
+  <query name="allCustomerActorsForFleetClaim">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.belongsToOrganizations organization 
+  	 join user.eventState eventState 
+  	 where organization.id = :fleetCustomerId 
+  	 and eventState.name = :eventName
+    ]]>
+  </query>
+  
+  <query name="taskInstanceForQuoteByActor">
+	  	<![CDATA[
+	  	 SELECT taskInstance
+	     FROM TaskInstance taskInstance
+	     where taskInstance.isOpen = true 
+		 and taskInstance.quoteId.id = :id
+	     and (taskInstance.actorId = :actorId or taskInstance.actorId = :organizationId)
+	    ]]>
+  </query>
+  
+  <query name="taskInstanceForFleetClaimByActor">
+	  	<![CDATA[
+	  	SELECT taskInstance
+     	FROM TaskInstance taskInstance
+     	where taskInstance.isOpen = true 
+	 	and taskInstance.fleetClaimId.id = :id
+     	and taskInstance.actorId = :actorId
+	    ]]>
+  </query>
+  
+   <query name="taskInstanceForServiceRequestByActor">
+	  	<![CDATA[
+	  	 SELECT taskInstance
+	     FROM TaskInstance taskInstance
+	     where taskInstance.isOpen = true 
+		 and taskInstance.serviceRequestId.id = :id
+	     and (taskInstance.actorId = :actorId or taskInstance.actorId = :orgName)
+	    ]]>
+  </query>
+  
+  <query name="taskInstanceForServiceRequestToMakeItClose">
+	  	<![CDATA[
+	  	 SELECT taskInstance
+	     FROM TaskInstance taskInstance
+	     where taskInstance.isOpen = true 
+		 and taskInstance.serviceRequestId.id = :id
+	    ]]>
+  </query>
+  
+  <query name="listTaskInstancesBasedOnActorIdAndStateAndAgingPeriod">
+	  	<![CDATA[
+	  	 SELECT taskInstance 
+	     FROM TaskInstance taskInstance, ServiceRequest serviceRequest
+	     where taskInstance.isOpen = true 
+		 and taskInstance.serviceRequestId.id = serviceRequest.id
+	     and taskInstance.actorId = :actorId 
+	     and serviceRequest.activeServiceRequestAudit.state=:state 
+	     and trunc(sysdate-trunc(taskInstance.create))>=:agingPeriod 
+	    ]]>
+  </query>
+  
+  <query name="countTasksByTaskNamesAndByActorids">
+        <![CDATA[
+     SELECT COUNT(ti) ,ti.task.name
+     FROM TaskInstance ti
+     WHERE ti.isOpen = true
+     AND ti.task.name in (:taskNames)
+     and ti.task.processDefinition.name = :processDefinition
+     AND ti.actorId IN (:actorIds)
+     group by ti.task.name
+    ]]>
+    </query>
+    
+    <query name="allActorsForOpenQuote">
+  	<![CDATA[
+  	 SELECT user 
+  	 FROM User user 
+  	 WHERE exists (
+  	 SELECT taskInstance.actorId
+     FROM TaskInstance taskInstance
+     WHERE user.name=taskInstance.actorId
+     AND taskInstance.quoteId.id = :quoteId
+     AND taskInstance.isOpen = true
+     )
+    ]]>
+  </query>
+  
+    <query name="allDealerActorsForOpenQuote">
+  	<![CDATA[
+  	 SELECT user 
+  	 FROM User user join user.belongsToOrganizations organization  
+  	 WHERE exists(
+  	 SELECT taskInstance.actorId
+     FROM TaskInstance taskInstance
+     WHERE taskInstance.actorId=str(organization.id)
+     AND taskInstance.quoteId.id = :quoteId
+     AND taskInstance.isOpen = true )
+    ]]>
+  </query>
+  
+  <query name="fssOpenTaskInstanceForQuote">
+  	<![CDATA[
+  	 SELECT taskInstance
+	 FROM TaskInstance taskInstance, User user
+	 WHERE taskInstance.isOpen = true 
+	 AND taskInstance.quoteId.id = :quoteId
+	 AND taskInstance.actorId = user.name
+	 AND user.userType = :userType 
+    ]]>
+  </query>
+  
+  
+  <query name="findOpenTaskIntanceForFleetClaim">
+  	<![CDATA[
+  	 SELECT taskInstance
+	 FROM TaskInstance taskInstance, User user
+	 WHERE taskInstance.isOpen = true 
+	 AND taskInstance.fleetClaimId.id = :fleetClaimId
+	 AND taskInstance.actorId = user.name
+	 AND user.userType = :userType 
+    ]]>
+  </query>
+  
+  	<query name="taskInstancesInForClaim">
+  		<![CDATA[
+  	 SELECT taskInstance
+     FROM TaskInstance taskInstance
+     where taskInstance.isOpen = true 
+     and taskInstance.fleetClaimId.id = :fleetClaimId
+     and taskInstance.name in (:taskNames)
+    ]]>
+	</query>
+	
+	<query name="listAllServiceProvidersBasedOnStateAndAgingPeriod">
+	  	<![CDATA[
+	  	 SELECT distinct forDealer 
+	     FROM TaskInstance taskInstance, ServiceRequest serviceRequest ,ServiceProvider forDealer
+	     where taskInstance.isOpen = true 
+		 and taskInstance.serviceRequestId.id = serviceRequest.id
+	     and taskInstance.serviceRequestId.forDealer = forDealer.id
+	     and serviceRequest.activeServiceRequestAudit.state=:state 
+	     and trunc(sysdate-trunc(taskInstance.create))>=:agingPeriod 
+	    ]]>
+  </query>
+  
+  <query name="allCustomerActorsForOpenQuote">
+  	  <![CDATA[   
+     SELECT distinct taskInstance.actorId
+	 FROM TaskInstance taskInstance
+	 WHERE taskInstance.isOpen = true 
+	 AND taskInstance.quoteId.id = :quoteId 
+    ]]>
+  </query>
+  
+ <sql-query name="allAssocActorsForServiceRequest">
+     <return alias="ORG_USER" class="tavant.twms.domain.orgmodel.User"/>
+     <![CDATA[
+     select distinct ou.*
+     from jbpm_taskinstance ti,
+     party p, org_user_belongs_to_orgs t1, org_user ou,
+     user_event_states ues, event_state es
+     where (ti.actorid_ = to_char(p.id) or ti.actorid_ = p.name)
+     and p.id = t1.belongs_to_organizations  
+     and t1.org_user = ou.id
+     and ti.service_request_id = :serviceRequestId
+     and ou.d_active = 1
+     and ou.id = ues.ORG_USER
+     and ues.event_states = es.id
+     and es.name = :eventName
+     ]]>  
+  </sql-query>
+  
+  <query name="contractContactForQuote">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.eventState eventState
+  	 where user.id = :contactContractId 
+  	 and eventState.name = :eventName
+    ]]>
+  </query>
+  
+  <query name="allFleetClaimActorsForEmails">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.eventState eventState
+  	 where exists (
+  	 select taskInstance.actorId
+     from TaskInstance taskInstance
+     where user.name=taskInstance.actorId 
+     and taskInstance.fleetClaimId.id = :fleetClaimId
+     and eventState.name = :eventName
+     )
+    ]]>
+  </query>
+  
+  <query name="allFleetClaimDealerActorsForEmails">
+  	<![CDATA[
+  	 select user 
+  	 from User user join user.belongsToOrganizations organization join user.eventState eventState
+  	 where exists (
+  	 select party.id FROM Party party WHERE exists(
+  	 select taskInstance.actorId
+     from TaskInstance taskInstance
+     where party.name=taskInstance.actorId
+	 and taskInstance.fleetClaimId.id = :fleetClaimId )
+	 and party.id=organization.id 
+	 and eventState.name = :eventName)
+    ]]>
+  </query>
+  
+   <!--  <query name="diagnosticProcedureByPrior">
+  	  <![CDATA[   
+    select id from DiagnosticProcedure 
+    connect by prior id=parent start with
+     id:parentId order by level desc
+    ]]>
+  </query> -->
+
+</hibernate-mapping>

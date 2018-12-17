@@ -1,0 +1,17 @@
+<html>
+<body>
+
+Claim Number: </b> ${fleetClaimNumber}<br/>     Status:  </b> ${status}<br/><br/>
+Hello <b>${userName}</b>,<br/><br/>
+
+Please be advised that the status of  ${fleetClaimNumber} has been updated to ${status}.<br/><br/>
+
+For additional information, please log into the Service Lifecycle Management System <a href="${url}">NMHG Fleet System</a>  to view this claim directly or modify it as required.<br/><br/>
+Best regards,<br/>
+${buName}  Fleet Management
+<br/><br/>
+The information contained in this email and corresponding attachments is CONFIDENTIAL and exclusively intended for use by the recipient. 
+It may not be shared with any third party without the prior written consent of NMHG. If you have received this in error,
+please delete immediately and notify the sender. Thank you in advance for your cooperation.		
+</body>
+</html>
